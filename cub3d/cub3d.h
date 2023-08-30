@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/30 20:01:41 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/08/30 20:09:36 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include "utils/libft/libft.h"
+# include "libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>
 
