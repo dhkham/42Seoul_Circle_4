@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/30 19:52:46 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/08/30 20:01:41 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct config
 	char	**map;
 	int		map_width;
 	int		map_height;
+	char	*direction;
 }	t_config;
 
 int	check_args(int args, char **argv);
