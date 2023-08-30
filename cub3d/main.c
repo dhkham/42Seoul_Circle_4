@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:02:59 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/27 17:45:28 by dkham            ###   ########.fr       */
+/*   Updated: 2023/08/30 19:54:37 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ int	main(int argc, char **argv)
 {
 	t_config	*config;
 
-	if (argc < 2)
-	{
-		ft_putstr("Error: Configuration file required.\n", 2);
-		return (1);
-	}
+	if (check_args(argc, argv) == 0)
+		return (0);
 	config = parse_config(argv[1]);
 	if (!config)
 	{
