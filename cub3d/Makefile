@@ -6,7 +6,7 @@
 #    By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:02:48 by chanwoki          #+#    #+#              #
-#    Updated: 2023/08/30 20:12:31 by chanwoki         ###   ########.fr        #
+#    Updated: 2023/08/30 20:15:14 by chanwoki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ ARFLAGS=rcsv
 
 RM=rm -f
 
-SRC_FILES=main.c utils.c check_args.c
+SRC_FILES=temp.c
 
 OBJECTS = $(SRC_FILES:.c=.o)
 
