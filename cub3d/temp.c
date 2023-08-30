@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   temp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/26 15:18:03 by yohlee            #+#    #+#             */
-/*   Updated: 2023/08/30 20:16:11 by chanwoki         ###   ########.fr       */
+/*   Created: 2020/06/29 19:53:20 by yohlee            #+#    #+#             */
+/*   Updated: 2023/08/30 21:10:25 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@
 
 typedef struct	s_img
 {
-	void	*img;
-	int		*data;
+	void	*img;	// 이미지 식별자
+	int		*data;	// 픽셀 데이터
 
 	int		size_l;
 	int		bpp;
 	int		endian;
 	int		img_width;
 	int		img_height;
-}				t_img;
+}				t_img;	// 이미지 정보
 
 typedef struct	s_info
 {
@@ -52,89 +52,139 @@ typedef struct	s_info
 	int		**texture;
 	double	moveSpeed;
 	double	rotSpeed;
-	int		re_buf;
+}				t_info;	// 게임/플레이어 정보
 
-}				t_info;
+int	worldMap[mapWidth][mapHeight] =	// 맵 정보 (숫자는 다른 텍스쳐 뜻함)
+									{
+										{8,8,8,8,8,8,8,8,8,8,8,4,4,6,4,4,6,4,6,4,4,4,6,4},
+										{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
+										{8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,6},
+										{8,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6},
+										{8,0,3,3,0,0,0,0,0,8,8,4,0,0,0,0,0,0,0,0,0,0,0,4},
+										{8,0,0,0,0,0,0,0,0,0,8,4,0,0,0,0,0,6,6,6,0,6,4,6},
+										{8,8,8,8,0,8,8,8,8,8,8,4,4,4,4,4,4,6,0,0,0,0,0,6},
+										{7,7,7,7,0,7,7,7,7,0,8,0,8,0,8,0,8,4,0,4,0,6,0,6},
+										{7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,0,0,0,0,0,6},
+										{7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,0,0,0,0,4},
+										{7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,6,0,6,0,6,0,6},
+										{7,7,0,0,0,0,0,0,7,8,0,8,0,8,0,8,8,6,4,6,0,6,6,6},
+										{7,7,7,7,0,7,7,7,7,8,8,4,0,6,8,4,8,3,3,3,0,3,3,3},
+										{2,2,2,2,0,2,2,2,2,4,6,4,0,0,6,0,6,3,0,0,0,0,0,3},
+										{2,2,0,0,0,0,0,2,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
+										{2,0,0,0,0,0,0,0,2,4,0,0,0,0,0,0,4,3,0,0,0,0,0,3},
+										{1,0,0,0,0,0,0,0,1,4,4,4,4,4,6,0,6,3,3,0,0,0,3,3},
+										{2,0,0,0,0,0,0,0,2,2,2,1,2,2,2,6,6,0,0,5,0,5,0,5},
+										{2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
+										{2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
+										{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5},
+										{2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,5,0,5,0,5,0,5,0,5},
+										{2,2,0,0,0,0,0,2,2,2,0,0,0,2,2,0,5,0,5,0,0,0,5,5},
+										{2,2,2,2,1,2,2,2,2,2,2,1,2,2,2,5,5,5,5,5,5,5,5,5}
+									};
 
-int	worldMap[mapWidth][mapHeight] =
-						{
-							{4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
-							{4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-							{4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-							{4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-							{4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-							{4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},
-							{4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},
-							{4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-							{4,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,1},
-							{4,0,8,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-							{4,0,0,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,7,7,7,1},
-							{4,0,0,0,0,0,0,5,5,5,5,0,5,5,5,5,7,7,7,7,7,7,7,1},
-							{6,6,6,6,6,6,6,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-							{8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-							{6,6,6,6,6,6,0,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-							{4,4,4,4,4,4,0,4,4,4,6,0,6,2,2,2,2,2,2,2,3,3,3,3},
-							{4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-							{4,0,0,0,0,0,0,0,0,0,0,0,6,2,0,0,5,0,0,2,0,0,0,2},
-							{4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-							{4,0,6,0,6,0,0,0,0,4,6,0,0,0,0,0,5,0,0,0,0,0,0,2},
-							{4,0,0,5,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-							{4,0,6,0,6,0,0,0,0,4,6,0,6,2,0,0,5,0,0,2,0,0,0,2},
-							{4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-							{4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
-						};
-
-void	draw(t_info *info)
+void	draw(t_info *info)	
 {
-	for (int y = 0; y < height; y++)
+	for (int y = 0; y < height; y++) // row (height) 훑기
 	{
-		for (int x = 0; x < width; x++)
+		for (int x = 0; x < width; x++)	// column (width) 훑기
 		{
-			info->img.data[y * width + x] = info->buf[y][x];
+			// 화면의 2D 포인트 (x,y)를 'data' 배열의 1D 포인트로 매핑합니다.
+            // 'data' 배열은 픽셀 데이터를 선형 방식으로 보유하고 있습니다.
+            // 5x5 크기의 2D 배열을 생각해보세요. 첫 번째 행(즉, y=0)은 1D 인덱스 0부터 4까지 매핑됩니다. 두 번째 행(y=1)은 1D 인덱스 5부터 9까지 매핑됩니다. 
+			// y * width로 계산된 시작 인덱스에 x를 더하면, 우리는 그 행에서 정확한 열의 원소의 1D 인덱스에 도달합니다.
+			// 예를 들어, 위의 5x5 배열에서 y=2, x=3의 2D 좌표는 2 * 5 + 3 = 13으로 1D 인덱스 13에 매핑됩니다.
+			info->img.data[y * width + x] = info->buf[y][x]; //copies the content of the buffer (which holds the pixel data to be shown on screen) to an image and then displays the image in the window.
 		}
 	}
-	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
+	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0); // 이미지를 윈도우에 표시
 }
 
 void	calc(t_info *info)
 {
-	int	x;
-
-	x = 0;
-	if (info->re_buf == 1)
+	//FLOOR CASTING
+	for (int y = 0; y < height; y++)
 	{
-		for (int i = 0; i < height; i++)
+		// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
+		float rayDirX0 = info->dirX - info->planeX;
+		float rayDirY0 = info->dirY - info->planeY;
+		float rayDirX1 = info->dirX + info->planeX;
+		float rayDirY1 = info->dirY + info->planeY;
+
+		// Current y position compared to the center of the screen (the horizon)
+		int p = y - height / 2;
+
+		// Vertical position of the camera.
+		float posZ = 0.5 * height;
+
+		// Horizontal distance from the camera to the floor for the current row.
+		// 0.5 is the z position exactly in the middle between floor and ceiling.
+		float rowDistance = posZ / p;
+
+		// calculate the real world step vector we have to add for each x (parallel to camera plane)
+		// adding step by step avoids multiplications with a weight in the inner loop
+		float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / width;
+		float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / width;
+
+		// real world coordinates of the leftmost column. This will be updated as we step to the right.
+		float floorX = info->posX + rowDistance * rayDirX0;
+		float floorY = info->posY + rowDistance * rayDirY0;
+
+		for (int x = 0; x < width; ++x)
 		{
-			for (int j = 0; j < width; j++)
-			{
-				info->buf[i][j] = 0;
-			}
+			// the cell coord is simply got from the integer parts of floorX and floorY
+			int cellX = (int)(floorX);
+			int cellY = (int)(floorY);
+
+			// get the texture coordinate from the fractional part
+			int tx = (int)(texWidth * (floorX - cellX)) & (texWidth - 1);
+			int ty = (int)(texHeight * (floorY - cellY)) & (texHeight - 1);
+
+			floorX += floorStepX;
+			floorY += floorStepY;
+
+			// choose texture and draw the pixel
+			int floorTexture = 3;
+			int ceilingTexture = 6;
+
+			int color;
+
+			// floor
+			color = info->texture[floorTexture][texWidth * ty + tx];
+			color = (color >> 1) & 8355711; // make a bit darker
+
+			info->buf[y][x] = color;
+
+			//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
+			color = info->texture[ceilingTexture][texWidth * ty + tx];
+			color = (color >> 1) & 8355711; // make a bit darker
+
+			info->buf[height - y - 1][x] = color;
 		}
 	}
-	while (x < width)
+	//WALL CASTING
+	for (int x = 0; x < width; x++) // x좌표, 즉 세로선을 훑기
 	{
-		double cameraX = 2 * x / (double)width - 1;
-		double rayDirX = info->dirX + info->planeX * cameraX;
-		double rayDirY = info->dirY + info->planeY * cameraX;
-
-		int mapX = (int)info->posX;
+		double cameraX = 2 * x / (double)width - 1; 			//x-coordinate in camera space (화면 왼쪽 끝이 -1, 오른쪽 끝이 1)
+		double rayDirX = info->dirX + info->planeX * cameraX;	//레이의 방향벡터: x방향
+		double rayDirY = info->dirY + info->planeY * cameraX;	//레이의 방향벡터: y방향
+		
+		int mapX = (int)info->posX;								//레이가 시작하는 지점의 맵상의 x,y좌표
 		int mapY = (int)info->posY;
 
 		//length of ray from current position to next x or y-side
-		double sideDistX;
-		double sideDistY;
-
+		double sideDistX;										// 레이가 x, y면에 부딪히기까지의 거리
+		double sideDistY;										
+		
 		 //length of ray from one x or y-side to next x or y-side
-		double deltaDistX = fabs(1 / rayDirX);
+		double deltaDistX = fabs(1 / rayDirX);	//레이가 x, y 격자선을 통과하는 데 필요한 거리 (rayDirX가 1이면, 다음 격자선까지 1만큼 가야함 / rayDirX가 0이면 다음 격자선까지 가지 못함)
 		double deltaDistY = fabs(1 / rayDirY);
-		double perpWallDist;
-
-		//what direction to step in x or y-direction (either +1 or -1)
-		int stepX;
+		double perpWallDist;					//플레이어 위치부터 레이가 벽과 충돌한 지점까지의 직교 거리
+		
+		int stepX;								//x, y 방향으로 얼마나 가야하는지 (만약 rayDirX/Y가 음수면 -1, 아니면 1) : mapX/Y를 업데이트하기 위해 사용
 		int stepY;
-
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
+		
+		int hit = 0; 	//was there a wall hit?
+		int side; 		//was a NS or a EW wall hit?
 
 		if (rayDirX < 0)
 		{
@@ -192,7 +242,7 @@ void	calc(t_info *info)
 			drawEnd = height - 1;
 
 		// texturing calculations
-		int texNum = worldMap[mapX][mapY];
+		int texNum = worldMap[mapX][mapY] - 1;
 
 		// calculate value of wallX
 		double wallX;
@@ -211,21 +261,81 @@ void	calc(t_info *info)
 
 		// How much to increase the texture coordinate perscreen pixel
 		double step = 1.0 * texHeight / lineHeight;
+
 		// Starting texture coordinate
 		double texPos = (drawStart - height / 2 + lineHeight / 2) * step;
+
 		for (int y = drawStart; y < drawEnd; y++)
 		{
 			// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 			int texY = (int)texPos & (texHeight - 1);
 			texPos += step;
+
 			int color = info->texture[texNum][texHeight * texY + texX];
+
 			// make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 			if (side == 1)
 				color = (color >> 1) & 8355711;
+
 			info->buf[y][x] = color;
-			info->re_buf = 1;
 		}
-		x++;
+
+		//FLOOR CASTING (vertical version, directly after drawing the vertical wall stripe for the current x)
+		double floorXWall, floorYWall; //x, y position of the floor texel at the bottom of the wall
+
+		//4 different wall directions possible
+		if(side == 0 && rayDirX > 0)
+		{
+			floorXWall = mapX;
+			floorYWall = mapY + wallX;
+		}
+		else if(side == 0 && rayDirX < 0)
+		{
+			floorXWall = mapX + 1.0;
+			floorYWall = mapY + wallX;
+		}
+		else if(side == 1 && rayDirY > 0)
+		{
+			floorXWall = mapX + wallX;
+			floorYWall = mapY;
+		}
+		else
+		{
+			floorXWall = mapX + wallX;
+			floorYWall = mapY + 1.0;
+		}
+
+		double distWall, distPlayer, currentDist;
+
+		distWall = perpWallDist;
+		distPlayer = 0.0;
+
+		if (drawEnd < 0) drawEnd = height; //becomes < 0 when the integer overflows
+
+		//draw the floor from drawEnd to the bottom of the screen
+		for(int y = drawEnd + 1; y < height; y++)
+		{
+			currentDist = height / (2.0 * y - height); //you could make a small lookup table for this instead
+
+			double weight = (currentDist - distPlayer) / (distWall - distPlayer);
+
+			double currentFloorX = weight * floorXWall + (1.0 - weight) * info->posX;
+			double currentFloorY = weight * floorYWall + (1.0 - weight) * info->posY;
+
+			int floorTexX, floorTexY;
+			floorTexX = (int)(currentFloorX * texWidth) % texWidth;
+			floorTexY = (int)(currentFloorY * texHeight) % texHeight;
+
+			int checkerBoardPattern = ((int)(currentFloorX) + (int)(currentFloorY)) % 2;
+			int floorTexture;
+			if(checkerBoardPattern == 0) floorTexture = 3;
+			else floorTexture = 4;
+
+			//floor
+			info->buf[y][x] = (info->texture[floorTexture][texWidth * floorTexY + floorTexX] >> 1) & 8355711;
+			//ceiling (symmetrical!)
+			info->buf[height - y][x] = info->texture[6][texWidth * floorTexY + floorTexX];
+		}
 	}
 }
 
@@ -277,8 +387,6 @@ int	key_press(int key, t_info *info)
 	}
 	if (key == K_ESC)
 		exit(0);
-	mlx_clear_window(info->mlx, info->win);
-	main_loop(info);
 	return (0);
 }
 
@@ -310,6 +418,7 @@ void	load_texture(t_info *info)
 	load_image(info, info->texture[7], "textures/colorstone.xpm", &img);
 }
 
+
 int	main(void)
 {
 	t_info info;
@@ -321,7 +430,6 @@ int	main(void)
 	info.dirY = 0.0;
 	info.planeX = 0.0;
 	info.planeY = 0.66;
-	info.re_buf = 0;
 
 	for (int i = 0; i < height; i++)
 	{
@@ -350,7 +458,7 @@ int	main(void)
 
 	info.moveSpeed = 0.05;
 	info.rotSpeed = 0.05;
-
+	
 	info.win = mlx_new_window(info.mlx, width, height, "mlx");
 
 	info.img.img = mlx_new_image(info.mlx, width, height);
