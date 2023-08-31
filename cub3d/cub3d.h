@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/30 20:09:36 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:36:22 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@ typedef struct config
 	char	*direction;
 }	t_config;
 
-int	check_args(int args, char **argv);
-int	ft_strcmp(char *s1, char *s2);
-int	ft_isalpha_isdigit(char c);
+int			check_args(int args, char **argv);
+int			ft_strcmp(char *s1, char *s2);
+int			ft_isalpha_isdigit(char c);
+t_config	*parse_config(const char *filename);
+void		handle_error(int fd);
+t_config	*init_config(int fd);
+int			init_map_memory(t_config *config);
+void		parse_actual_map_data(t_config *config, int fd);
 
 #endif

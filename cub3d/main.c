@@ -6,21 +6,19 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:02:59 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/30 20:09:59 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:28:46 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// 아직 더 구현해야함..
-
 int	main(int argc, char **argv)
 {
-	//t_config	*config;
+	t_config	*config;
 
 	if (check_args(argc, argv) == 0)
 		return (0);
-	// config = parse_config(argv[1]);
+	config = parse_config(argv[1]);
 	// if (!config)
 	// {
 	// 	ft_putstr("Error: Failed to parse the configuration.\n", 2);

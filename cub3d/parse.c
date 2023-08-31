@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:38:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/27 16:50:46 by dkham            ###   ########.fr       */
+/*   Updated: 2023/08/31 18:35:49 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 static void	parse_textures(t_config *config, char *line)
 {
-	if (ft_strncmp(line, "NO", 2) == 0)
+	if (ft_strcmp(line, "NO") == 0)
 		config->north_texture = \
 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
-	else if (ft_strncmp(line, "SO", 2) == 0)
+	else if (ft_strcmp(line, "SO") == 0)
 		config->south_texture = \
 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
-	else if (ft_strncmp(line, "WE", 2) == 0)
+	else if (ft_strcmp(line, "WE") == 0)
 		config->west_texture = \
 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
-	else if (ft_strncmp(line, "EA", 2) == 0)
+	else if (ft_strcmp(line, "EA") == 0)
 		config->east_texture = \
 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
 }
