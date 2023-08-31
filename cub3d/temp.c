@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 19:53:20 by yohlee            #+#    #+#             */
-/*   Updated: 2023/08/30 21:10:25 by dkham            ###   ########.fr       */
+/*   Updated: 2023/08/31 21:31:51 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,13 @@ void	calc(t_info *info)
 	for (int x = 0; x < width; x++) // x좌표, 즉 세로선을 훑기
 	{
 		double cameraX = 2 * x / (double)width - 1; 			//x-coordinate in camera space (화면 왼쪽 끝이 -1, 오른쪽 끝이 1)
+																//화면의 x 좌표(x)를 width로 나누어주면 x는 0부터 1 사이의 값이 됨.
+																//화면의 왼쪽 끝에서는 x = 0, 화면의 오른쪽 끝에서는 x = width 이므로, 왼쪽 끝에서는 0, 오른쪽 끝에서는 1이 됨
+																//이 값을 2배로 곱하면 값의 범위는 0에서 2가 됩니다. 이전 단계의 결과에서 1을 뺍니다. 이를 통해 값의 범위는 -1부터 1 사이로 변경
+																//따라서, 화면의 왼쪽 끝에서는 cameraX 값이 -1이 되고, 오른쪽 끝에서는 cameraX 값이 1이 됨
+																//화면의 중앙에서는 cameraX 값이 0이 됨
+																//이렇게 변환된 cameraX 값은 시야의 중심에서의 레이 방향을 얼마나 이탈할 것인지를 나타냅니다. 
+																//이 cameraX 값은 실제 레이의 방향을 계산하는 데 사용되며, 이를 통해 화면에 어떤 부분이 표시될 것인지 결정하게 됩니다.
 		double rayDirX = info->dirX + info->planeX * cameraX;	//레이의 방향벡터: x방향
 		double rayDirY = info->dirY + info->planeY * cameraX;	//레이의 방향벡터: y방향
 		
@@ -176,7 +183,14 @@ void	calc(t_info *info)
 		double sideDistY;										
 		
 		 //length of ray from one x or y-side to next x or y-side
-		double deltaDistX = fabs(1 / rayDirX);	//레이가 x, y 격자선을 통과하는 데 필요한 거리 (rayDirX가 1이면, 다음 격자선까지 1만큼 가야함 / rayDirX가 0이면 다음 격자선까지 가지 못함)
+		double deltaDistX = fabs(1 / rayDirX);	
+		/*
+		원래 식: deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX))
+		이는 deltaDistX = abs(|v| / rayDirX) 와 같다. |v|는 rayDir 벡터의 길이이다.
+		여기서 실제 길이는 중요하지 않고, rayDirX와 rayDirY의 비율만 중요하다.
+		(deltaDist 값을 이용해 계산하는 sideDist 역시 비율만 중요하다. 둘 중 더 작은 값을 선택해 그 방향으로 광선을 한 칸씩 이동시키기 때문)
+		고로 최적화를 위해 abs(1/rayDirX)로 바꿀 수 있다. 1 / rayDirX는 레이가 x 그리드를 건너는 데 얼마나 멀리 이동해야 하는지를 나타내는 값이다.
+		*/
 		double deltaDistY = fabs(1 / rayDirY);
 		double perpWallDist;					//플레이어 위치부터 레이가 벽과 충돌한 지점까지의 직교 거리
 		
@@ -186,15 +200,15 @@ void	calc(t_info *info)
 		int hit = 0; 	//was there a wall hit?
 		int side; 		//was a NS or a EW wall hit?
 
-		if (rayDirX < 0)
+		if (rayDirX < 0) //만약 레이가 -x 방향으로 향하고 있다면, 
 		{
-			stepX = -1;
-			sideDistX = (info->posX - mapX) * deltaDistX;
+			stepX = -1;	//mapX는 현재 위치보다 1 작은 값이 됨
+			sideDistX = (info->posX - mapX) * deltaDistX;	//mapX+1-posX : 1 = sideDistX : deltaDistX
 		}
 		else
 		{
 			stepX = 1;
-			sideDistX = (mapX + 1.0 - info->posX) * deltaDistX;
+			sideDistX = (mapX + 1.0 - info->posX) * deltaDistX;	//posx-mapx : 1 = sideDistX : deltaDistX
 		}
 		if (rayDirY < 0)
 		{
@@ -206,28 +220,27 @@ void	calc(t_info *info)
 			stepY = 1;
 			sideDistY = (mapY + 1.0 - info->posY) * deltaDistY;
 		}
-
-		while (hit == 0)
+		while (hit == 0) //DDA 알고리즘 : 광선이 부딪힐 때까지 계속 광선을 한 칸씩 이동
 		{
 			//jump to next map square, OR in x-direction, OR in y-direction
-			if (sideDistX < sideDistY)
+			if (sideDistX < sideDistY) // 만약 x면에 부딪히는 거리가 y면에 부딪히는 거리보다 짧다면, x면으로 이동
 			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
+				sideDistX += deltaDistX; // 광선이 X 경계와 부딪혔으므로, 다음 X 경계까지의 거리를 계산하기 위해 deltaDistX를 더해줍니다.
+				mapX += stepX;	// mapX(광선의 현재 위치)는 stepX(1 혹은 -1)만큼 증가
+				side = 0;	// x면에 부딪힘
 			}
-			else
+			else						// 만약 y면에 부딪히는 거리가 x면에 부딪히는 거리보다 짧다면, y면으로 이동
 			{
 				sideDistY += deltaDistY;
 				mapY += stepY;
-				side = 1;
+				side = 1;	// y면에 부딪힘
 			}
 			//Check if ray has hit a wall
-			if (worldMap[mapX][mapY] > 0) hit = 1;
+			if (worldMap[mapX][mapY] > 0) hit = 1; // 만약 광선이 벽에 부딪혔다면, hit를 1로 설정
 		}
-		if (side == 0)
+		if (side == 0)	// 만약 x면에 부딪혔다면,
 			perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / rayDirX;
-		else
+		else			// 만약 y면에 부딪혔다면,
 			perpWallDist = (mapY - info->posY + (1 - stepY) / 2) / rayDirY;
 
 		//Calculate height of line to draw on screen
