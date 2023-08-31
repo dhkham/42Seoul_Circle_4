@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/31 18:36:22 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/08/31 20:06:34 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-typedef struct config
+typedef struct s_config
 {
 	char	*north_texture;
 	char	*south_texture;
 	char	*west_texture;
 	char	*east_texture;
-	int		floor_color[3]; // RGB
+	int		floor_color[3];// RGB
 	int		ceiling_color[3]; // RGB
 	char	**map;
 	int		map_width;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 13:24:48 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/06/07 20:17:48 by dkham            ###   ########.fr       */
+/*   Updated: 2023/08/31 19:16:39 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	re[i + j] = 0;
 	ft_strlcpy(re, s1, i + 1);
 	ft_strlcpy(re + i, s2, j + 1);
+	if (s1 != NULL)
+		free(s1);
 	return (re);
 }
