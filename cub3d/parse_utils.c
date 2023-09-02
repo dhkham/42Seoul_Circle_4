@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:10:10 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/31 20:06:53 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:48:25 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,27 @@ t_config	*init_config(int fd)
 
 int	init_map_memory(t_config *config)
 {
-	config->map = malloc(sizeof(char *) * config->map_height);
+	int	i;
+	config->map = (char **)malloc(sizeof(char *) * config->map_height + 1);
 	if (!config->map)
 	{
 		perror("Error allocating memory for map");
-		free(config);
-		return (0);  // Indicate failure
+		config->error = 1;
+		return (1);  // Indicate failure
 	}
-	return (1); // Indicate success
-}
-
-void	parse_actual_map_data(t_config *config, int fd)
-{
-	char	*line;
-	int		row;
-
-	row = 0;
-	line = get_next_line(fd);
-	while (line)
+	config->map[config->map_height] = NULL;
+	i = 0;
+	while (i < config->map_height)
 	{
-		if (line[0] == '1' || line[0] == '0' || ft_strchr("NSEW", line[0]))
+		config->map[i] = malloc(sizeof(char) * config->map_width + 1);
+		if (!config->map[i])
 		{
-			config->map[row] = ft_strdup(line);
-			row++;
+			perror("Error allocating memory for map");
+			config->error = 1;
+			return (1); // Indicate failure
 		}
-		free(line);
-		line = get_next_line(fd);
+		config->map[i][config->map_width] = '\0';
+		i++;
 	}
+	return (0); // Indicate success
 }

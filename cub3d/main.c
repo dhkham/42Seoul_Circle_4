@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:02:59 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/31 19:52:57 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:50:43 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,25 @@ void	check_leaks(void)
 	system("leaks cub3D | grep leaked");
 }
 
+void	free_config(t_config *config)
+{
+	if (config->north_texture)
+		free(config->north_texture);
+	if (config->south_texture)
+		free(config->south_texture);
+	if (config->west_texture)
+		free(config->west_texture);
+	if (config->east_texture)
+		free(config->east_texture);
+	if (config->map)
+	{
+		for (int i = 0; i < config->map_height; i++)
+			free(config->map[i]);
+		free(config->map);
+	}
+	free(config);
+}
+
 int	main(int argc, char **argv)
 {
 	t_config	*config;
@@ -40,8 +59,14 @@ int	main(int argc, char **argv)
 	if (check_args(argc, argv) == 0)
 		return (0);
 	config = parse_config(argv[1]);
-	free(config);
-	//print_config(config);
+	if (config->error == 1)
+	{
+		ft_putstr("Error\n", 2);
+		free_config(config);
+		return (1);
+	}
+	print_config(config);
+	free_config(config);
 	// if (!config)
 	// {
 	// 	ft_putstr("Error: Failed to parse the configuration.\n", 2);
@@ -78,7 +103,7 @@ int	main(int argc, char **argv)
 	// 	// Render game
 	// }
 	// // Cleanup and free resources
-	//free_config(config);
+
 
 	// return (0);
 }

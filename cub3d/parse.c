@@ -6,50 +6,144 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:38:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/31 20:59:15 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/02 17:12:21 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// static void	parse_textures(t_config *config, char *line)
-// {
-// 	if (ft_strcmp(line, "NO") == 0)
-// 		config->north_texture = \
-// 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
-// 	else if (ft_strcmp(line, "SO") == 0)
-// 		config->south_texture = \
-// 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
-// 	else if (ft_strcmp(line, "WE") == 0)
-// 		config->west_texture = \
-// 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
-// 	else if (ft_strcmp(line, "EA") == 0)
-// 		config->east_texture = \
-// 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
-// }
+static void	parse_textures(t_config *config, char **lines)
+{
+	char	*line;
 
-// static void	parse_colors(t_config *config, char *line)
-// {
-// 	int		colors[3];
-// 	char	*next_comma;
-// 	int		index;
+	line = lines[0];
+	if (ft_strcmp(line, "NO") == 0) {
+		if (config->north_texture != NULL)
+		{
+			config->error = 1;
+			return ;
+		}
+		config->north_texture = ft_strdup(lines[1]);
+	}
+	else if (ft_strcmp(line, "SO") == 0) {
+		if (config->south_texture != NULL)
+		{
+			config->error = 1;
+			return ;
+		}
+		config->south_texture = ft_strdup(lines[1]);
+	}
+	else if (ft_strcmp(line, "WE") == 0) {
+		if (config->west_texture != NULL)
+		{
+			config->error = 1;
+			return ;
+		}
+		config->west_texture = ft_strdup(lines[1]);
+	}
+	else if (ft_strcmp(line, "EA") == 0) {
+		if (config->east_texture != NULL)
+		{
+			config->error = 1;
+			return ;
+		}
+		config->east_texture = ft_strdup(lines[1]);
+	}
+}
 
-// 	index = 0;
-// 	line += 2; // RGB값 가리키도록 'F' 또는 'C' 다음의 공백을 건너뛴다. (map.cub에 F 220,100,0로 표시되어 있음)
-// 	while (index < 3)
-// 	{
-// 		colors[index] = ft_atoi(line);			// 색상 값을 가져온다.
-// 		next_comma = ft_strchr(line, ',');		// 다음 쉼표를 찾는다.
-// 		if (!next_comma)						// 쉼표가 없으면 루프를 중단한다.
-// 			break ;
-// 		line = next_comma + 1;					// 다음 색상 값의 시작 위치로 line을 업데이트
-// 		index++;
-// 	}
-// 	if (*(line - 2) == 'F')
-// 		ft_memcpy(config->floor_color, colors, sizeof(colors));
-// 	else
-// 		ft_memcpy(config->ceiling_color, colors, sizeof(colors));
-// }
+static void	check_colors(int *colors, t_config *config, char *color)
+{
+	int	i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if (colors[i] < 0 || colors[i] > 255)
+			return ;
+		i++;
+	}
+	if (ft_strncmp("F", color, 2) == 0) {
+		if (config->floor_color[0] != -1)
+		{
+			config->error = 1;
+			return ;
+		}
+		ft_memcpy(config->floor_color, colors, sizeof(int) * 3);
+	}
+	else if (ft_strncmp("C", color, 2) == 0) {
+		if (config->ceiling_color[0] != -1)
+		{
+			config->error = 1;
+			return ;
+		}
+		ft_memcpy(config->ceiling_color, colors, sizeof(int) * 3);
+	}
+	else
+		return ;
+}
+
+int	check_color_info(char **color_info, t_config *config)
+{
+	int	i;
+	int	j;
+	int	len;
+	int	flag;
+
+	len = 0;
+	while (color_info[len])
+		len++;
+	i = 0;
+	flag = 0;
+	while (color_info[i])
+	{
+		j = 0;
+		while (color_info[i][j])
+		{
+			if (!ft_isdigit(color_info[i][j]))
+				flag = 1;
+			j++;
+		}
+		i++;
+	}
+	if (flag == 1 || len != 3)
+	{
+		config->error = 1;
+		len = 0;
+		while (color_info[len])
+		{
+			free(color_info[len]);
+			len++;
+		}
+		free(color_info);
+		return (1);
+	}
+	return (0);
+}
+
+static void	parse_colors(t_config *config, char **lines)
+{
+	int		colors[3];
+	int		len;
+	char	*color;
+	char	**color_info;
+
+	len = 0;
+	color = lines[0];
+	color_info = ft_split(lines[1], ',');
+	if (check_color_info(color_info, config))
+		return ;
+	colors[0] = ft_atoi(color_info[0]);
+	colors[1] = ft_atoi(color_info[1]);
+	colors[2] = ft_atoi(color_info[2]);
+	check_colors(colors, config, color);
+	len = 0;
+	while (color_info[len])
+	{
+		free(color_info[len]);
+		len++;
+	}
+	free(color_info);
+}
 
 
 // static void	parse_map_dimensions(t_config *config, char *line)
@@ -59,22 +153,77 @@
 // 		config->map_width = ft_strlen(line);
 // }
 
-// static void	parse_map_data(t_config *config, const char *filename)
-// {
-// 	int	fd;
+static int	check_maps(t_config *config, int idx, char **content)
+{
+	int	i;
+	int	j;
+	int	width;
+	int	flag;
 
-// 	if (!init_map_memory(config))
-// 		return ;
-// 	fd = open(filename, O_RDONLY);
-// 	if (fd < 0)
-// 	{
-// 		perror("Error opening file");
-// 		free(config->map);
-// 		return ;
-// 	}
-// 	parse_actual_map_data(config, fd);
-// 	close(fd);
-// }
+	i = idx;
+	width = 0;
+	flag = 0;
+	while(content[i])
+	{
+		j = 0;
+		while (content[i][j])
+		{
+			if (ft_strchr("01NSEW ", content[i][j]) == NULL)
+			{
+				config->error = 1;
+				return (1);
+			}
+			else if (ft_strchr("NSEW", content[i][j]) != NULL)
+			{
+				if (flag == 1)
+				{
+					config->error = 1;
+					return (1);
+				}
+				flag = 1;
+			}
+			j++;
+		}
+		if (width < j)
+			width = j;
+		i++;
+	}
+	config->map_height = i - idx;
+	config->map_width = width;
+	return (0);
+}
+
+static void	duplicate_map(t_config *config, int idx, char **content)
+{
+	int	i;
+	int	j;
+
+	i = idx;
+	while (content[i])
+	{
+		j = 0;
+		while (content[i][j])
+		{
+			config->map[i - idx][j] = content[i][j];
+			j++;
+		}
+		while (j < config->map_width)
+		{
+			config->map[i - idx][j] = ' ';
+			j++;
+		}
+		i++;
+	}
+}
+
+static void	parse_map_data(t_config *config, int i, char **content)
+{
+	if (check_maps(config, i, content))
+		return ;
+	if (init_map_memory(config))
+		return ;
+	duplicate_map(config, i, content);
+}
 
 char	**get_info(int fd)
 {
@@ -113,33 +262,53 @@ int	check_config(t_config *config)
 		return (1);
 }
 
-int	check_type(char *line)
+static void	check_type(t_config *config, char **lines)
 {
-	int		flag;
+	char	*line;
 
-	flag = 0;
+	line = lines[0];
 	if (ft_strncmp(line, "NO", 3) == 0)
-		flag = 1;
+		parse_textures(config, lines);
 	else if (ft_strncmp(line, "SO", 3) == 0)
-		flag = 1;
+		parse_textures(config, lines);
 	else if (ft_strncmp(line, "WE", 3) == 0)
-		flag = 1;
+		parse_textures(config, lines);
 	else if (ft_strncmp(line, "EA", 3) == 0)
-		flag = 1;
+		parse_textures(config, lines);
 	else if (ft_strncmp(line, "F", 2) == 0)
-		flag = 2;
+		parse_colors(config, lines);
 	else if (ft_strncmp(line, "C", 2) == 0)
-		flag = 2;
+		parse_colors(config, lines);
 	else
-		return (0);
-	printf("flag: %d\n", flag);
-	return (flag);
+		config->error = 1;
+	return ;
+}
+
+static int	check_type_info(char **line, t_config *config)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+		i++;
+	if (i != 2)
+	{
+		i = 0;
+		while (line[i])
+		{
+			free(line[i]);
+			i++;
+		}
+		free(line);
+		config->error = 1;
+		return (1);
+	}
+	return (0);
 }
 
 void	parse_info(t_config *config, char **content)
 {
 	int		i;
-	int		re;
 	char	**temp;
 
 	i = 0;
@@ -148,20 +317,19 @@ void	parse_info(t_config *config, char **content)
 		if (check_config(config))
 			break ;
 		temp = ft_split(content[i], ' ');
-		re = check_type(temp[0]);
+		if (check_type_info(temp, config))
+			break ;
+		check_type(config, temp);
 		free(temp[0]);
 		free(temp[1]);
 		free(temp);
-		if (re == 0)
+		if (config->error == 1)
 			break ;
 		i++;
 	}
-	if (re == 0)
+	if (config->error == 1)
 		return ;
-
-	// parse_textures(config, line);
-	// parse_colors(config, line);
-	//parse_map_data(config, filename);
+	parse_map_data(config, i, content);
 }
 
 t_config	*parse_config(const char *filename)

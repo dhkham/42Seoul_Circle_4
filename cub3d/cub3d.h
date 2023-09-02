@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/31 20:06:34 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:41:08 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_config
 	int		map_width;
 	int		map_height;
 	char	*direction;
+	int		error;
 }	t_config;
 
 int			check_args(int args, char **argv);
@@ -41,6 +42,5 @@ t_config	*parse_config(const char *filename);
 void		handle_error(int fd);
 t_config	*init_config(int fd);
 int			init_map_memory(t_config *config);
-void		parse_actual_map_data(t_config *config, int fd);
 
 #endif
