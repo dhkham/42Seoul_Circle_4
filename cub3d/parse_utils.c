@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:10:10 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/27 16:54:05 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/02 14:21:07 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,31 @@ static void	handle_error(int fd)
 
 static t_config	*init_config(int fd)
 {
-	t_config	*config;
+	t_config	*s_config;
 
-	config = malloc(sizeof(t_config));
-	if (!config)
+	s_config = malloc(sizeof(t_config));
+	if (!s_config)
 	{
 		perror("Error allocating memory");
 		close(fd);
 	}
-	ft_memset(config, 0, sizeof(t_config));
-	return (config);
+	ft_memset(s_config, 0, sizeof(t_config));
+	return (s_config);
 }
 
-static int	init_map_memory(t_config *config)
+static int	init_map_memory(t_config *s_config)
 {
-	config->map = malloc(sizeof(char *) * config->map_height);
-	if (!config->map)
+	s_config->map = malloc(sizeof(char *) * s_config->map_height);
+	if (!s_config->map)
 	{
 		perror("Error allocating memory for map");
-		free(config);
+		free(s_config);
 		return (0);  // Indicate failure
 	}
 	return (1); // Indicate success
 }
 
-static void	parse_actual_map_data(t_config *config, int fd)
+static void	parse_actual_map_data(t_config *s_config, int fd)
 {
 	char	*line;
 	int		row;
@@ -55,7 +55,7 @@ static void	parse_actual_map_data(t_config *config, int fd)
 	{
 		if (line[0] == '1' || line[0] == '0' || ft_strchr("NSEW", line[0]))
 		{
-			config->map[row] = ft_strdup(line);
+			s_config->map[row] = ft_strdup(line);
 			row++;
 		}
 		free(line);

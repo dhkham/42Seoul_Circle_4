@@ -6,29 +6,29 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:38:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/27 16:50:46 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/02 14:21:07 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	parse_textures(t_config *config, char *line)
+static void	parse_textures(t_config *s_config, char *line)
 {
 	if (ft_strncmp(line, "NO", 2) == 0)
-		config->north_texture = \
+		s_config->north_texture = \
 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		config->south_texture = \
+		s_config->south_texture = \
 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		config->west_texture = \
+		s_config->west_texture = \
 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
 	else if (ft_strncmp(line, "EA", 2) == 0)
-		config->east_texture = \
+		s_config->east_texture = \
 		ft_strdup(ft_strnstr(line, " ", ft_strlen(line)) + 1);
 }
 
-static void	parse_colors(t_config *config, char *line)
+static void	parse_colors(t_config *s_config, char *line)
 {
 	int		colors[3];
 	char	*next_comma;
@@ -46,40 +46,40 @@ static void	parse_colors(t_config *config, char *line)
 		index++;
 	}
 	if (*(line - 2) == 'F')
-		ft_memcpy(config->floor_color, colors, sizeof(colors));
+		ft_memcpy(s_config->floor_color, colors, sizeof(colors));
 	else
-		ft_memcpy(config->ceiling_color, colors, sizeof(colors));
+		ft_memcpy(s_config->ceiling_color, colors, sizeof(colors));
 }
 
 
-static void	parse_map_dimensions(t_config *config, char *line)
+static void	parse_map_dimensions(t_config *s_config, char *line)
 {
-	config->map_height++;
-	if (ft_strlen(line) > config->map_width)
-		config->map_width = ft_strlen(line);
+	s_config->map_height++;
+	if (ft_strlen(line) > s_config->map_width)
+		s_config->map_width = ft_strlen(line);
 }
 
-static void	parse_map_data(t_config *config, const char *filename)
+static void	parse_map_data(t_config *s_config, const char *filename)
 {
 	int	fd;
 
-	if (!init_map_memory(config))
+	if (!init_map_memory(s_config))
 		return ;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
 		perror("Error opening file");
-		free(config->map);
+		free(s_config->map);
 		return ;
 	}
-	parse_actual_map_data(config, fd);
+	parse_actual_map_data(s_config, fd);
 	close(fd);
 }
 
 t_config	*parse_config(const char *filename)
 {
 	int			fd;
-	t_config	*config;
+	t_config	*s_config;
 	char		*line;
 
 	fd = open(filename, O_RDONLY);
@@ -88,17 +88,17 @@ t_config	*parse_config(const char *filename)
 		handle_error(fd);
 		return (NULL);
 	}
-	config = init_config(fd);
+	s_config = init_config(fd);
 	line = get_next_line(fd);
 	while (line)
 	{
-		parse_textures(config, line);
-		parse_colors(config, line);
-		parse_map_dimensions(config, line);
+		parse_textures(s_config, line);
+		parse_colors(s_config, line);
+		parse_map_dimensions(s_config, line);
 		free(line);
 		line = get_next_line(fd);
 	}
-	parse_map_data(config, fd);
+	parse_map_data(s_config, fd);
 	close(fd);
-	return (config);
+	return (s_config);
 }

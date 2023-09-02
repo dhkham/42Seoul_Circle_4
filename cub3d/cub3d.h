@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/08/30 20:09:36 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/02 15:38:24 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-typedef struct config
+typedef struct s_config
 {
 	char	*north_texture;
 	char	*south_texture;
@@ -33,6 +33,39 @@ typedef struct config
 	int		map_height;
 	char	*direction;
 }	t_config;
+
+typedef struct	s_img
+{
+	void	*img;	// 이미지 식별자
+	int		*data;	// 픽셀 데이터
+	int		size_l; // 한 줄의 픽셀 수
+	int		bpp;	// 픽셀당 비트 수
+	int		endian;	// 엔디안
+	int		img_width;	// 이미지 가로 길이
+	int		img_height; // 이미지 세로 길이
+}				t_img;	// 이미지 정보
+
+typedef struct	s_info
+{
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	void	*mlx;
+	void	*win;
+	t_img	img;
+	int		buf[height][width];
+	int		**texture;
+	double	moveSpeed;
+	double	rotSpeed;
+}				t_info;	// 게임/플레이어 정보
+
+#define width 640
+#define height 480
+#define TEXTURE_WIDTH  64
+#define TEXTURE_HEIGHT 64
 
 int	check_args(int args, char **argv);
 int	ft_strcmp(char *s1, char *s2);
