@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:38:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/02 17:12:21 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:07:52 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ static void	parse_map_data(t_config *config, int i, char **content)
 	if (init_map_memory(config))
 		return ;
 	duplicate_map(config, i, content);
+	check_walls(config);
 }
 
 char	**get_info(int fd)

@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/02 16:41:08 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:28:20 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ t_config	*parse_config(const char *filename);
 void		handle_error(int fd);
 t_config	*init_config(int fd);
 int			init_map_memory(t_config *config);
+void		check_walls(t_config *config);
 
 #endif
