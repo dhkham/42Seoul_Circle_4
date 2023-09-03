@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/03 18:43:49 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/03 20:07:55 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
 # include "libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>
+
+#define width 640
+#define height 480
+#define TEXTURE_WIDTH  64
+#define TEXTURE_HEIGHT 64
 
 typedef struct s_config
 {
@@ -63,10 +68,6 @@ typedef struct	s_info
 	double		rotSpeed;
 }	t_info;	// 게임/플레이어 정보
 
-#define width 640
-#define height 480
-#define TEXTURE_WIDTH  64
-#define TEXTURE_HEIGHT 64
 
 int	check_args(int args, char **argv);
 int	ft_strcmp(char *s1, char *s2);
