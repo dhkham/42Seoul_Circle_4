@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:18:03 by yohlee            #+#    #+#             */
-/*   Updated: 2023/08/30 20:16:11 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:43:48 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,7 @@ int	main(void)
 
 	info.posX = 22.0;
 	info.posY = 11.5;
-	info.dirX = -1.0;
+	info.dirX = 1.0; // 방향
 	info.dirY = 0.0;
 	info.planeX = 0.0;
 	info.planeY = 0.66;

@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:38:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/03 16:07:52 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:46:11 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,13 +145,17 @@ static void	parse_colors(t_config *config, char **lines)
 	free(color_info);
 }
 
-
-// static void	parse_map_dimensions(t_config *config, char *line)
-// {
-// 	config->map_height++;
-// 	if (ft_strlen(line) > config->map_width)
-// 		config->map_width = ft_strlen(line);
-// }
+void	set_direction(char c, t_config *config)
+{
+	if (c == 'N')
+		config->direction = -1.0;
+	else if (c == 'S')
+		config->direction = 1.0;
+	else if (c == 'E')
+		config->direction = 0.5;
+	else if (c == 'W')
+		config->direction = 1.5;
+}
 
 static int	check_maps(t_config *config, int idx, char **content)
 {
@@ -181,6 +185,7 @@ static int	check_maps(t_config *config, int idx, char **content)
 					return (1);
 				}
 				flag = 1;
+				set_direction(content[i][j], config);
 			}
 			j++;
 		}
