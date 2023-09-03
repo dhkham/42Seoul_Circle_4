@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/02 15:38:24 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/03 18:43:49 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,25 @@ typedef struct	s_img
 	int		endian;	// 엔디안
 	int		img_width;	// 이미지 가로 길이
 	int		img_height; // 이미지 세로 길이
-}				t_img;	// 이미지 정보
+}	t_img;	// 이미지 정보
 
 typedef struct	s_info
 {
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
-	void	*mlx;
-	void	*win;
-	t_img	img;
-	int		buf[height][width];
-	int		**texture;
-	double	moveSpeed;
-	double	rotSpeed;
-}				t_info;	// 게임/플레이어 정보
+	double 		posX;
+	double 		posY;
+	double 		dirX;
+	double 		dirY;
+	double 		planeX;
+	double 		planeY;
+	void		*mlx;
+	void		*win;
+	t_img		img;
+	t_config	config;
+	int			buf[height][width];
+	int			**texture;
+	double		moveSpeed;
+	double		rotSpeed;
+}	t_info;	// 게임/플레이어 정보
 
 #define width 640
 #define height 480

@@ -6,9 +6,11 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 19:53:20 by yohlee            #+#    #+#             */
-/*   Updated: 2023/09/02 14:08:33 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/03 18:19:30 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+//gcc temp.c -Lmlx -lmlx -framework OpenGL -framework Appkit
 
 #include "mlx/mlx.h"
 #include "key_macos.h"
@@ -25,7 +27,7 @@
 #define width 640
 #define height 480
 
-typedef struct	s_img
+typedef struct	s_img	
 {
 	void	*img;	// 이미지 식별자
 	int		*data;	// 픽셀 데이터
@@ -35,7 +37,7 @@ typedef struct	s_img
 	int		endian;
 	int		img_width;
 	int		img_height;
-}				t_img;	// 이미지 정보
+}				t_img;	// 이미지 정보 (mlx 위해 필요)
 
 typedef struct	s_info
 {
@@ -93,7 +95,8 @@ void	draw(t_info *info)
             // 5x5 크기의 2D 배열을 생각해보세요. 첫 번째 행(즉, y=0)은 1D 인덱스 0부터 4까지 매핑됩니다. 두 번째 행(y=1)은 1D 인덱스 5부터 9까지 매핑
 			// y * width로 계산된 시작 인덱스에 x를 더하면, 우리는 그 행에서 정확한 열의 원소의 1D 인덱스에 도달
 			// 예를 들어, 위의 5x5 배열에서 y=2, x=3의 2D 좌표는 2 * 5 + 3 = 13으로 1D 인덱스 13에 매핑
-			info->img.data[y * width + x] = info->buf[y][x]; //copies the content of the buffer (which holds the pixel data to be shown on screen) to an image and then displays the image in the window.
+			info->img.data[y * width + x] = info->buf[y][x];
+			//copies the content of the buffer (which holds the pixel data to be shown on screen) to an image and then displays the image in the window.
 		}
 	}
 	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0); // 이미지를 윈도우에 표시
@@ -456,9 +459,19 @@ void	load_texture(t_info *info)
 int	main(void)
 {
 	t_info info;
-	info.mlx = mlx_init();
+	
+	/*
+	mlx_init();
+	mlx_new_window(mlx, 600, 400, "miniRT");
+	mlx_new_image(mlx, 600, 400);
+	mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	my_mlx_pixel_put(&img, i, j, 0x0000FF00);
+	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+	mlx_loop(mlx);
+	*/
+	info.mlx = mlx_init(); // mlx_init() : connection identifier를 반환
 
-	info.posX = 22.0;
+	info.posX = 22.0; //기본값
 	info.posY = 11.5;
 	info.dirX = -1.0;
 	info.dirY = 0.0;
@@ -496,7 +509,10 @@ int	main(void)
 	info.win = mlx_new_window(info.mlx, width, height, "mlx");
 
 	info.img.img = mlx_new_image(info.mlx, width, height);
+
+	
 	info.img.data = (int *)mlx_get_data_addr(info.img.img, &info.img.bpp, &info.img.size_l, &info.img.endian);
+	// 여기까지 완료
 
 	mlx_loop_hook(info.mlx, &main_loop, &info);
 	mlx_hook(info.win, X_EVENT_KEY_PRESS, 0, &key_press, &info);
