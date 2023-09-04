@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/03 20:07:55 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/04 20:10:45 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include "libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>
+# include "mlx/mlx.h"
+# include <math.h>
 
 #define width 640
 #define height 480
@@ -41,14 +43,14 @@ typedef struct s_config
 
 typedef struct	s_img
 {
-	void	*img;	// 이미지 식별자
-	int		*data;	// 픽셀 데이터
-	int		size_l; // 한 줄의 픽셀 수
-	int		bpp;	// 픽셀당 비트 수
-	int		endian;	// 엔디안
+	void	*img;		// 이미지 식별자
+	int		*data;		// 픽셀 데이터
+	int		size_l; 	// 한 줄의 픽셀 수
+	int		bpp;		// 픽셀당 비트 수
+	int		endian;		// 엔디안
 	int		img_width;	// 이미지 가로 길이
 	int		img_height; // 이미지 세로 길이
-}	t_img;	// 이미지 정보
+}	t_img;				// 이미지 정보
 
 typedef struct	s_info
 {
@@ -72,5 +74,20 @@ typedef struct	s_info
 int	check_args(int args, char **argv);
 int	ft_strcmp(char *s1, char *s2);
 int	ft_isalpha_isdigit(char c);
+
+t_config	*parse_config(const char *filename);
+static void	parse_textures(t_config *s_config, char *line);
+static void	parse_colors(t_config *s_config, char *line);
+static void	parse_map_dimensions(t_config *s_config, char *line);
+static void	parse_map_data(t_config *s_config, const char *filename);
+
+static void	handle_error(int fd);
+static t_config	*init_config(int fd);
+static int	init_map_memory(t_config *s_config);
+static void	parse_actual_map_data(t_config *s_config, int fd);
+
+
+
+
 
 #endif
