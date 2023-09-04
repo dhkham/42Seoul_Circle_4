@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:02:59 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/04 20:11:43 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/04 21:37:19 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,7 +337,7 @@ int	main(int argc, char **argv)
 {
 	t_config	*s_config;
 	t_info		s_info;
-	t_img		s_img;
+	//t_img		s_img;
 	
 	if (check_args(argc, argv) == 0)
 		return (0);
