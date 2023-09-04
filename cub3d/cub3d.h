@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/04 20:10:45 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/04 20:52:55 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,5 @@ static void	handle_error(int fd);
 static t_config	*init_config(int fd);
 static int	init_map_memory(t_config *s_config);
 static void	parse_actual_map_data(t_config *s_config, int fd);
-
-
-
-
 
 #endif
