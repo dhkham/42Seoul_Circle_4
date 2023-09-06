@@ -6,7 +6,7 @@
 #    By: dkham <dkham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/30 20:02:48 by chanwoki          #+#    #+#              #
-#    Updated: 2023/09/04 19:25:22 by dkham            ###   ########.fr        #
+#    Updated: 2023/09/05 20:57:55 by dkham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ ARFLAGS=rcsv
 
 RM=rm -f
 
-SRC_FILES=main.c
+SRC_FILES=main.c check_args.c utils.c 
 
 OBJECTS = $(SRC_FILES:.c=.o)
 

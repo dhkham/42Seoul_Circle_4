@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:52:27 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/04 20:52:55 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/05 20:32:43 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct s_config
 	char	*south_texture;
 	char	*west_texture;
 	char	*east_texture;
-	int		floor_color[3]; // RGB
-	int		ceiling_color[3]; // RGB
+	int		floor_color[3];		// RGB
+	int		ceiling_color[3];	// RGB
 	char	**map;
 	int		map_width;
 	int		map_height;
@@ -75,15 +75,15 @@ int	check_args(int args, char **argv);
 int	ft_strcmp(char *s1, char *s2);
 int	ft_isalpha_isdigit(char c);
 
-t_config	*parse_config(const char *filename);
-static void	parse_textures(t_config *s_config, char *line);
-static void	parse_colors(t_config *s_config, char *line);
-static void	parse_map_dimensions(t_config *s_config, char *line);
-static void	parse_map_data(t_config *s_config, const char *filename);
+// t_config	*parse_config(const char *filename);
+// static void	parse_textures(t_config *s_config, char *line);
+// static void	parse_colors(t_config *s_config, char *line);
+// static void	parse_map_dimensions(t_config *s_config, char *line);
+// static void	parse_map_data(t_config *s_config, const char *filename);
 
-static void	handle_error(int fd);
-static t_config	*init_config(int fd);
-static int	init_map_memory(t_config *s_config);
-static void	parse_actual_map_data(t_config *s_config, int fd);
+// static void	handle_error(int fd);
+// static t_config	*init_config(int fd);
+// static int	init_map_memory(t_config *s_config);
+// static void	parse_actual_map_data(t_config *s_config, int fd);
 
 #endif

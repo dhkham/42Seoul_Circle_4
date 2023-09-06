@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:02:59 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/04 21:37:19 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/05 21:28:32 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ void initialize_s_info(t_info *info, t_config *config)
 
 	// Initialize config
 	info->config = *config;
+	printf("info->config.map_width: %d\n", info->config.map_width);
+	printf("info->config.map_height: %d\n", info->config.map_height);
+	printf("info->config.direction: %s\n", info->config.direction);
+	printf("info->config.north_texture: %s\n", info->config.north_texture);
+	printf("info->config.south_texture: %s\n", info->config.south_texture);
+	printf("info->config.west_texture: %s\n", info->config.west_texture);
+	printf("info->config.east_texture: %s\n", info->config.east_texture);
 
     // Initialize buffer - considering height and width are constants
     for (int y = 0; y < height; y++)
@@ -341,12 +348,50 @@ int	main(int argc, char **argv)
 	
 	if (check_args(argc, argv) == 0)
 		return (0);
-	s_config = parse_config(argv[1]); // 파싱 부분 (chanwoki)
-	if (!s_config)
+	// s_config = parse_config(argv[1]); // 파싱 부분 (chanwoki)
+	// if (!s_config)
+	// {
+	// 	perror("Error: Failed to parse config file");
+	// 	exit(1);
+	// }
+	
+	// Manually fill in s_config based on map.cub
+	s_config = (t_config *)malloc(sizeof(t_config));
+	s_config->north_texture = "./textures/wood.xpm";
+	s_config->south_texture = "./textures/redbrick.xpm";
+	s_config->west_texture = "./textures/purplestone.xpm";
+	s_config->east_texture = "./textures/greystone.xpm";
+	s_config->floor_color[0] = 220;
+	s_config->floor_color[1] = 100;
+	s_config->floor_color[2] = 0;
+	s_config->ceiling_color[0] = 225;
+	s_config->ceiling_color[1] = 30;
+	s_config->ceiling_color[2] = 0;
+	const char *sample_map[] = {
+		"1111111111111111111111111",
+		"1000000000110000000000001",
+		"1011000001110000000000001",
+		"1001000000000000000000001",
+		"111111111011000001110000000000001",
+		"100000000011000001110111111111111",
+		"11110111111111011100000010001",
+		"11110111111111011101010010001",
+		"11000000110101011100000010001",
+		"10000000000000001100000010001",
+		"10000000000000001101010010001",
+		"11000001110101011111011110N0111",
+		"11110111 1110101 101111010001",
+		"11111111 1111111 111111111111"
+	};
+	s_config->map = (char **)malloc(s_config->map_height * sizeof(char *));
+	for (int i = 0; i < s_config->map_height; i++)
 	{
-		perror("Error: Failed to parse config file");
-		exit(1);
+		s_config->map[i] = strdup(sample_map[i]);
 	}
+	s_config->map_width = 33;
+	s_config->map_height = 14;
+	s_config->direction = "N";
+	
 	initialize_s_info(&s_info, s_config); // 구조체 초기화 (게임 정보)
 	s_info.mlx = mlx_init();	//mlx_init: void * 타입의 포인터 연결 식별자로 반환
 	if (!load_texture_from_config(&s_info, s_config))
