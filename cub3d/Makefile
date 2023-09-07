@@ -5,10 +5,11 @@
 #                                                     +:+ +:+         +:+      #
 #    By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/08/30 20:02:48 by chanwoki          #+#    #+#              #
-#    Updated: 2023/09/03 16:42:11 by chanwoki         ###   ########.fr        #
+#    Created: 2023/09/07 18:57:41 by chanwoki          #+#    #+#              #
+#    Updated: 2023/09/07 18:57:42 by chanwoki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME=cub3D
 
@@ -23,7 +24,7 @@ ARFLAGS=rcsv
 
 RM=rm -f
 
-SRC_FILES=temp.c
+SRC_FILES=main.c check_args.c utils.c
 
 OBJECTS = $(SRC_FILES:.c=.o)
 
