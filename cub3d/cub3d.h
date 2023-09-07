@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:33:47 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/07 18:56:27 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:07:12 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_config
 	char	**map;
 	int		map_width;
 	int		map_height;
-	double	direction;
+	char	*direction;
 	int		error;
 }	t_config;
 
@@ -65,7 +65,7 @@ typedef struct	s_info
 	void		*win;
 	t_img		img;
 	t_config	config;
-	int			buf[height][width];
+	int			buf[HEIGHT][WIDTH];
 	int			**texture;
 	double		moveSpeed;
 	double		rotSpeed;

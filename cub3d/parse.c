@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:38:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/07 18:40:26 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:07:52 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,13 +148,13 @@ static void	parse_colors(t_config *config, char **lines)
 void	set_direction(char c, t_config *config)
 {
 	if (c == 'N')
-		config->direction = -1.0;
+		config->direction = "N";
 	else if (c == 'S')
-		config->direction = 1.0;
+		config->direction = "S";
 	else if (c == 'E')
-		config->direction = 0.5;
+		config->direction = "E";
 	else if (c == 'W')
-		config->direction = 1.5;
+		config->direction = "W";
 }
 
 static int	check_maps(t_config *config, int idx, char **content)

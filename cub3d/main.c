@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:41:21 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/07 18:57:18 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:49:54 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	print_config(t_config *config)
 	printf("South texture: %s\n", config->south_texture);
 	printf("West texture: %s\n", config->west_texture);
 	printf("East texture: %s\n", config->east_texture);
+	printf("direction %s\n", config->direction);
 	printf("Floor color: %d, %d, %d\n", config->floor_color[0], config->floor_color[1], config->floor_color[2]);
 	printf("Ceiling color: %d, %d, %d\n", config->ceiling_color[0], config->ceiling_color[1], config->ceiling_color[2]);
 	printf("Map width: %d\n", config->map_width);
@@ -81,7 +82,7 @@ void initialize_s_info(t_info *info, t_config *config)
 	info->config = *config;
 	printf("info->config.map_width: %d\n", info->config.map_width);
 	printf("info->config.map_height: %d\n", info->config.map_height);
-	printf("info->config.direction: %s\n", info->config.direction);
+	//printf("info->config.direction: %s\n", info->config.direction);
 	printf("info->config.north_texture: %s\n", info->config.north_texture);
 	printf("info->config.south_texture: %s\n", info->config.south_texture);
 	printf("info->config.west_texture: %s\n", info->config.west_texture);
@@ -378,7 +379,6 @@ int	main(int argc, char **argv)
 {
 	t_config	*s_config;
 	t_info		s_info;
-	//t_img		s_img;
 
 
 
@@ -395,13 +395,9 @@ int	main(int argc, char **argv)
 	print_config(s_config);
 
 
-
-
-
-
-
 	initialize_s_info(&s_info, s_config); // 구조체 초기화 (게임 정보)
 	s_info.mlx = mlx_init();	//mlx_init: void * 타입의 포인터 연결 식별자로 반환
+
 	if (!load_texture_from_config(&s_info, s_config))
 	{
 		perror("Error: Failed to load textures");
@@ -409,7 +405,7 @@ int	main(int argc, char **argv)
 		// Assuming you have a function named free_resources or similar.
 		free_resources(&s_info);
 		free_config(s_config);
-		return (0);
+		exit (1);
 	}
 	// Assuming the window size is defined by the constants width and height.
 	s_info.win = mlx_new_window(s_info.mlx, WIDTH, HEIGHT, "cub3D");
@@ -419,7 +415,7 @@ int	main(int argc, char **argv)
 		// Cleanup and free resources.
 		free_resources(&s_info);
 		free_config(s_config);
-		return (0);
+		exit (1);
 	}
 	s_info.img.img = mlx_new_image(s_info.mlx, WIDTH, HEIGHT); // 이미지 식별자 생성
 

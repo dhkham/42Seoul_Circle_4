@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:10:10 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/07 18:39:43 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:37:37 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ int	init_map_memory(t_config *config)
 {
 	int	i;
 	config->map = (char **)malloc(sizeof(char *) * config->map_height + 1);
+
 	if (!config->map)
 	{
 		perror("Error allocating memory for map");
 		config->error = 1;
 		return (1);  // Indicate failure
 	}
-	config->map[config->map_height] = NULL;
+	config->map[config->map_height - 1] = NULL;
 	i = 0;
 	while (i < config->map_height)
 	{
