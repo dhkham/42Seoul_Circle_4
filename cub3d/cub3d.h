@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:33:47 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 17:06:58 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:21:33 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,20 @@ typedef struct s_info
 	int			**texture;
 	double		move_speed;
 	double		rot_speed;
+	double		camera_x;
+	double 		raydir_x;
+	double 		raydir_y;
+	double 		sidedist_x;									// 레이가 x, y면에 부딪히기까지의 거리
+	double 		sidedist_y;
+	int 		map_x;
+	int 		map_y;
+	double 		deltadist_x;
+	double 		deltadist_y;
+	double 		perpwalldist;									//플레이어 위치부터 레이가 벽과 충돌한 지점까지의 직교 거리
+	int 		step_x;												//x, y 방향으로 얼마나 가야하는지 (만약 info->rayDirX/Y가 음수면 -1, 아니면 1) : info->map_x/Y를 업데이트 위해 사용
+	int 		step_y;
+	int 		hit;
+	int 		side;
 }	t_info;
 
 int			check_args(int args, char **argv);
