@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 14:41:54 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/05/06 14:14:29 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:42:15 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ char	*ft_strtrim(char *s1, char *set)
 	if (re == 0)
 		return (0);
 	ft_strlcpy(re, s1 + start, end - start + 1);
+	if (s1)
+		free(s1);
 	return (re);
 }

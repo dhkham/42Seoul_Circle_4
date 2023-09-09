@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:10:02 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 17:07:05 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:15:30 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,10 @@ static void	check_type(t_config *config, char **lines)
 		parse_colors(config, lines);
 	else
 		config->error = 1;
+	free(lines[0]);
+	free(lines[1]);
+	free(lines);
 	return ;
-}
-
-static int	check_type_info(char **line, t_config *config)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-		i++;
-	if (i != 2)
-	{
-		i = 0;
-		while (line[i])
-		{
-			free(line[i]);
-			i++;
-		}
-		free(line);
-		config->error = 1;
-		return (1);
-	}
-	return (0);
 }
 
 static void	parse_map_data(t_config *config, int i, char **content)
@@ -84,6 +65,35 @@ static void	parse_map_data(t_config *config, int i, char **content)
 	check_walls(config);
 }
 
+char	**get_type_and_value(char *line)
+{
+	int		i;
+	char	**temp;
+
+	temp = (char **)malloc(sizeof(char *) * 3);
+	if (!temp)
+		return (NULL);
+	temp[2] = NULL;
+	i = 0;
+	while (line[i] && line[i] != ' ')
+		i++;
+	temp[0] = ft_substr(line, 0, i);
+	if (!temp[0])
+	{
+		free(temp);
+		return (NULL);
+	}
+	temp[1] = ft_substr(line, i, ft_strlen(line) - i);
+	if (!temp[1])
+	{
+		free(temp[0]);
+		free(temp);
+		return (NULL);
+	}
+	temp[1] = ft_strtrim(temp[1], " ");
+	return (temp);
+}
+
 void	parse_info(t_config *config, char **content)
 {
 	int		i;
@@ -94,13 +104,13 @@ void	parse_info(t_config *config, char **content)
 	{
 		if (check_config(config))
 			break ;
-		temp = ft_split(content[i], ' ');
-		if (check_type_info(temp, config))
+		temp = get_type_and_value(content[i]);
+		if (!temp)
+		{
+			config->error = 1;
 			break ;
+		}
 		check_type(config, temp);
-		free(temp[0]);
-		free(temp[1]);
-		free(temp);
 		if (config->error == 1)
 			break ;
 		i++;

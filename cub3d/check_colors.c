@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:24:07 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 16:51:03 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:11:31 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	check_colors(int *colors, t_config *config, char *color)
 	return ;
 }
 
-static int	color_error(int flag, int len, char **color_info, t_config *config)
+int	color_error(int flag, int len, char **color_info, t_config *config)
 {
 	if (flag == 1 || len != 3)
 	{
@@ -68,10 +68,29 @@ static int	color_error(int flag, int len, char **color_info, t_config *config)
 	return (0);
 }
 
-int	check_color_info(char **color_info, t_config *config)
+static int	check_digit(char **color_info)
 {
 	int	i;
 	int	j;
+
+	i = 0;
+	while (color_info[i])
+	{
+		j = 0;
+		while (color_info[i][j])
+		{
+			if (!ft_isdigit(color_info[i][j]))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	check_color_info(char **color_info, t_config *config)
+{
+	int	i;
 	int	len;
 	int	flag;
 
@@ -79,18 +98,12 @@ int	check_color_info(char **color_info, t_config *config)
 	while (color_info[len])
 		len++;
 	i = 0;
-	flag = 0;
 	while (color_info[i])
 	{
-		j = 0;
-		while (color_info[i][j])
-		{
-			if (!ft_isdigit(color_info[i][j]))
-				flag = 1;
-			j++;
-		}
+		color_info[i] = ft_strtrim(color_info[i], " ");
 		i++;
 	}
+	flag = check_digit(color_info);
 	if (color_error(flag, len, color_info, config))
 		return (1);
 	return (0);

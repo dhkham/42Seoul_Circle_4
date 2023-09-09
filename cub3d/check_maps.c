@@ -6,11 +6,32 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:30:27 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 16:58:36 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:17:33 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	check_comma(char *line, char **color_info, t_config *config)
+{
+	int	i;
+	int	comma;
+
+	i = 0;
+	comma = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			comma++;
+		i++;
+	}
+	if (comma != 2)
+	{
+		color_error(1, 0, color_info, config);
+		return (1);
+	}
+	return (0);
+}
 
 static void	set_direction(char c, t_config *config)
 {

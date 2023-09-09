@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 18:33:47 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 20:21:33 by dkham            ###   ########.fr       */
+/*   Created: 2023/09/09 20:25:38 by dkham             #+#    #+#             */
+/*   Updated: 2023/09/09 20:25:39 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include "libft/libft.h"
-# include <unistd.h>		// 불필요한 헤더 있는지 체크
+# include <unistd.h>
 # include <fcntl.h>
 # include "mlx/mlx.h"
 # include <math.h>
@@ -101,5 +101,7 @@ void		check_colors(int *colors, t_config *config, char *color);
 int			check_color_info(char **color_info, t_config *config);
 int			check_maps(t_config *config, int idx, char **content);
 void		duplicate_map(t_config *config, int idx, char **content);
+int			color_error(int flag, int len, char **color_info, t_config *config);
+int			check_comma(char *line, char **color_info, t_config *config);
 
 #endif
