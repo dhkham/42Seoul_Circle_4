@@ -6,53 +6,64 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:14:07 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 16:37:44 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:10:39 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	parse_textures(t_config *config, char **lines)
+static int	check_duplicate(char *texture, t_config *config)
+{
+	if (texture != NULL)
+	{
+		config->error = 1;
+		return (1);
+	}
+	return (0);
+}
+
+static void	set_north_south(char **lines, t_config *config)
 {
 	char	*line;
 
 	line = lines[0];
 	if (ft_strcmp(line, "NO") == 0)
 	{
-		if (config->north_texture != NULL)
-		{
-			config->error = 1;
+		if (check_duplicate(config->north_texture, config))
 			return ;
-		}
 		config->north_texture = ft_strdup(lines[1]);
 	}
 	else if (ft_strcmp(line, "SO") == 0)
 	{
-		if (config->south_texture != NULL)
-		{
-			config->error = 1;
+		if (check_duplicate(config->south_texture, config))
 			return ;
-		}
 		config->south_texture = ft_strdup(lines[1]);
 	}
-	else if (ft_strcmp(line, "WE") == 0)
+}
+
+static void	set_east_west(char **lines, t_config *config)
+{
+	char	*line;
+
+	line = lines[0];
+	if (ft_strcmp(line, "WE") == 0)
 	{
-		if (config->west_texture != NULL)
-		{
-			config->error = 1;
+		if (check_duplicate(config->west_texture, config))
 			return ;
-		}
 		config->west_texture = ft_strdup(lines[1]);
 	}
 	else if (ft_strcmp(line, "EA") == 0)
 	{
-		if (config->east_texture != NULL)
-		{
-			config->error = 1;
+		if (check_duplicate(config->east_texture, config))
 			return ;
-		}
 		config->east_texture = ft_strdup(lines[1]);
 	}
+}
+
+void	parse_textures(t_config *config, char **lines)
+{
+	set_north_south(lines, config);
+	set_east_west(lines, config);
 }
 
 void	parse_colors(t_config *config, char **lines)

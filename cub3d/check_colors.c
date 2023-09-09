@@ -6,23 +6,14 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:24:07 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 16:33:55 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:51:03 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	check_colors(int *colors, t_config *config, char *color)
+static void	set_colors(int *colors, t_config *config, char *color)
 {
-	int	i;
-
-	i = 0;
-	while (i < 3)
-	{
-		if (colors[i] < 0 || colors[i] > 255)
-			return ;
-		i++;
-	}
 	if (ft_strncmp("F", color, 2) == 0)
 	{
 		if (config->floor_color[0] != -1)
@@ -43,6 +34,38 @@ void	check_colors(int *colors, t_config *config, char *color)
 	}
 	else
 		return ;
+}
+
+void	check_colors(int *colors, t_config *config, char *color)
+{
+	int	i;
+
+	i = 0;
+	while (i < 3)
+	{
+		if (colors[i] < 0 || colors[i] > 255)
+			return ;
+		i++;
+	}
+	set_colors(colors, config, color);
+	return ;
+}
+
+static int	color_error(int flag, int len, char **color_info, t_config *config)
+{
+	if (flag == 1 || len != 3)
+	{
+		config->error = 1;
+		len = 0;
+		while (color_info[len])
+		{
+			free(color_info[len]);
+			len++;
+		}
+		free(color_info);
+		return (1);
+	}
+	return (0);
 }
 
 int	check_color_info(char **color_info, t_config *config)
@@ -68,17 +91,7 @@ int	check_color_info(char **color_info, t_config *config)
 		}
 		i++;
 	}
-	if (flag == 1 || len != 3)
-	{
-		config->error = 1;
-		len = 0;
-		while (color_info[len])
-		{
-			free(color_info[len]);
-			len++;
-		}
-		free(color_info);
+	if (color_error(flag, len, color_info, config))
 		return (1);
-	}
 	return (0);
 }
