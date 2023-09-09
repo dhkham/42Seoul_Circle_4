@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:41:21 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 14:57:42 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/09 15:47:49 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	print_config(t_config *config)
 
 void	check_leaks(void)
 {
-	system("leaks cub3D | grep leaked");
+	system("leaks cub3D");
 }
 
 void	free_config(t_config *config)
@@ -47,17 +47,18 @@ void	free_config(t_config *config)
 	if (config->map)
 	{
 		for (int i = 0; i < config->map_height; i++)
+		{
 			free(config->map[i]);
+		}
 		free(config->map);
 	}
-	free(config);
 }
 
 void initialize_s_info(t_info *info, t_config *config)
 {
 	int i;
 	int j;
-	
+
 	printf("set start position and direction\n");
 	i = 0; //j = 0;
 	while (i < config->map_height)
@@ -147,7 +148,7 @@ void initialize_s_info(t_info *info, t_config *config)
 	// Initialize buffer - considering height and width are constants
 	int x;
 	int y;
-	
+
 	y = 0;
 	while (y < HEIGHT)
 	{
@@ -176,7 +177,7 @@ void initialize_s_info(t_info *info, t_config *config)
 			// free_resources(info);
 			// free_config(config);
 			exit(1);
-		}		
+		}
 		i++;
 	}
 	i = 0;
@@ -262,7 +263,7 @@ void raycasting(t_info *info)
 {
 	int y;
 	int x;
-	
+
 	y = 0;
 	while (y < HEIGHT) // 천장, 바닥 색칠하기
 	{
@@ -423,7 +424,7 @@ int game_loop(t_info *info)
 // {
 // 	int y;
 // 	int x;
-	
+
 // 	y = 0;
 // 	while (y < HEIGHT) // 천장, 바닥 색칠하기
 // 	{
@@ -556,7 +557,7 @@ int game_loop(t_info *info)
 
 // 			info->buf[y][x] = color;	//그 후, 해당 화면의 X, Y 좌표에 해당하는 버퍼에 색상 값을 저장
 // 		}
-		
+
 // 		// 그리는 부분 (temp.c에 draw에 해당)
 // 		for (int y = 0; y < HEIGHT; y++) // row (height) 훑기
 // 		{
@@ -577,8 +578,8 @@ int handle_keys(int keycode, t_info *info)
 {
     if (keycode == K_ESC) // Assuming you have defined KEY_ESC for the escape key
     {
-        free_resources(info);
 		free_config(&info->config);
+        free_resources(info);
         exit(0);
     }
     if (keycode == K_W) // Move forward
@@ -629,6 +630,7 @@ int	main(int argc, char **argv)
 	{
 		ft_putstr("Error\n", 2);
 		free_config(s_config);
+		free(s_config);
 		return (1);
 	}
 	print_config(s_config);
@@ -641,6 +643,7 @@ int	main(int argc, char **argv)
 		// Assuming you have a function named free_resources or similar.
 		free_resources(&s_info);
 		free_config(s_config);
+		free(s_config);
 		exit (1);
 	}
 
@@ -652,15 +655,16 @@ int	main(int argc, char **argv)
 		// Cleanup and free resources.
 		free_resources(&s_info);
 		free_config(s_config);
+		free(s_config);
 		exit (1);
 	}
-	
+
 	s_info.img.img = mlx_new_image(s_info.mlx, WIDTH, HEIGHT); // 이미지 식별자 생성
 
 	s_info.img.data = (int *)mlx_get_data_addr(s_info.img.img, &s_info.img.bpp, &s_info.img.size_l, &s_info.img.endian);
 
 	mlx_loop_hook(s_info.mlx, &game_loop, &s_info); 	//메인 루프에서 반복적으로 호출되는 함수 설정
-	
+
     // Set key input function
 	//mlx_key_hook(s_info.win, handle_keys, &s_info);
 	mlx_hook(s_info.win, X_EVENT_KEY_PRESS, 0, &handle_keys, &s_info);
@@ -670,8 +674,9 @@ int	main(int argc, char **argv)
 
 	// // If your program somehow gets here, cleanup and end.
 	// // However, usually mlx_loop only ends when the program closes.
-	
-	// free_resources(&s_info);
-	// free_config(s_config);
+
+	free_config(s_config);
+	free_resources(&s_info);
+	free(s_config);
 	return (0);
 }

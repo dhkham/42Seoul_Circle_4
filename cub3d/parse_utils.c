@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:10:10 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/07 19:37:37 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 15:21:27 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_config	*init_config(int fd)
 {
 	t_config	*config;
 
-	config = malloc(sizeof(t_config));
+	config = (t_config *)malloc(sizeof(t_config));
 	if (!config)
 	{
 		perror("Error allocating memory");
