@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:14:07 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 17:10:39 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:17:00 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ void	parse_colors(t_config *config, char **lines)
 	len = 0;
 	color = lines[0];
 	color_info = ft_split(lines[1], ',');
-	if (check_color_info(color_info, config))
+	if (check_comma(lines[1], color_info, config) || \
+	check_color_info(color_info, config))
 		return ;
 	colors[0] = ft_atoi(color_info[0]);
 	colors[1] = ft_atoi(color_info[1]);

@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:33:47 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 17:06:58 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:18:37 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,7 @@ void		check_colors(int *colors, t_config *config, char *color);
 int			check_color_info(char **color_info, t_config *config);
 int			check_maps(t_config *config, int idx, char **content);
 void		duplicate_map(t_config *config, int idx, char **content);
+int			color_error(int flag, int len, char **color_info, t_config *config);
+int			check_comma(char *line, char **color_info, t_config *config);
 
 #endif
