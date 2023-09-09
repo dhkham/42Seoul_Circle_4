@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 16:55:30 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/05 20:53:46 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/09 15:56:10 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	check_args_error(char **argv, int i)
+{
+	if (i <= 0)
+	{
+		printf("Error : Wrong File Name\n");
+		return (0);
+	}
+	if (ft_isalpha_isdigit(argv[1][i - 1]) == 0)
+	{
+		printf("Error : Wrong File Name\n");
+		return (0);
+	}
+	if (ft_strcmp(&argv[1][i], ".cub") != 0)
+	{
+		printf("Error : Wrong File Extension\n");
+		return (0);
+	} else
+		return (1);
+}
 
 int	check_args(int args, char **argv)
 {
@@ -32,20 +52,5 @@ int	check_args(int args, char **argv)
 	while (argv[1][i])
 		i++;
 	i -= 4;
-	if (i <= 0)
-	{
-		printf("Error : Wrong File Name\n");
-		return (0);
-	}
-	if (ft_isalpha_isdigit(argv[1][i - 1]) == 0)
-	{
-		printf("Error : Wrong File Name\n");
-		return (0);
-	}
-	if (ft_strcmp(&argv[1][i], ".cub") != 0)
-	{
-		printf("Error : Wrong File Extension\n");
-		return (0);
-	} else
-		return (1);
+	return (check_args_error(argv, i));
 }

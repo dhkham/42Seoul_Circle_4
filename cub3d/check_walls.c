@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:08:21 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/03 16:37:20 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:05:48 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ void	check_walls(t_config *config)
 		j = 0;
 		while (j < config->map_width)
 		{
-			if (config->map[i][j] == '0')
+			if (config->map[i][j] == '0' || config->map[i][j] == 'N' \
+				|| config->map[i][j] == 'S' || config->map[i][j] == 'E' \
+				|| config->map[i][j] == 'W')
 				dfs(config, visited, i, j);
 			j++;
 		}

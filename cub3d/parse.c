@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:38:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/08 17:29:10 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/09 16:02:49 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,11 @@ static int	check_maps(t_config *config, int idx, char **content)
 			width = j;
 		i++;
 	}
+	if (flag == 0)
+	{
+		config->error = 1;
+		return (1);
+	}
 	config->map_height = i - idx;
 	config->map_width = width;
 	return (0);
@@ -250,6 +255,7 @@ char	**get_info(int fd)
 	free(temp);
 	return (ll);
 }
+
 int	check_config(t_config *config)
 {
 	if (config->north_texture == NULL)
