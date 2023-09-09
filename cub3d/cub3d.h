@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:33:47 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 12:48:09 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/09 16:36:41 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,34 +43,34 @@ typedef struct s_config
 	int		error;
 }	t_config;
 
-typedef struct	s_img
+typedef struct s_img
 {
-	void	*img;		// 이미지 식별자
-	int		*data;		// 픽셀 데이터
-	int		size_l; 	// 한 줄의 픽셀 수
-	int		bpp;		// 픽셀당 비트 수
-	int		endian;		// 엔디안
-	int		img_width;	// 이미지 가로 길이
-	int		img_height; // 이미지 세로 길이
-}	t_img;				// 이미지 정보
+	void	*img;
+	int		*data;
+	int		size_l;
+	int		bpp;
+	int		endian;
+	int		img_width;
+	int		img_height;
+}	t_img;
 
-typedef struct	s_info
+typedef struct s_info
 {
-	double 		posX;
-	double 		posY;
-	double 		dirX;
-	double 		dirY;
-	double 		planeX;
-	double 		planeY;
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 	void		*mlx;
 	void		*win;
 	t_img		img;
 	t_config	config;
 	int			buf[HEIGHT][WIDTH];
 	int			**texture;
-	double		moveSpeed;
-	double		rotSpeed;
-}	t_info;	// 게임/플레이어 정보
+	double		move_speed;
+	double		rot_speed;
+}	t_info;
 
 int			check_args(int args, char **argv);
 int			ft_strcmp(char *s1, char *s2);
@@ -80,5 +80,12 @@ void		handle_error(int fd);
 t_config	*init_config(int fd);
 int			init_map_memory(t_config *config);
 void		check_walls(t_config *config);
+void		parse_info(t_config *config, char **content);
+void		parse_textures(t_config *config, char **lines);
+void		parse_colors(t_config *config, char **lines);
+void		check_colors(int *colors, t_config *config, char *color);
+int			check_color_info(char **color_info, t_config *config);
+int			check_maps(t_config *config, int idx, char **content);
+void		duplicate_map(t_config *config, int idx, char **content);
 
 #endif

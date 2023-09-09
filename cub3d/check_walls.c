@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:08:21 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 16:05:48 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:34:36 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	**init_maps(t_config *config)
 	}
 	return (visited);
 }
-
 
 void	dfs(t_config *config, int **visited, int i, int j)
 {

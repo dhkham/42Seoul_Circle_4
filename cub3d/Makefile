@@ -6,7 +6,7 @@
 #    By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 18:57:41 by chanwoki          #+#    #+#              #
-#    Updated: 2023/09/09 15:46:59 by chanwoki         ###   ########.fr        #
+#    Updated: 2023/09/09 16:30:40 by chanwoki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ ARFLAGS=rcsv
 
 RM=rm -f
 
-SRC_FILES=main.c check_args.c utils.c parse.c parse_utils.c check_walls.c
+SRC_FILES=main.c check_args.c utils.c parse.c parse_utils.c check_walls.c check_info.c \
+parse_args.c check_colors.c check_maps.c
 
 OBJECTS = $(SRC_FILES:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 16:55:30 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 15:56:10 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:33:29 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	check_args_error(char **argv, int i)
 	{
 		printf("Error : Wrong File Extension\n");
 		return (0);
-	} else
+	}
+	else
 		return (1);
 }
 
