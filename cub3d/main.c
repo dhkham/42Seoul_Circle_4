@@ -6,28 +6,12 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:41:21 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 19:45:52 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:19:30 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "key_macos.h"
-
-void	print_config(t_config *config)
-{
-	printf("North texture: %s\n", config->north_texture);
-	printf("South texture: %s\n", config->south_texture);
-	printf("West texture: %s\n", config->west_texture);
-	printf("East texture: %s\n", config->east_texture);
-	printf("direction %s\n", config->direction);
-	printf("Floor color: %d, %d, %d\n", config->floor_color[0], config->floor_color[1], config->floor_color[2]);
-	printf("Ceiling color: %d, %d, %d\n", config->ceiling_color[0], config->ceiling_color[1], config->ceiling_color[2]);
-	printf("Map width: %d\n", config->map_width);
-	printf("Map height: %d\n", config->map_height);
-	printf("Map:\n");
-	for (int i = 0; i < config->map_height; i++)
-		printf("%s\n", config->map[i]);
-}
 
 void	check_leaks(void)
 {
@@ -628,12 +612,11 @@ int	main(int argc, char **argv)
 	s_config = parse_config(argv[1]);
 	if (s_config->error == 1)
 	{
-		ft_putstr("Error\n", 2);
+		ft_putstr("map Error\n", 2);
 		free_config(s_config);
 		free(s_config);
 		return (1);
 	}
-	print_config(s_config);
 	initialize_s_info(&s_info, s_config); // 구조체 초기화 (게임 정보)
 	s_info.mlx = mlx_init();	//mlx_init: void * 타입의 포인터 연결 식별자로 반환
 	if (!load_texture_from_config(&s_info, s_config))
