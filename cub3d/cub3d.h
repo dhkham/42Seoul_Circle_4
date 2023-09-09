@@ -6,7 +6,7 @@
 /*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:33:47 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 20:18:37 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 20:21:18 by chanwoki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include "libft/libft.h"
-# include <unistd.h>		// 불필요한 헤더 있는지 체크
+# include <unistd.h>
 # include <fcntl.h>
 # include "mlx/mlx.h"
 # include <math.h>
