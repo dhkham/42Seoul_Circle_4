@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:41:21 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 15:47:49 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:45:23 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,45 +68,45 @@ void initialize_s_info(t_info *info, t_config *config)
 		{
 			if (config->map[i][j] == 'N' || config->map[i][j] == 'S' || config->map[i][j] == 'W' || config->map[i][j] == 'E')
 			{
-				info->posX = i + 0.5;
-				info->posY = j + 0.5;
+				info->pos_x = i + 0.5;
+				info->pos_y = j + 0.5;
 			}
 			if (config->map[i][j] == 'N')
 			{
-				info->dirX = -1.0;
-				info->dirY = 0.0;
-				info->planeX = 0.0;
-				info->planeY = 0.66;
+				info->dir_x = -1.0;
+				info->dir_y = 0.0;
+				info->plane_x = 0.0;
+				info->plane_y = 0.66;
 				config->map[i][j] = '0';
 				printf("NORTH\n");
 				break ;
 			}
 			else if (config->map[i][j] == 'S')
 			{
-				info->dirX = 1.0;
-				info->dirY = 0.0;
-				info->planeX = 0.0;
-				info->planeY = -0.66;
+				info->dir_x = 1.0;
+				info->dir_y = 0.0;
+				info->plane_x = 0.0;
+				info->plane_y = -0.66;
 				config->map[i][j] = '0';
 				printf("SOUTH\n");
 				break ;
 			}
 			else if (config->map[i][j] == 'W')
 			{
-				info->dirX = 0.0;
-				info->dirY = -1.0;
-				info->planeX = -0.66;
-				info->planeY = 0.0;
+				info->dir_x = 0.0;
+				info->dir_y = -1.0;
+				info->plane_x = -0.66;
+				info->plane_y = 0.0;
 				config->map[i][j] = '0';
 				printf("WEST\n");
 				break ;
 			}
 			else if (config->map[i][j] == 'E')
 			{
-				info->dirX = 0.0;
-				info->dirY = 1.0;
-				info->planeX = 0.66;
-				info->planeY = 0.0;
+				info->dir_x = 0.0;
+				info->dir_y = 1.0;
+				info->plane_x = 0.66;
+				info->plane_y = 0.0;
 				config->map[i][j] = '0';
 				printf("EAST\n");
 				break ;
@@ -115,12 +115,12 @@ void initialize_s_info(t_info *info, t_config *config)
 		}
 		i++;
 	}
-	printf("info->posX: %f\n", info->posX);
-	printf("info->posY: %f\n", info->posY);
-	printf("info->dirX: %f\n", info->dirX);
-	printf("info->dirY: %f\n", info->dirY);
-	printf("info->planeX: %f\n", info->planeX);
-	printf("info->planeY: %f\n", info->planeY);
+	printf("info->pos_x: %f\n", info->pos_x);
+	printf("info->pos_y: %f\n", info->pos_y);
+	printf("info->dir_x: %f\n", info->dir_x);
+	printf("info->dir_y: %f\n", info->dir_y);
+	printf("info->plane_x: %f\n", info->plane_x);
+	printf("info->plane_y: %f\n", info->plane_y);
 
     // Initialize mlx and win pointers
     info->mlx = NULL;
@@ -196,8 +196,8 @@ void initialize_s_info(t_info *info, t_config *config)
 		}
 		i++;
 	}
-    info->moveSpeed = 0.1;
-    info->rotSpeed = 0.1;
+    info->move_speed = 0.1;
+    info->rot_speed = 0.1;
 }
 
 void free_resources(t_info *info)
@@ -279,11 +279,11 @@ void raycasting(t_info *info)
 	for (int x = 0; x < WIDTH; x++)
 	{
 		double cameraX = 2 * x / (double)WIDTH - 1;
-		double rayDirX = info->dirX + info->planeX * cameraX;
-		double rayDirY = info->dirY + info->planeY * cameraX;
+		double rayDirX = info->dir_x + info->plane_x * cameraX;
+		double rayDirY = info->dir_y + info->plane_y * cameraX;
 
-		int mapX = (int)info->posX;								//레이의 위치 (여기선 일단 시작 지점 맵상의 x,y좌표)
-		int mapY = (int)info->posY;
+		int mapX = (int)info->pos_x;								//레이의 위치 (여기선 일단 시작 지점 맵상의 x,y좌표)
+		int mapY = (int)info->pos_y;
 
 		double sideDistX;										// 레이가 x, y면에 부딪히기까지의 거리
 		double sideDistY;
@@ -301,22 +301,22 @@ void raycasting(t_info *info)
 		if (rayDirX < 0) //만약 레이가 -x 방향으로 향하고 있다면,
 		{
 			stepX = -1;	//mapX는 현재 위치보다 1 작은 값이 됨
-			sideDistX = (info->posX - mapX) * deltaDistX;		//mapX+1-posX : 1 = sideDistX : deltaDistX
+			sideDistX = (info->pos_x - mapX) * deltaDistX;		//mapX+1-pos_x : 1 = sideDistX : deltaDistX
 		}
 		else			//만약 레이가 -x 방향으로 향하고 있다면,
 		{
 			stepX = 1;	//mapX는 현재 위치보다 1 큰 값이 됨
-			sideDistX = (mapX + 1.0 - info->posX) * deltaDistX;	//posx-mapx : 1 = sideDistX : deltaDistX
+			sideDistX = (mapX + 1.0 - info->pos_x) * deltaDistX;	//pos_x-mapx : 1 = sideDistX : deltaDistX
 		}
 		if (rayDirY < 0)
 		{
 			stepY = -1;
-			sideDistY = (info->posY - mapY) * deltaDistY;
+			sideDistY = (info->pos_y - mapY) * deltaDistY;
 		}
 		else
 		{
 			stepY = 1;
-			sideDistY = (mapY + 1.0 - info->posY) * deltaDistY;
+			sideDistY = (mapY + 1.0 - info->pos_y) * deltaDistY;
 		}
 		while (hit == 0) //DDA 알고리즘 : 광선이 부딪힐 때까지 계속 광선을 한 칸씩 이동
 		{
@@ -337,9 +337,9 @@ void raycasting(t_info *info)
 				hit = 1; // 벽에 부딪혔다면 hit = 1
 		}
 		if (side == 0)	// 만약 x면에 부딪혔다면,
-			perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / rayDirX;
+			perpWallDist = (mapX - info->pos_x + (1 - stepX) / 2) / rayDirX;
 		else			// 만약 y면에 부딪혔다면,
-			perpWallDist = (mapY - info->posY + (1 - stepY) / 2) / rayDirY;
+			perpWallDist = (mapY - info->pos_y + (1 - stepY) / 2) / rayDirY;
 
 		//Calculate height of line to draw on screen
 		int lineHeight = (int)(HEIGHT / perpWallDist);
@@ -371,9 +371,9 @@ void raycasting(t_info *info)
 		}
 		double wallX; // wallX 계산: 벽에 부딪힌 위치 계산 (텍스처 매핑을 위해)
 		if (side == 0)										//만약 광선이 X면에 부딪혔다면
-			wallX = info->posY + perpWallDist * rayDirY;	//wallX는 광선이 시작된 Y 좌표와 광선의 Y 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
+			wallX = info->pos_y + perpWallDist * rayDirY;	//wallX는 광선이 시작된 Y 좌표와 광선의 Y 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
 		else												//Y면에 부딪혔다면
-			wallX = info->posX + perpWallDist * rayDirX;	//X 좌표와 광선의 X 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
+			wallX = info->pos_x + perpWallDist * rayDirX;	//X 좌표와 광선의 X 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
 		wallX -= floor(wallX);								//그 후, wallX에서 floor(wallX)를 뺌으로써 wallX를 [0,1) 범위 안에 있게 만듭니다. 이렇게 하면 텍스처의 어느 부분이 화면에 그려져야 하는지 결정할 수 있음
 
 		int texX = (int)(wallX * (double)TEXTURE_WIDTH);		// 텍스처의 x 좌표 계산 (wallX 값을 텍스처의 너비로 스케일링해서 얻음)
@@ -440,11 +440,11 @@ int game_loop(t_info *info)
 // 	for (int x = 0; x < WIDTH; x++)
 // 	{
 // 		double cameraX = 2 * x / (double)WIDTH - 1;
-// 		double rayDirX = info->dirX + info->planeX * cameraX;
-// 		double rayDirY = info->dirY + info->planeY * cameraX;
+// 		double rayDirX = info->dir_x + info->plane_x * cameraX;
+// 		double rayDirY = info->dir_y + info->plane_y * cameraX;
 
-// 		int mapX = (int)info->posX;								//레이의 위치 (여기선 일단 시작 지점 맵상의 x,y좌표)
-// 		int mapY = (int)info->posY;
+// 		int mapX = (int)info->pos_x;								//레이의 위치 (여기선 일단 시작 지점 맵상의 x,y좌표)
+// 		int mapY = (int)info->pos_y;
 
 // 		double sideDistX;										// 레이가 x, y면에 부딪히기까지의 거리
 // 		double sideDistY;
@@ -462,22 +462,22 @@ int game_loop(t_info *info)
 // 		if (rayDirX < 0) //만약 레이가 -x 방향으로 향하고 있다면,
 // 		{
 // 			stepX = -1;	//mapX는 현재 위치보다 1 작은 값이 됨
-// 			sideDistX = (info->posX - mapX) * deltaDistX;		//mapX+1-posX : 1 = sideDistX : deltaDistX
+// 			sideDistX = (info->pos_x - mapX) * deltaDistX;		//mapX+1-pos_x : 1 = sideDistX : deltaDistX
 // 		}
 // 		else			//만약 레이가 -x 방향으로 향하고 있다면,
 // 		{
 // 			stepX = 1;	//mapX는 현재 위치보다 1 큰 값이 됨
-// 			sideDistX = (mapX + 1.0 - info->posX) * deltaDistX;	//posx-mapx : 1 = sideDistX : deltaDistX
+// 			sideDistX = (mapX + 1.0 - info->pos_x) * deltaDistX;	//pos_x-mapx : 1 = sideDistX : deltaDistX
 // 		}
 // 		if (rayDirY < 0)
 // 		{
 // 			stepY = -1;
-// 			sideDistY = (info->posY - mapY) * deltaDistY;
+// 			sideDistY = (info->pos_y - mapY) * deltaDistY;
 // 		}
 // 		else
 // 		{
 // 			stepY = 1;
-// 			sideDistY = (mapY + 1.0 - info->posY) * deltaDistY;
+// 			sideDistY = (mapY + 1.0 - info->pos_y) * deltaDistY;
 // 		}
 // 		while (hit == 0) //DDA 알고리즘 : 광선이 부딪힐 때까지 계속 광선을 한 칸씩 이동
 // 		{
@@ -498,9 +498,9 @@ int game_loop(t_info *info)
 // 				hit = 1; // 벽에 부딪혔다면 hit = 1
 // 		}
 // 		if (side == 0)	// 만약 x면에 부딪혔다면,
-// 			perpWallDist = (mapX - info->posX + (1 - stepX) / 2) / rayDirX;
+// 			perpWallDist = (mapX - info->pos_x + (1 - stepX) / 2) / rayDirX;
 // 		else			// 만약 y면에 부딪혔다면,
-// 			perpWallDist = (mapY - info->posY + (1 - stepY) / 2) / rayDirY;
+// 			perpWallDist = (mapY - info->pos_y + (1 - stepY) / 2) / rayDirY;
 
 // 		//Calculate height of line to draw on screen
 // 		int lineHeight = (int)(HEIGHT / perpWallDist);
@@ -532,9 +532,9 @@ int game_loop(t_info *info)
 // 		}
 // 		double wallX; // wallX 계산: 벽에 부딪힌 위치 계산 (텍스처 매핑을 위해)
 // 		if (side == 0)										//만약 광선이 X면에 부딪혔다면
-// 			wallX = info->posY + perpWallDist * rayDirY;	//wallX는 광선이 시작된 Y 좌표와 광선의 Y 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
+// 			wallX = info->pos_y + perpWallDist * rayDirY;	//wallX는 광선이 시작된 Y 좌표와 광선의 Y 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
 // 		else												//Y면에 부딪혔다면
-// 			wallX = info->posX + perpWallDist * rayDirX;	//X 좌표와 광선의 X 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
+// 			wallX = info->pos_x + perpWallDist * rayDirX;	//X 좌표와 광선의 X 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
 // 		wallX -= floor(wallX);								//그 후, wallX에서 floor(wallX)를 뺌으로써 wallX를 [0,1) 범위 안에 있게 만듭니다. 이렇게 하면 텍스처의 어느 부분이 화면에 그려져야 하는지 결정할 수 있음
 
 // 		int texX = (int)(wallX * (double)TEXTURE_WIDTH);		// 텍스처의 x 좌표 계산 (wallX 값을 텍스처의 너비로 스케일링해서 얻음)
@@ -584,35 +584,35 @@ int handle_keys(int keycode, t_info *info)
     }
     if (keycode == K_W) // Move forward
     {
-        if (info->config.map[(int)(info->posX + info->dirX * info->moveSpeed)][(int)info->posY] == '0')
-			info->posX += info->dirX * info->moveSpeed;
-		if (info->config.map[(int)info->posX][(int)(info->posY + info->dirY * info->moveSpeed)] == '0')
-			info->posY += info->dirY * info->moveSpeed;
+        if (info->config.map[(int)(info->pos_x + info->dir_x * info->move_speed)][(int)info->pos_y] == '0')
+			info->pos_x += info->dir_x * info->move_speed;
+		if (info->config.map[(int)info->pos_x][(int)(info->pos_y + info->dir_y * info->move_speed)] == '0')
+			info->pos_y += info->dir_y * info->move_speed;
 	}
 	if (keycode == K_S) // Move backward
 	{
-		if (info->config.map[(int)(info->posX - info->dirX * info->moveSpeed)][(int)info->posY] == '0')
-			info->posX -= info->dirX * info->moveSpeed;
-		if (info->config.map[(int)info->posX][(int)(info->posY - info->dirY * info->moveSpeed)] == '0')
-			info->posY -= info->dirY * info->moveSpeed;
+		if (info->config.map[(int)(info->pos_x - info->dir_x * info->move_speed)][(int)info->pos_y] == '0')
+			info->pos_x -= info->dir_x * info->move_speed;
+		if (info->config.map[(int)info->pos_x][(int)(info->pos_y - info->dir_y * info->move_speed)] == '0')
+			info->pos_y -= info->dir_y * info->move_speed;
 	}
 	if (keycode == K_A) // Move left
 	{
-		double oldDirX = info->dirX;
-		info->dirX = info->dirX * cos(info->rotSpeed) - info->dirY * sin(info->rotSpeed);
-		info->dirY = oldDirX * sin(info->rotSpeed) + info->dirY * cos(info->rotSpeed);
-		double oldPlaneX = info->planeX;
-		info->planeX = info->planeX * cos(info->rotSpeed) - info->planeY * sin(info->rotSpeed);
-		info->planeY = oldPlaneX * sin(info->rotSpeed) + info->planeY * cos(info->rotSpeed);
+		double oldDirX = info->dir_x;
+		info->dir_x = info->dir_x * cos(info->rot_speed) - info->dir_y * sin(info->rot_speed);
+		info->dir_y = oldDirX * sin(info->rot_speed) + info->dir_y * cos(info->rot_speed);
+		double oldPlaneX = info->plane_x;
+		info->plane_x = info->plane_x * cos(info->rot_speed) - info->plane_y * sin(info->rot_speed);
+		info->plane_y = oldPlaneX * sin(info->rot_speed) + info->plane_y * cos(info->rot_speed);
 	}
 	if (keycode == K_D) // Move right
 	{
-		double oldDirX = info->dirX;
-		info->dirX = info->dirX * cos(-info->rotSpeed) - info->dirY * sin(-info->rotSpeed);
-		info->dirY = oldDirX * sin(-info->rotSpeed) + info->dirY * cos(-info->rotSpeed);
-		double oldPlaneX = info->planeX;
-		info->planeX = info->planeX * cos(-info->rotSpeed) - info->planeY * sin(-info->rotSpeed);
-		info->planeY = oldPlaneX * sin(-info->rotSpeed) + info->planeY * cos(-info->rotSpeed);
+		double oldDirX = info->dir_x;
+		info->dir_x = info->dir_x * cos(-info->rot_speed) - info->dir_y * sin(-info->rot_speed);
+		info->dir_y = oldDirX * sin(-info->rot_speed) + info->dir_y * cos(-info->rot_speed);
+		double oldPlaneX = info->plane_x;
+		info->plane_x = info->plane_x * cos(-info->rot_speed) - info->plane_y * sin(-info->rot_speed);
+		info->plane_y = oldPlaneX * sin(-info->rot_speed) + info->plane_y * cos(-info->rot_speed);
 	}
     return (0);
 }
