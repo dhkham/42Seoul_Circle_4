@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:23:55 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/09 20:25:06 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/09 21:37:13 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	check_leaks(void)
 
 void	free_config(t_config *config)
 {
+	int	i;
+
 	if (config->north_texture)
 		free(config->north_texture);
 	if (config->south_texture)
@@ -30,9 +32,11 @@ void	free_config(t_config *config)
 		free(config->east_texture);
 	if (config->map)
 	{
-		for (int i = 0; i < config->map_height; i++)
+		i = 0;
+		while (i < config->map_height)
 		{
 			free(config->map[i]);
+			i++;
 		}
 		free(config->map);
 	}
@@ -108,25 +112,19 @@ void set_direction_and_plane(t_info *info, t_config *config, int i, int j)
 
 void set_start_position_and_direction(t_info *info, t_config *config)
 {
-    int i, j;
+    int	i;
+	int	j;
+	
     find_start_position(info, config, &i, &j);
     set_direction_and_plane(info, config, i, j);
 	info->move_speed = 0.1;
     info->rot_speed = 0.1;
 }
 
-void initialize_basic_fields(t_info *info, t_config *config)
+void initialize_info(t_info *info)
 {
     info->mlx = NULL;
     info->win = NULL;
-    info->img.img = NULL;
-    info->img.data = NULL;
-    info->img.size_l = 0;
-    info->img.bpp = 0;
-    info->img.endian = 0;
-    info->img.img_width = 0;
-    info->img.img_height = 0;
-	info->config = *config;
 	info->camera_x = 0;
 	info->raydir_x = 0;
 	info->raydir_y = 0;
@@ -141,6 +139,27 @@ void initialize_basic_fields(t_info *info, t_config *config)
 	info->step_y = 0;
 	info->hit = 0;
 	info->side = 0;
+	info->wallX = 0;
+	info->texNum = 0;
+	info->lineHeight = 0;
+	info->drawStart = 0;
+	info->drawEnd = 0;
+	info->texX = 0;
+	info->texY = 0;
+	info->step = 0;
+	info->texPos = 0;
+}
+
+void initialize_info_img(t_info *info, t_config *config)
+{
+	info->img.img = NULL;
+    info->img.data = NULL;
+    info->img.size_l = 0;
+    info->img.bpp = 0;
+    info->img.endian = 0;
+    info->img.img_width = 0;
+    info->img.img_height = 0;
+	info->config = *config;
 }
 
 void initialize_buffer(t_info *info)
@@ -161,18 +180,33 @@ void initialize_buffer(t_info *info)
     }
 }
 
-void initialize_texture(t_info *info)
+void free_resources(t_info *info)
 {
-    int x;
-	int y;
 	int i;
+	
+	i = 0;
+	while (i < 4)
+	{
+		free(info->texture[i]);
+		i++;
+	}
+	free(info->texture);
+	if (info->img.img)
+		mlx_destroy_image(info->mlx, info->img.img);
+	if (info->win)
+		mlx_destroy_window(info->mlx, info->win);
+}
+
+void allocate_texture_memory(t_info *info, t_config *config)
+{
+    int i;
 
     if (!(info->texture = (int **)malloc(sizeof(int *) * 4)))
     {
         perror("Error allocating memory for texture");
-		// free_resources(info); // 확인
- 		// free_config(config);
-        exit(1);  // You might want to replace this with proper error handling
+		free_resources(info);
+ 		free_config(config);
+        exit(1);  // Consider more graceful error handling
     }
     i = 0;
     while (i < 4)    // Memory allocation for each row of the texture
@@ -180,14 +214,22 @@ void initialize_texture(t_info *info)
         if (!(info->texture[i] = (int *)malloc(sizeof(int) * (TEXTURE_WIDTH * TEXTURE_HEIGHT))))
         {
             perror("Error allocating memory for texture row");
-			// free_resources(info);
-			// free_config(config);
-            exit(1);  // You might want to replace this with proper error handling
+			free_resources(info);
+			free_config(config);
+            exit(1);  // Consider more graceful error handling
         }
         i++;
     }
+}
+
+void initialize_texture_values(t_info *info)
+{
+    int x;
+	int y;
+	int i;
+
     i = 0;
-    while (i < 4)    // Initialize the texture
+    while (i < 4)
     {
         y = 0;
         while (y < TEXTURE_HEIGHT)
@@ -204,42 +246,37 @@ void initialize_texture(t_info *info)
     }
 }
 
+void initialize_texture(t_info *info, t_config *config)
+{
+    allocate_texture_memory(info, config);
+    initialize_texture_values(info);
+}
 
 void initialize_s_info(t_info *info, t_config *config)
 {
 	set_start_position_and_direction(info, config);
-	initialize_basic_fields(info, config);
+	initialize_info(info);
+	initialize_info_img(info, config);
 	initialize_buffer(info);
-	initialize_texture(info);
-}
-
-void free_resources(t_info *info)
-{
-	for (int i = 0; i < 4; i++)
-	{
-		free(info->texture[i]);
-	}
-	free(info->texture);
-	if (info->img.img)
-		mlx_destroy_image(info->mlx, info->img.img);
-	if (info->win)
-		mlx_destroy_window(info->mlx, info->win);
+	initialize_texture(info, config);
 }
 
 int load_image(t_info *info, int *texture, char *path, t_img *img)
 {
+	int	x;
+	int	y;
+
     img->img = mlx_xpm_file_to_image(info->mlx, path, &img->img_width, &img->img_height);
-	if (!img->img)  // Check if image loading was successful
+	if (!img->img)
     {
         perror("Error loading texture");
-        return (0); // Return 0 to indicate failure
+        return (0);
     }
     img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
-
-	int y = 0;
+	y = 0;
 	while (y < img->img_height)
 	{
-		int x = 0;
+		x = 0;
 		while (x < img->img_width)
 		{
 			texture[img->img_width * y + x] = img->data[img->img_width * y + x];
@@ -253,7 +290,7 @@ int load_image(t_info *info, int *texture, char *path, t_img *img)
 
 int load_texture_from_config(t_info *info, t_config *config)
 {
-    t_img img;
+    t_img	img;
 
     if (!load_image(info, info->texture[0], config->north_texture, &img))
 		return (0);
@@ -274,8 +311,8 @@ int rgb_to_int(int r, int g, int b)
 
 void paint_floor_and_ceiling(t_info *info)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < HEIGHT)
@@ -349,94 +386,103 @@ void perform_DDA(t_info *info)
 	}
 }
 
-void calc_variables_for_drawing(t_info *info, int *lineHeight, int *drawStart, int *drawEnd)
+void calc_variables_for_drawing(t_info *info)///, int *lineHeight, int *drawStart, int *drawEnd)
 {
 	if (info->side == 0)
 		info->perpwalldist = (info->map_x - info->pos_x + (1 - info->step_x) / 2) / info->raydir_x;
 	else
 		info->perpwalldist = (info->map_y - info->pos_y + (1 - info->step_y) / 2) / info->raydir_y;
-
-	*lineHeight = (int)(HEIGHT / info->perpwalldist); // use dereference
-	*drawStart = -*lineHeight / 2 + HEIGHT / 2;  // use dereference
-	if (*drawStart < 0)  // use dereference
-		*drawStart = 0; // use dereference
-	*drawEnd = *lineHeight / 2 + HEIGHT / 2;  // use dereference
-	if (*drawEnd >= HEIGHT) // use dereference
-		*drawEnd = HEIGHT - 1;  // use dereference
+	info->lineHeight = (int)(HEIGHT / info->perpwalldist); // use dereference
+	info->drawStart = -info->lineHeight / 2 + HEIGHT / 2;  // use dereference
+	if (info->drawStart < 0)  // use dereference
+		info->drawStart = 0; // use dereference
+	info->drawEnd = info->lineHeight / 2 + HEIGHT / 2;  // use dereference
+	if (info->drawEnd >= HEIGHT) // use dereference
+		info->drawEnd = HEIGHT - 1;  // use dereference
 }
 
-void determine_texNum_and_wallX(t_info *info, double *wallX, int *texNum)
+void determine_texNum_and_wallX(t_info *info)//, double *wallX, int *texNum)
 {
 	if (info->side == 0)
 		{
 			if (info->raydir_x > 0)
-				*texNum = 1;	// S
+				info->texNum = 1;	// S
 			else
-				*texNum = 0; // N
+				info->texNum = 0; // N
 		}
 		else
 		{
 			if (info->raydir_y > 0)
-				*texNum = 3;	// E
+				info->texNum = 3;	// E
 			else
-				*texNum = 2; // W
+				info->texNum = 2; // W
 		}
 		if (info->side == 0)										//만약 광선이 X면에 부딪혔다면
-			*wallX = info->pos_y + info->perpwalldist * info->raydir_y;	//wallX는 광선이 시작된 Y 좌표와 광선의 Y 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
+			info->wallX = info->pos_y + info->perpwalldist * info->raydir_y;	//wallX는 광선이 시작된 Y 좌표와 광선의 Y 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
 		else												//Y면에 부딪혔다면
-			*wallX = info->pos_x + info->perpwalldist * info->raydir_x;	//X 좌표와 광선의 X 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
-		*wallX -= floor(*wallX);								//그 후, wallX에서 floor(wallX)를 뺌으로써 wallX를 [0,1) 범위 안에 있게 만듭니다. 이렇게 하면 텍스처의 어느 부분이 화면에 그려져야 하는지 결정할 수 있음
+			info->wallX = info->pos_x + info->perpwalldist * info->raydir_x;	//X 좌표와 광선의 X 방향에 벽까지의 직교 거리를 곱한 값을 더해서 계산
+		info->wallX -= floor(info->wallX);								//그 후, wallX에서 floor(wallX)를 뺌으로써 wallX를 [0,1) 범위 안에 있게 만듭니다. 이렇게 하면 텍스처의 어느 부분이 화면에 그려져야 하는지 결정할 수 있음
+}
+
+void draw_texture_column(t_info *info, int x)
+{
+	info->texX = (int)(info->wallX * (double)TEXTURE_WIDTH);
+	if ((info->side == 0 && info->raydir_x > 0) || (info->side == 1 && info->raydir_y < 0))
+		info->texX = TEXTURE_WIDTH - info->texX - 1;
+	
+	info->step = 1.0 * TEXTURE_HEIGHT / info->lineHeight;
+	info->texPos = (info->drawStart - HEIGHT / 2 + info->lineHeight / 2) * info->step;
+
+	int y = info->drawStart;
+	while (y < info->drawEnd)
+	{
+		info->texY = (int)info->texPos & (TEXTURE_HEIGHT - 1);
+		info->texPos += info->step;
+		int color = info->texture[info->texNum][TEXTURE_HEIGHT * info->texY + info->texX];
+
+		if (info->side == 1)
+			color = (color >> 1) & 8355711;
+		
+		info->buf[y][x] = color;
+		y++;
+	}
 }
 
 void raycasting(t_info *info)
 {
-	double	wallX; // wallX 계산: 벽에 부딪힌 위치 계산 (텍스처 매핑을 위해)
-	int		texNum;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-
+	int	x;
+	
 	paint_floor_and_ceiling(info);
-	for (int x = 0; x < WIDTH; x++)
+	x = 0;
+	while (x < WIDTH)
 	{
 		init_ray_map_deltaDist(info, x);
 		init_step_and_sideDist(info);
 		perform_DDA(info);
-		calc_variables_for_drawing(info, &lineHeight, &drawStart, &drawEnd);
-		determine_texNum_and_wallX(info, &wallX, &texNum);
-		int texX = (int)(wallX * (double)TEXTURE_WIDTH);		// 텍스처의 x 좌표 계산 (wallX 값을 텍스처의 너비로 스케일링해서 얻음)
-		if ((info->side == 0 && info->raydir_x > 0) || (info->side == 1 && info->raydir_y < 0)) //광선 방향에 따라서 텍스처를 뒤집을 필요 확인. 이유는 벽의 다른 쪽면에 있는 텍스처가 화면에 반대로 나타나지 않게 하기 위함
-			texX = TEXTURE_WIDTH - texX - 1;
-		double step = 1.0 * TEXTURE_HEIGHT / lineHeight; //step은 화면의 각 픽셀에 대해서 텍스처의 어떤 Y 좌표를 사용해야 하는지 결정하는 값의 증가량. 벽의 높이와 텍스처의 높이의 비율을 사용해 계산
-		double texPos = (drawStart - HEIGHT / 2 + lineHeight / 2) * step;	//texPos는 텍스처에서의 시작 Y 좌표를 나타냅니다.
-		for (int y = drawStart; y < drawEnd; y++)
-		{
-			int texY = (int)texPos & (TEXTURE_HEIGHT - 1);	//texY는 사용될 텍스처의 Y 좌표
-			texPos += step;									//step을 더해서 다음 픽셀의 텍스처 Y 좌표를 계산
-
-			int color = info->texture[texNum][TEXTURE_HEIGHT * texY + texX]; //텍스처에서 해당 좌표의 색상 값을 가져
-
-			if (info->side == 1)
-				color = (color >> 1) & 8355711;  // 만약 광선이 Y면에 부딪혔다면, 색상 값을 약간 어둡게 (시각효과, 필요한지 모르겠음)
-
-			info->buf[y][x] = color;	//그 후, 해당 화면의 X, Y 좌표에 해당하는 버퍼에 색상 값을 저장
-		}
+		calc_variables_for_drawing(info);
+		determine_texNum_and_wallX(info);
+		draw_texture_column(info, x);
+		x++;
 	}
 }
 
 void drawing(t_info *info)
 {
-	for (int y = 0; y < HEIGHT; y++) // row (height) 훑기
+	int	x;
+	int	y;
+	
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
 		{
-			for (int x = 0; x < WIDTH; x++)	// column (width) 훑기
-			{
-				// 화면의 2D 포인트 (x,y)를 'data' 배열의 1D 포인트로 매핑
-				// 5x5 크기의 2D 배열의 경우, 첫 번째 행(즉, y=0)은 1D 인덱스 0부터 4까지 매핑. 두 번째 행(y=1)은 1D 인덱스 5부터 9까지 매핑
-				// y * width로 계산된 시작 인덱스에 x를 더하면, 우리는 그 행에서 정확한 열의 원소의 1D 인덱스에 도달. 예: 5x5 배열에서 y=2, x=3의 2D 좌표는 2 * 5 + 3 = 13으로 1D 인덱스 13에 매핑
-				info->img.data[y * WIDTH + x] = info->buf[y][x];
-			}
+			info->img.data[y * WIDTH + x] = info->buf[y][x];	
+			x++;
 		}
-		mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0); // 이미지를 윈도우에 표시
+		y++;
+	}
+	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0); // Display the image on the window
 }
 
 int game_loop(t_info *info)
@@ -446,47 +492,62 @@ int game_loop(t_info *info)
 	return (0);
 }
 
+void exit_game(t_info *info)
+{
+	free_config(&info->config);
+	free_resources(info);
+	exit(0);
+}
+
+void move_forward(t_info *info)
+{
+	if (info->config.map[(int)(info->pos_x + info->dir_x * info->move_speed)][(int)info->pos_y] == '0')
+		info->pos_x += info->dir_x * info->move_speed;
+	if (info->config.map[(int)info->pos_x][(int)(info->pos_y + info->dir_y * info->move_speed)] == '0')
+		info->pos_y += info->dir_y * info->move_speed;
+}
+
+void move_backward(t_info *info)
+{
+	if (info->config.map[(int)(info->pos_x - info->dir_x * info->move_speed)][(int)info->pos_y] == '0')
+		info->pos_x -= info->dir_x * info->move_speed;
+	if (info->config.map[(int)info->pos_x][(int)(info->pos_y - info->dir_y * info->move_speed)] == '0')
+		info->pos_y -= info->dir_y * info->move_speed;
+}
+
+void rotate_left(t_info *info)
+{
+	double oldDirX = info->dir_x;
+	info->dir_x = info->dir_x * cos(info->rot_speed) - info->dir_y * sin(info->rot_speed);
+	info->dir_y = oldDirX * sin(info->rot_speed) + info->dir_y * cos(info->rot_speed);
+	double oldPlaneX = info->plane_x;
+	info->plane_x = info->plane_x * cos(info->rot_speed) - info->plane_y * sin(info->rot_speed);
+	info->plane_y = oldPlaneX * sin(info->rot_speed) + info->plane_y * cos(info->rot_speed);
+}
+
+void rotate_right(t_info *info)
+{
+	double oldDirX = info->dir_x;
+	info->dir_x = info->dir_x * cos(-info->rot_speed) - info->dir_y * sin(-info->rot_speed);
+	info->dir_y = oldDirX * sin(-info->rot_speed) + info->dir_y * cos(-info->rot_speed);
+	double oldPlaneX = info->plane_x;
+	info->plane_x = info->plane_x * cos(-info->rot_speed) - info->plane_y * sin(-info->rot_speed);
+	info->plane_y = oldPlaneX * sin(-info->rot_speed) + info->plane_y * cos(-info->rot_speed);
+}
+
 int handle_keys(int keycode, t_info *info)
 {
-    if (keycode == K_ESC) // Assuming you have defined KEY_ESC for the escape key
-    {
-		free_config(&info->config);
-        free_resources(info);
-        exit(0);
-    }
-    if (keycode == K_W) // Move forward
-    {
-        if (info->config.map[(int)(info->pos_x + info->dir_x * info->move_speed)][(int)info->pos_y] == '0')
-			info->pos_x += info->dir_x * info->move_speed;
-		if (info->config.map[(int)info->pos_x][(int)(info->pos_y + info->dir_y * info->move_speed)] == '0')
-			info->pos_y += info->dir_y * info->move_speed;
-	}
-	if (keycode == K_S) // Move backward
-	{
-		if (info->config.map[(int)(info->pos_x - info->dir_x * info->move_speed)][(int)info->pos_y] == '0')
-			info->pos_x -= info->dir_x * info->move_speed;
-		if (info->config.map[(int)info->pos_x][(int)(info->pos_y - info->dir_y * info->move_speed)] == '0')
-			info->pos_y -= info->dir_y * info->move_speed;
-	}
-	if (keycode == K_A) // Move left
-	{
-		double oldDirX = info->dir_x;
-		info->dir_x = info->dir_x * cos(info->rot_speed) - info->dir_y * sin(info->rot_speed);
-		info->dir_y = oldDirX * sin(info->rot_speed) + info->dir_y * cos(info->rot_speed);
-		double oldPlaneX = info->plane_x;
-		info->plane_x = info->plane_x * cos(info->rot_speed) - info->plane_y * sin(info->rot_speed);
-		info->plane_y = oldPlaneX * sin(info->rot_speed) + info->plane_y * cos(info->rot_speed);
-	}
-	if (keycode == K_D) // Move right
-	{
-		double oldDirX = info->dir_x;
-		info->dir_x = info->dir_x * cos(-info->rot_speed) - info->dir_y * sin(-info->rot_speed);
-		info->dir_y = oldDirX * sin(-info->rot_speed) + info->dir_y * cos(-info->rot_speed);
-		double oldPlaneX = info->plane_x;
-		info->plane_x = info->plane_x * cos(-info->rot_speed) - info->plane_y * sin(-info->rot_speed);
-		info->plane_y = oldPlaneX * sin(-info->rot_speed) + info->plane_y * cos(-info->rot_speed);
-	}
-    return (0);
+	if (keycode == K_ESC)
+		exit_game(info);
+	if (keycode == K_W)
+		move_forward(info);
+	if (keycode == K_S)
+		move_backward(info);
+	if (keycode == K_A)
+		rotate_left(info);
+	if (keycode == K_D)
+		rotate_right(info);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -505,47 +566,30 @@ int	main(int argc, char **argv)
 		free(s_config);
 		return (1);
 	}
-	initialize_s_info(&s_info, s_config); // 구조체 초기화 (게임 정보)
-	s_info.mlx = mlx_init();	//mlx_init: void * 타입의 포인터 연결 식별자로 반환
+	initialize_s_info(&s_info, s_config);
+	s_info.mlx = mlx_init();
 	if (!load_texture_from_config(&s_info, s_config))
 	{
 		perror("Error: Failed to load textures");
-		// Cleanup and free resources.
-		// Assuming you have a function named free_resources or similar.
 		free_resources(&s_info);
 		free_config(s_config);
 		free(s_config);
 		exit (1);
 	}
-
-	// Assuming the window size is defined by the constants width and height.
 	s_info.win = mlx_new_window(s_info.mlx, WIDTH, HEIGHT, "cub3D");
 	if (!s_info.win)
 	{
 		perror("Error: Failed to create window");
-		// Cleanup and free resources.
 		free_resources(&s_info);
 		free_config(s_config);
 		free(s_config);
 		exit (1);
 	}
-
 	s_info.img.img = mlx_new_image(s_info.mlx, WIDTH, HEIGHT); // 이미지 식별자 생성
-
 	s_info.img.data = (int *)mlx_get_data_addr(s_info.img.img, &s_info.img.bpp, &s_info.img.size_l, &s_info.img.endian);
-
 	mlx_loop_hook(s_info.mlx, &game_loop, &s_info); 	//메인 루프에서 반복적으로 호출되는 함수 설정
-
-    // Set key input function
-	//mlx_key_hook(s_info.win, handle_keys, &s_info);
 	mlx_hook(s_info.win, X_EVENT_KEY_PRESS, 0, &handle_keys, &s_info);
-
-	//Start the event loop. This will keep your game running.
 	mlx_loop(s_info.mlx);
-
-	// // If your program somehow gets here, cleanup and end.
-	// // However, usually mlx_loop only ends when the program closes.
-
 	free_config(s_config);
 	free_resources(&s_info);
 	free(s_config);

@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:25:38 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/09 20:25:39 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/09 21:13:18 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,15 @@ typedef struct s_info
 	int 		step_y;
 	int 		hit;
 	int 		side;
+	double		wallX;
+	int			texNum;
+	int			lineHeight;
+	int			drawStart;
+	int			drawEnd;
+	int			texX;
+	int			texY;
+	double		step;
+	double		texPos;
 }	t_info;
 
 int			check_args(int args, char **argv);
