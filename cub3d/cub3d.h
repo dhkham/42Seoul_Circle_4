@@ -6,17 +6,17 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:25:38 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/09 21:13:18 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/10 13:40:04 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIDTH 640
-# define HEIGHT 480
-# define TEXTURE_WIDTH  64
-# define TEXTURE_HEIGHT 64
+# define WID 640
+# define HEI 480
+# define TEX_WID  64
+# define TEX_HEI 64
 # define X_EVENT_KEY_PRESS 2
 
 # include <stdio.h>
@@ -35,7 +35,7 @@ typedef struct s_config
 	char	*west_texture;
 	char	*east_texture;
 	int		floor_color[3];
-	int		ceiling_color[3];
+	int		ceil_color[3];
 	char	**map;
 	int		map_width;
 	int		map_height;
@@ -66,7 +66,7 @@ typedef struct s_info
 	void		*win;
 	t_img		img;
 	t_config	config;
-	int			buf[HEIGHT][WIDTH];
+	int			buf[HEI][WID];
 	int			**texture;
 	double		move_speed;
 	double		rot_speed;
@@ -86,7 +86,7 @@ typedef struct s_info
 	int 		side;
 	double		wallX;
 	int			texNum;
-	int			lineHeight;
+	int			lineHEI;
 	int			drawStart;
 	int			drawEnd;
 	int			texX;

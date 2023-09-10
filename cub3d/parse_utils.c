@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:10:10 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/09 16:41:32 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/10 13:41:58 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_config	*init_config(int fd)
 	}
 	ft_memset(config, 0, sizeof(t_config));
 	config->floor_color[0] = -1;
-	config->ceiling_color[0] = -1;
+	config->ceil_color[0] = -1;
 	return (config);
 }
 

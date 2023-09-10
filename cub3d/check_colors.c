@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:24:07 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 20:11:31 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/10 13:22:41 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static void	set_colors(int *colors, t_config *config, char *color)
 	}
 	else if (ft_strncmp("C", color, 2) == 0)
 	{
-		if (config->ceiling_color[0] != -1)
+		if (config->ceil_color[0] != -1)
 		{
 			config->error = 1;
 			return ;
 		}
-		ft_memcpy(config->ceiling_color, colors, sizeof(int) * 3);
+		ft_memcpy(config->ceil_color, colors, sizeof(int) * 3);
 	}
 	else
 		return ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:10:02 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/09 20:15:30 by chanwoki         ###   ########.fr       */
+/*   Updated: 2023/09/10 13:22:41 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_config(t_config *config)
 		return (0);
 	else if (config->floor_color[0] == -1)
 		return (0);
-	else if (config->ceiling_color[0] == -1)
+	else if (config->ceil_color[0] == -1)
 		return (0);
 	else
 		return (1);
