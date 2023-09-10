@@ -6,11 +6,11 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:08:21 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/10 13:42:22 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/10 14:27:42 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	**init_maps(t_config *config)
 {

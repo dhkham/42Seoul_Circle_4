@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:25:38 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/10 13:40:04 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/10 15:03:44 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,28 +71,28 @@ typedef struct s_info
 	double		move_speed;
 	double		rot_speed;
 	double		camera_x;
-	double 		raydir_x;
-	double 		raydir_y;
-	double 		sidedist_x;									// 레이가 x, y면에 부딪히기까지의 거리
-	double 		sidedist_y;
-	int 		map_x;
-	int 		map_y;
-	double 		deltadist_x;
-	double 		deltadist_y;
-	double 		perpwalldist;									//플레이어 위치부터 레이가 벽과 충돌한 지점까지의 직교 거리
-	int 		step_x;												//x, y 방향으로 얼마나 가야하는지 (만약 info->rayDirX/Y가 음수면 -1, 아니면 1) : info->map_x/Y를 업데이트 위해 사용
-	int 		step_y;
-	int 		hit;
-	int 		side;
-	double		wallX;
-	int			texNum;
-	int			lineHEI;
-	int			drawStart;
-	int			drawEnd;
-	int			texX;
-	int			texY;
+	double		raydir_x;
+	double		raydir_y;
+	double		sidedist_x;
+	double		sidedist_y;
+	int			map_x;
+	int			map_y;
+	double		deltadist_x;
+	double		deltadist_y;
+	double		perpwalldist;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	double		wall_x;
+	int			tex_num;
+	int			line_hei;
+	int			draw_start;
+	int			draw_end;
+	int			tex_x;
+	int			tex_y;
 	double		step;
-	double		texPos;
+	double		tex_pos;
 }	t_info;
 
 int			check_args(int args, char **argv);
@@ -110,7 +110,33 @@ void		check_colors(int *colors, t_config *config, char *color);
 int			check_color_info(char **color_info, t_config *config);
 int			check_maps(t_config *config, int idx, char **content);
 void		duplicate_map(t_config *config, int idx, char **content);
+int			validate_arguments(int argc, char **argv, t_config **s_config);
+
 int			color_error(int flag, int len, char **color_info, t_config *config);
 int			check_comma(char *line, char **color_info, t_config *config);
+
+void		initialize_info(t_info *info);
+void		initialize_info_img(t_info *info, t_config *config);
+void		initialize_buffer(t_info *info);
+void		allocate_texture_memory(t_info *info, t_config *config);
+void		initialize_texture_values(t_info *info);
+void		free_config(t_config *config);
+void		free_resources(t_info *info);
+void		move_forward(t_info *info);
+void		move_backward(t_info *info);
+void		rotate_left(t_info *info);
+void		rotate_right(t_info *info);
+int			handle_keys(int keycode, t_info *info);
+void		exit_game(t_info *info);
+void	free_resources(t_info *info);
+void	free_config(t_config *config);
+
+
+
+
+
+
+
+
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:30:27 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/10 13:40:18 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/10 14:27:40 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	check_comma(char *line, char **color_info, t_config *config)
 {

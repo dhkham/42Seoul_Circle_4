@@ -6,41 +6,14 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:23:55 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/10 13:40:43 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/10 15:03:07 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// 텍스처 바꾸기???
+
 #include "cub3d.h"
 #include "key_macos.h"
-
-void	check_leaks(void)
-{
-	system("leaks cub3D");
-}
-
-void	free_config(t_config *config)
-{
-	int	i;
-
-	if (config->north_texture)
-		free(config->north_texture);
-	if (config->south_texture)
-		free(config->south_texture);
-	if (config->west_texture)
-		free(config->west_texture);
-	if (config->east_texture)
-		free(config->east_texture);
-	if (config->map)
-	{
-		i = 0;
-		while (i < config->map_height)
-		{
-			free(config->map[i]);
-			i++;
-		}
-		free(config->map);
-	}
-}
 
 void	find_start_position(t_info *info, t_config *config, int *i, int *j)
 {
@@ -122,131 +95,7 @@ void	set_start_position_and_direction(t_info *info, t_config *config)
 	info->rot_speed = 0.1;
 }
 
-void	initialize_info(t_info *info)
-{
-	info->mlx = NULL;
-	info->win = NULL;
-	info->camera_x = 0;
-	info->raydir_x = 0;
-	info->raydir_y = 0;
-	info->sidedist_x = 0;
-	info->sidedist_y = 0;
-	info->map_x = 0;
-	info->map_y = 0;
-	info->deltadist_x = 0;
-	info->deltadist_y = 0;
-	info->perpwalldist = 0;
-	info->step_x = 0;
-	info->step_y = 0;
-	info->hit = 0;
-	info->side = 0;
-	info->wallX = 0;
-	info->texNum = 0;
-	info->lineHEI = 0;
-	info->drawStart = 0;
-	info->drawEnd = 0;
-	info->texX = 0;
-	info->texY = 0;
-	info->step = 0;
-	info->texPos = 0;
-}
 
-void	initialize_info_img(t_info *info, t_config *config)
-{
-	info->img.img = NULL;
-	info->img.data = NULL;
-	info->img.size_l = 0;
-	info->img.bpp = 0;
-	info->img.endian = 0;
-	info->img.img_width = 0;
-	info->img.img_height = 0;
-	info->config = *config;
-}
-
-void	initialize_buffer(t_info *info)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < HEI)
-	{
-		x = 0;
-		while (x < WID)
-		{
-			info->buf[y][x] = 0;
-			x++;
-		}
-		y++;
-	}
-}
-
-void	free_resources(t_info *info)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		free(info->texture[i]);
-		i++;
-	}
-	free(info->texture);
-	if (info->img.img)
-		mlx_destroy_image(info->mlx, info->img.img);
-	if (info->win)
-		mlx_destroy_window(info->mlx, info->win);
-}
-
-void	allocate_texture_memory(t_info *info, t_config *config)
-{
-	int	i;
-
-	if (!(info->texture = (int **)malloc(sizeof(int *) * 4)))
-	{
-		perror("Error allocating memory for texture");
-		free_resources(info);
-		free_config(config);
-		exit(1);
-	}
-	i = 0;
-	while (i < 4)
-	{
-		if (!(info->texture[i] = (int *)malloc(sizeof(int) * \
-		(TEX_WID * TEX_HEI))))
-		{
-			perror("Error allocating memory for texture row");
-			free_resources(info);
-			free_config(config);
-			exit(1);
-		}
-		i++;
-	}
-}
-
-void	initialize_texture_values(t_info *info)
-{
-	int	x;
-	int	y;
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		y = 0;
-		while (y < TEX_HEI)
-		{
-			x = 0;
-			while (x < TEX_WID)
-			{
-				info->texture[i][TEX_WID * y + x] = 0;
-				x++;
-			}
-			y++;
-		}
-		i++;
-	}
-}
 
 void	initialize_texture(t_info *info, t_config *config)
 {
@@ -400,36 +249,36 @@ void	calc_variables_for_drawing(t_info *info)
 	else
 		info->perpwalldist = (info->map_y - info->pos_y + \
 		(1 - info->step_y) / 2) / info->raydir_y;
-	info->lineHEI = (int)(HEI / info->perpwalldist);
-	info->drawStart = -info->lineHEI / 2 + HEI / 2;
-	if (info->drawStart < 0)
-		info->drawStart = 0;
-	info->drawEnd = info->lineHEI / 2 + HEI / 2;
-	if (info->drawEnd >= HEI)
-		info->drawEnd = HEI - 1;
+	info->line_hei = (int)(HEI / info->perpwalldist);
+	info->draw_start = -info->line_hei / 2 + HEI / 2;
+	if (info->draw_start < 0)
+		info->draw_start = 0;
+	info->draw_end = info->line_hei / 2 + HEI / 2;
+	if (info->draw_end >= HEI)
+		info->draw_end = HEI - 1;
 }
 
-void	determine_texNum_and_wallX(t_info *info)
+void	determine_tex_num_and_wall_x(t_info *info)
 {
 	if (info->side == 0)
 	{
 		if (info->raydir_x > 0)
-			info->texNum = 1;
+			info->tex_num = 1;
 		else
-			info->texNum = 0;
+			info->tex_num = 0;
 	}
 	else
 	{
 		if (info->raydir_y > 0)
-			info->texNum = 3;
+			info->tex_num = 3;
 		else
-			info->texNum = 2;
+			info->tex_num = 2;
 	}
 	if (info->side == 0)
-		info->wallX = info->pos_y + info->perpwalldist * info->raydir_y;
+		info->wall_x = info->pos_y + info->perpwalldist * info->raydir_y;
 	else
-		info->wallX = info->pos_x + info->perpwalldist * info->raydir_x;
-		info->wallX -= floor(info->wallX);
+		info->wall_x = info->pos_x + info->perpwalldist * info->raydir_x;
+		info->wall_x -= floor(info->wall_x);
 }
 
 void	draw_texture_column(t_info *info, int x)
@@ -437,18 +286,20 @@ void	draw_texture_column(t_info *info, int x)
 	int	y;
 	int	color;
 
-	info->texX = (int)(info->wallX * (double)TEX_WID);
+	info->tex_x = (int)(info->wall_x * (double)TEX_WID);
 	if ((info->side == 0 && info->raydir_x > 0) || \
 	(info->side == 1 && info->raydir_y < 0))
-		info->texX = TEX_WID - info->texX - 1;
-	info->step = 1.0 * TEX_HEI / info->lineHEI;
-	info->texPos = (info->drawStart - HEI / 2 + info->lineHEI / 2) * info->step;
-	y = info->drawStart;
-	while (y < info->drawEnd)
+		info->tex_x = TEX_WID - info->tex_x - 1;
+	info->step = 1.0 * TEX_HEI / info->line_hei;
+	info->tex_pos = (info->draw_start - HEI / 2 + info->line_hei / 2) \
+	* info->step;
+	y = info->draw_start;
+	while (y < info->draw_end)
 	{
-		info->texY = (int)info->texPos & (TEX_HEI - 1);
-		info->texPos += info->step;
-		color = info->texture[info->texNum][TEX_HEI * info->texY + info->texX];
+		info->tex_y = (int)info->tex_pos & (TEX_HEI - 1);
+		info->tex_pos += info->step;
+		color = info->texture[info->tex_num][TEX_HEI * info->tex_y + \
+		info->tex_x];
 		if (info->side == 1)
 			color = (color >> 1) & 8355711;
 		info->buf[y][x] = color;
@@ -468,7 +319,7 @@ void	raycasting(t_info *info)
 		init_step_and_sideDist(info);
 		perform_DDA(info);
 		calc_variables_for_drawing(info);
-		determine_texNum_and_wallX(info);
+		determine_tex_num_and_wall_x(info);
 		draw_texture_column(info, x);
 		x++;
 	}
@@ -507,73 +358,37 @@ void	exit_game(t_info *info)
 	exit(0);
 }
 
-void	move_forward(t_info *info)
+int	initialize_window(t_info *s_info, t_config *s_config)
 {
-	if (info->config.map[(int)(info->pos_x + info->dir_x * info->move_speed)] \
-	[(int)info->pos_y] == '0')
-		info->pos_x += info->dir_x * info->move_speed;
-	if (info->config.map[(int)info->pos_x][(int)(info->pos_y + info->dir_y * \
-	info->move_speed)] == '0')
-		info->pos_y += info->dir_y * info->move_speed;
+	s_info->mlx = mlx_init();
+	if (!load_texture_from_config(s_info, s_config))
+	{
+		perror("Error: Failed to load textures");
+		free_resources(s_info);
+		free_config(s_config);
+		free(s_config);
+		return (0);
+	}
+	s_info->win = mlx_new_window(s_info->mlx, WID, HEI, "cub3D");
+	if (!s_info->win)
+	{
+		perror("Error: Failed to create window");
+		free_resources(s_info);
+		free_config(s_config);
+		free(s_config);
+		return (0);
+	}
+	s_info->img.img = mlx_new_image(s_info->mlx, WID, HEI);
+	s_info->img.data = (int *)mlx_get_data_addr(s_info->img.img, \
+	&s_info->img.bpp, &s_info->img.size_l, &s_info->img.endian);
+	return (1);
 }
 
-void	move_backward(t_info *info)
+void	setup_hooks_and_loop(t_info *s_info)
 {
-	if (info->config.map[(int)(info->pos_x - info->dir_x * info->move_speed)] \
-	[(int)info->pos_y] == '0')
-		info->pos_x -= info->dir_x * info->move_speed;
-	if (info->config.map[(int)info->pos_x][(int)(info->pos_y - info->dir_y * \
-	info->move_speed)] == '0')
-		info->pos_y -= info->dir_y * info->move_speed;
-}
-
-void	rotate_left(t_info *info)
-{
-	double	olddir_x;
-	double	oldplane_x;
-
-	olddir_x = info->dir_x;
-	info->dir_x = info->dir_x * cos(info->rot_speed) - info->dir_y * \
-	sin(info->rot_speed);
-	info->dir_y = olddir_x * sin(info->rot_speed) + info->dir_y * \
-	cos(info->rot_speed);
-	oldplane_x = info->plane_x;
-	info->plane_x = info->plane_x * cos(info->rot_speed) - info->plane_y * \
-	sin(info->rot_speed);
-	info->plane_y = oldplane_x * sin(info->rot_speed) + info->plane_y * \
-	cos(info->rot_speed);
-}
-
-void	rotate_right(t_info *info)
-{
-	double	olddir_x;
-	double	oldplane_x;
-
-	olddir_x = info->dir_x;
-	info->dir_x = info->dir_x * cos(-info->rot_speed) - info->dir_y * \
-	sin(-info->rot_speed);
-	info->dir_y = olddir_x * sin(-info->rot_speed) + info->dir_y * \
-	cos(-info->rot_speed);
-	oldplane_x = info->plane_x;
-	info->plane_x = info->plane_x * cos(-info->rot_speed) - info->plane_y * \
-	sin(-info->rot_speed);
-	info->plane_y = oldplane_x * sin(-info->rot_speed) + info->plane_y * \
-	cos(-info->rot_speed);
-}
-
-int	handle_keys(int keycode, t_info *info)
-{
-	if (keycode == K_ESC)
-		exit_game(info);
-	if (keycode == K_W)
-		move_forward(info);
-	if (keycode == K_S)
-		move_backward(info);
-	if (keycode == K_A)
-		rotate_left(info);
-	if (keycode == K_D)
-		rotate_right(info);
-	return (0);
+	mlx_loop_hook(s_info->mlx, &game_loop, s_info);
+	mlx_hook(s_info->win, X_EVENT_KEY_PRESS, 0, &handle_keys, s_info);
+	mlx_loop(s_info->mlx);
 }
 
 int	main(int argc, char **argv)
@@ -581,42 +396,12 @@ int	main(int argc, char **argv)
 	t_config	*s_config;
 	t_info		s_info;
 
-	atexit(check_leaks);
-	if (check_args(argc, argv) == 0)
+	if (!validate_arguments(argc, argv, &s_config))
 		return (0);
-	s_config = parse_config(argv[1]);
-	if (s_config->error == 1)
-	{
-		ft_putstr("map Error\n", 2);
-		free_config(s_config);
-		free(s_config);
-		return (1);
-	}
 	initialize_s_info(&s_info, s_config);
-	s_info.mlx = mlx_init();
-	if (!load_texture_from_config(&s_info, s_config))
-	{
-		perror("Error: Failed to load textures");
-		free_resources(&s_info);
-		free_config(s_config);
-		free(s_config);
-		exit (1);
-	}
-	s_info.win = mlx_new_window(s_info.mlx, WID, HEI, "cub3D");
-	if (!s_info.win)
-	{
-		perror("Error: Failed to create window");
-		free_resources(&s_info);
-		free_config(s_config);
-		free(s_config);
-		exit (1);
-	}
-	s_info.img.img = mlx_new_image(s_info.mlx, WID, HEI);
-	s_info.img.data = (int *)mlx_get_data_addr(s_info.img.img, \
-	&s_info.img.bpp, &s_info.img.size_l, &s_info.img.endian);
-	mlx_loop_hook(s_info.mlx, &game_loop, &s_info);
-	mlx_hook(s_info.win, X_EVENT_KEY_PRESS, 0, &handle_keys, &s_info);
-	mlx_loop(s_info.mlx);
+	if (!initialize_window(&s_info, s_config))
+		return (0);
+	setup_hooks_and_loop(&s_info);
 	free_config(s_config);
 	free_resources(&s_info);
 	free(s_config);

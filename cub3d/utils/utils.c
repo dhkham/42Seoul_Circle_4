@@ -6,11 +6,11 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 17:08:52 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/05 20:53:16 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/10 14:35:14 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {

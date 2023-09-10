@@ -6,11 +6,26 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:38:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/10 13:41:19 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/10 14:54:32 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
+
+int	validate_arguments(int argc, char **argv, t_config **s_config)
+{
+	if (check_args(argc, argv) == 0)
+		return (0);
+	*s_config = parse_config(argv[1]);
+	if ((*s_config)->error == 1)
+	{
+		ft_putstr("map Error\n", 2);
+		free_config(*s_config);
+		free(*s_config);
+		return (1);
+	}
+	return (1);
+}
 
 void	duplicate_map(t_config *config, int idx, char **content)
 {

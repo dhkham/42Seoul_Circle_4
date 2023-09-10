@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chanwoki <chanwoki@student.42.fr>          +#+  +:+       +#+         #
+#    By: dkham <dkham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 18:57:41 by chanwoki          #+#    #+#              #
-#    Updated: 2023/09/09 16:30:40 by chanwoki         ###   ########.fr        #
+#    Updated: 2023/09/10 15:04:19 by dkham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ ARFLAGS=rcsv
 
 RM=rm -f
 
-SRC_FILES=main.c check_args.c utils.c parse.c parse_utils.c check_walls.c check_info.c \
-parse_args.c check_colors.c check_maps.c
+SRC_FILES=main.c ./check/check_args.c ./utils/utils.c ./parse/parse.c ./parse/parse_utils.c ./check/check_walls.c ./check/check_info.c \
+./parse/parse_args.c ./check/check_colors.c ./check/check_maps.c ./utils/init.c ./utils/keys.c free.c
 
 OBJECTS = $(SRC_FILES:.c=.o)
 

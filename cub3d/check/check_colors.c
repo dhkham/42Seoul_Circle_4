@@ -6,11 +6,11 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:24:07 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/10 13:22:41 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/10 14:27:33 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	set_colors(int *colors, t_config *config, char *color)
 {
