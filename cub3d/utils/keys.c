@@ -6,12 +6,11 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 14:58:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/10 15:01:01 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/11 20:17:48 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include "../key_macos.h"
 
 void	move_forward(t_info *info)
 {

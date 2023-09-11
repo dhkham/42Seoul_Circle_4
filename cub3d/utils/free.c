@@ -6,28 +6,11 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 15:02:32 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/10 15:03:24 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/11 19:25:43 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-void	free_resources(t_info *info)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		free(info->texture[i]);
-		i++;
-	}
-	free(info->texture);
-	if (info->img.img)
-		mlx_destroy_image(info->mlx, info->img.img);
-	if (info->win)
-		mlx_destroy_window(info->mlx, info->win);
-}
+#include "../cub3d.h"
 
 void	free_config(t_config *config)
 {
@@ -51,4 +34,21 @@ void	free_config(t_config *config)
 		}
 		free(config->map);
 	}
+}
+
+void	free_resources(t_info *info)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		free(info->texture[i]);
+		i++;
+	}
+	free(info->texture);
+	if (info->img.img)
+		mlx_destroy_image(info->mlx, info->img.img);
+	if (info->win)
+		mlx_destroy_window(info->mlx, info->win);
 }

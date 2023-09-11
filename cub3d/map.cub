@@ -1,13 +1,13 @@
 
-F 50,50,50
+F 160,85,45
 
-C 0,255,0
+C 0,191,255
 
 
-NO ./texture/bluestone.xpm
-SO ./texture/redbrick.xpm
-WE ./texture/purplestone.xpm
-EA ./texture/greystone.xpm
+NO ./texture/N.xpm
+SO ./texture/S.xpm
+WE ./texture/W.xpm
+EA ./texture/E.xpm
 
 
 

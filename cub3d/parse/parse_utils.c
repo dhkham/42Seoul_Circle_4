@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:10:10 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/10 14:30:56 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/11 19:13:20 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,27 @@ void	handle_error(int fd)
 	close(fd);
 }
 
-t_config	*init_config(int fd)
+void	duplicate_map(t_config *config, int idx, char **content)
 {
-	t_config	*config;
+	int	i;
+	int	j;
 
-	config = (t_config *)malloc(sizeof(t_config));
-	if (!config)
+	i = idx;
+	while (content[i])
 	{
-		perror("Error allocating memory");
-		close(fd);
+		j = 0;
+		while (content[i][j])
+		{
+			config->map[i - idx][j] = content[i][j];
+			j++;
+		}
+		while (j < config->map_width)
+		{
+			config->map[i - idx][j] = ' ';
+			j++;
+		}
+		i++;
 	}
-	ft_memset(config, 0, sizeof(t_config));
-	config->floor_color[0] = -1;
-	config->ceil_color[0] = -1;
-	return (config);
 }
 
 int	init_map_memory(t_config *config)

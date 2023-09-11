@@ -6,13 +6,13 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:10:02 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/10 14:27:36 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/11 20:12:47 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static int	check_config(t_config *config)
+int	check_config(t_config *config)
 {
 	if (config->north_texture == NULL)
 		return (0);
@@ -30,7 +30,7 @@ static int	check_config(t_config *config)
 		return (1);
 }
 
-static void	check_type(t_config *config, char **lines)
+void	check_type(t_config *config, char **lines)
 {
 	char	*line;
 
@@ -55,7 +55,7 @@ static void	check_type(t_config *config, char **lines)
 	return ;
 }
 
-static void	parse_map_data(t_config *config, int i, char **content)
+void	parse_map_data(t_config *config, int i, char **content)
 {
 	if (check_maps(config, i, content))
 		return ;
@@ -92,30 +92,4 @@ char	**get_type_and_value(char *line)
 	}
 	temp[1] = ft_strtrim(temp[1], " ");
 	return (temp);
-}
-
-void	parse_info(t_config *config, char **content)
-{
-	int		i;
-	char	**temp;
-
-	i = 0;
-	while (content[i])
-	{
-		if (check_config(config))
-			break ;
-		temp = get_type_and_value(content[i]);
-		if (!temp)
-		{
-			config->error = 1;
-			break ;
-		}
-		check_type(config, temp);
-		if (config->error == 1)
-			break ;
-		i++;
-	}
-	if (config->error == 1)
-		return ;
-	parse_map_data(config, i, content);
 }

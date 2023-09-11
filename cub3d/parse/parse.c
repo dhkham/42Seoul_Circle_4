@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:38:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/10 14:54:32 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/11 19:37:50 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,48 +25,6 @@ int	validate_arguments(int argc, char **argv, t_config **s_config)
 		return (1);
 	}
 	return (1);
-}
-
-void	duplicate_map(t_config *config, int idx, char **content)
-{
-	int	i;
-	int	j;
-
-	i = idx;
-	while (content[i])
-	{
-		j = 0;
-		while (content[i][j])
-		{
-			config->map[i - idx][j] = content[i][j];
-			j++;
-		}
-		while (j < config->map_width)
-		{
-			config->map[i - idx][j] = ' ';
-			j++;
-		}
-		i++;
-	}
-}
-
-char	**get_info(int fd)
-{
-	char	*line;
-	char	*temp;
-	char	**ll;
-
-	line = get_next_line(fd);
-	temp = NULL;
-	while (line)
-	{
-		temp = ft_strjoin(temp, line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	ll = ft_split(temp, '\n');
-	free(temp);
-	return (ll);
 }
 
 t_config	*parse_config(const char *filename)
@@ -94,4 +52,65 @@ t_config	*parse_config(const char *filename)
 	}
 	free(content);
 	return (config);
+}
+
+t_config	*init_config(int fd)
+{
+	t_config	*config;
+
+	config = (t_config *)malloc(sizeof(t_config));
+	if (!config)
+	{
+		perror("Error allocating memory");
+		close(fd);
+	}
+	ft_memset(config, 0, sizeof(t_config));
+	config->floor_color[0] = -1;
+	config->ceil_color[0] = -1;
+	return (config);
+}
+
+char	**get_info(int fd)
+{
+	char	*line;
+	char	*temp;
+	char	**ll;
+
+	line = get_next_line(fd);
+	temp = NULL;
+	while (line)
+	{
+		temp = ft_strjoin(temp, line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	ll = ft_split(temp, '\n');
+	free(temp);
+	return (ll);
+}
+
+void	parse_info(t_config *config, char **content)
+{
+	int		i;
+	char	**temp;
+
+	i = 0;
+	while (content[i])
+	{
+		if (check_config(config))
+			break ;
+		temp = get_type_and_value(content[i]);
+		if (!temp)
+		{
+			config->error = 1;
+			break ;
+		}
+		check_type(config, temp);
+		if (config->error == 1)
+			break ;
+		i++;
+	}
+	if (config->error == 1)
+		return ;
+	parse_map_data(config, i, content);
 }

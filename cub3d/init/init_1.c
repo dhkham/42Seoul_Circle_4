@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/10 14:36:34 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/10 14:40:07 by dkham            ###   ########.fr       */
+/*   Created: 2023/09/11 18:43:35 by dkham             #+#    #+#             */
+/*   Updated: 2023/09/11 19:20:30 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	initialize_s_info(t_info *info, t_config *config)
+{
+	set_start_position_and_direction(info, config);
+	initialize_info(info);
+	initialize_info_img(info, config);
+	initialize_buffer(info);
+	initialize_texture(info, config);
+}
 
 void	initialize_info(t_info *info)
 {
@@ -71,53 +80,8 @@ void	initialize_buffer(t_info *info)
 	}
 }
 
-void	allocate_texture_memory(t_info *info, t_config *config)
+void	initialize_texture(t_info *info, t_config *config)
 {
-	int	i;
-
-	info->texture = (int **)malloc(sizeof(int *) * 4);
-	if (!info->texture)
-	{
-		perror("Error allocating memory for texture");
-		free_resources(info);
-		free_config(config);
-		exit(1);
-	}
-	i = 0;
-	while (i < 4)
-	{
-		info->texture[i] = (int *)malloc(sizeof(int) * (TEX_WID * TEX_HEI));
-		if (!info->texture[i])
-		{
-			perror("Error allocating memory for texture row");
-			free_resources(info);
-			free_config(config);
-			exit(1);
-		}
-		i++;
-	}
-}
-
-void	initialize_texture_values(t_info *info)
-{
-	int	x;
-	int	y;
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		y = 0;
-		while (y < TEX_HEI)
-		{
-			x = 0;
-			while (x < TEX_WID)
-			{
-				info->texture[i][TEX_WID * y + x] = 0;
-				x++;
-			}
-			y++;
-		}
-		i++;
-	}
+	allocate_texture_memory(info, config);
+	initialize_texture_values(info);
 }

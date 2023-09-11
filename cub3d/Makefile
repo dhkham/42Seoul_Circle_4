@@ -6,7 +6,7 @@
 #    By: dkham <dkham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 18:57:41 by chanwoki          #+#    #+#              #
-#    Updated: 2023/09/10 15:04:19 by dkham            ###   ########.fr        #
+#    Updated: 2023/09/11 19:28:57 by dkham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,13 @@ ARFLAGS=rcsv
 
 RM=rm -f
 
-SRC_FILES=main.c ./check/check_args.c ./utils/utils.c ./parse/parse.c ./parse/parse_utils.c ./check/check_walls.c ./check/check_info.c \
-./parse/parse_args.c ./check/check_colors.c ./check/check_maps.c ./utils/init.c ./utils/keys.c free.c
+SRC_FILES=main.c \
+./game/main_loop.c ./game/raycast.c \
+./init/init_1.c ./init/init_2.c ./init/set_dir_plane.c ./init/set_info.c \
+./parse/parse.c ./parse/check_args.c ./parse/check_colors.c ./parse/check_info.c ./parse/check_maps.c ./parse/check_walls.c ./parse/parse_args.c ./parse/parse_utils.c \
+./utils/free.c ./utils/keys.c ./utils/load.c ./utils/utils.c
 
 OBJECTS = $(SRC_FILES:.c=.o)
-
 
 FT = ft
 
