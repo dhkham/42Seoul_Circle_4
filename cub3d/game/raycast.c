@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:58:41 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/11 18:59:06 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/12 21:29:42 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	paint_floor_and_ceiling(t_info *info)
 	}
 }
 
-void	perform_DDA(t_info *info)
+void	perform_dda(t_info *info)
 {
 	info->hit = 0;
 	while (info->hit == 0)

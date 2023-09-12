@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:37:05 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/11 19:25:10 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/12 21:30:17 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	drawing(t_info *info)
 		x = 0;
 		while (x < WID)
 		{
-			info->img.data[y * WID + x] = info->buf[y][x];	
+			info->img.data[y * WID + x] = info->buf[y][x];
 			x++;
 		}
 		y++;
