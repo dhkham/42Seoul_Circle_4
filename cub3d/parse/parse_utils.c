@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 16:10:10 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/11 19:13:20 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/12 18:59:52 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	handle_error(int fd)
 {
-	perror("Error opening file");
+	ft_putstr("Error\n:error opening file\n", 2);
 	close(fd);
+	exit(1);
 }
 
 void	duplicate_map(t_config *config, int idx, char **content)
@@ -48,7 +49,7 @@ int	init_map_memory(t_config *config)
 	config->map = (char **)malloc(sizeof(char *) * config->map_height + 1);
 	if (!config->map)
 	{
-		perror("Error allocating memory for map");
+		ft_putstr("Error\n:error allocating memory for map\n", 2);
 		config->error = 1;
 		return (1);
 	}
@@ -59,7 +60,7 @@ int	init_map_memory(t_config *config)
 		config->map[i] = malloc(sizeof(char) * config->map_width + 1);
 		if (!config->map[i])
 		{
-			perror("Error allocating memory for map");
+			ft_putstr("Error\n:error allocating memory for map\n", 2);
 			config->error = 1;
 			return (1);
 		}

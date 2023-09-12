@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:55:40 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/11 18:56:02 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/12 18:39:18 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	load_image(t_info *info, int *texture, char *path, t_img *img)
 	&img->img_height);
 	if (!img->img)
 	{
-		perror("Error loading texture");
-		return (0);
+		ft_putstr("Error\n:loading error\n", 2);
+		exit(1);
 	}
 	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, \
 	&img->endian);

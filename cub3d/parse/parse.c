@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 15:38:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/11 19:37:50 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/12 18:54:11 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	validate_arguments(int argc, char **argv, t_config **s_config)
 	*s_config = parse_config(argv[1]);
 	if ((*s_config)->error == 1)
 	{
-		ft_putstr("map Error\n", 2);
+		ft_putstr("Error\n:arg error\n", 2);
 		free_config(*s_config);
 		free(*s_config);
-		return (1);
+		exit(1);
 	}
 	return (1);
 }
@@ -61,7 +61,7 @@ t_config	*init_config(int fd)
 	config = (t_config *)malloc(sizeof(t_config));
 	if (!config)
 	{
-		perror("Error allocating memory");
+		ft_putstr("Error\n:error allocating memory\n", 2);
 		close(fd);
 	}
 	ft_memset(config, 0, sizeof(t_config));

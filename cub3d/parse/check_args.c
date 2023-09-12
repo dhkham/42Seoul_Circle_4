@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 16:55:30 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/10 14:27:27 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/12 18:50:41 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ static int	check_args_error(char **argv, int i)
 {
 	if (i <= 0)
 	{
-		printf("Error : Wrong File Name\n");
+		ft_putstr("Error\n:Wrong File Name\n", 2);
 		return (0);
 	}
 	if (ft_isalpha_isdigit(argv[1][i - 1]) == 0)
 	{
-		printf("Error : Wrong File Name\n");
+		ft_putstr("Error\n:Wrong File Name\n", 2);
 		return (0);
 	}
 	if (ft_strcmp(&argv[1][i], ".cub") != 0)
 	{
-		printf("Error : Wrong File Extension\n");
+		ft_putstr("Error\n:Wrong File Extension\n", 2);
 		return (0);
 	}
 	else
@@ -40,13 +40,13 @@ int	check_args(int args, char **argv)
 
 	if (args != 2)
 	{
-		printf("Error : Input Only One File\n");
+		ft_putstr("Error\n:Input Only One File\n", 2);
 		return (0);
 	}
 	len = ft_strlen(argv[1]);
 	if (len < 5)
 	{
-		printf("Error : Wrong File Name\n");
+		ft_putstr("Error\n:Wrong File Name\n", 2);
 		return (0);
 	}
 	i = 0;

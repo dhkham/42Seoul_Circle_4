@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 14:36:34 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/11 19:20:34 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/12 18:46:04 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	initialize_window(t_info *s_info, t_config *s_config)
 	s_info->mlx = mlx_init();
 	if (!load_texture_from_config(s_info, s_config))
 	{
-		perror("Error: Failed to load textures");
+		ft_putstr("Error\n:Failed to load textures\n", 2);
 		free_resources(s_info);
 		free_config(s_config);
 		free(s_config);
@@ -26,7 +26,7 @@ int	initialize_window(t_info *s_info, t_config *s_config)
 	s_info->win = mlx_new_window(s_info->mlx, WID, HEI, "cub3D");
 	if (!s_info->win)
 	{
-		perror("Error: Failed to create window");
+		ft_putstr("Error\n:Failed to create window\n", 2);
 		free_resources(s_info);
 		free_config(s_config);
 		free(s_config);
@@ -82,7 +82,7 @@ void	allocate_texture_memory(t_info *info, t_config *config)
 	info->texture = (int **)malloc(sizeof(int *) * 4);
 	if (!info->texture)
 	{
-		perror("Error allocating memory for texture");
+		ft_putstr("Error\n:Failed to allocate memory for textures\n", 2);
 		free_resources(info);
 		free_config(config);
 		exit(1);
@@ -93,7 +93,7 @@ void	allocate_texture_memory(t_info *info, t_config *config)
 		info->texture[i] = (int *)malloc(sizeof(int) * (TEX_WID * TEX_HEI));
 		if (!info->texture[i])
 		{
-			perror("Error allocating memory for texture row");
+			ft_putstr("Error\n:Failed to allocate memory for texture row\n", 2);
 			free_resources(info);
 			free_config(config);
 			exit(1);
