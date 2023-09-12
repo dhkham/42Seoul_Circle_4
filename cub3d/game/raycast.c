@@ -6,51 +6,30 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:58:41 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/12 21:35:57 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/12 21:45:21 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-// void	paint_floor_and_ceiling(t_info *info)
-// {
-// 	int	x;
-// 	int	y;
-
-// 	y = 0;
-// 	while (y < HEI)
-// 	{
-// 		x = 0;
-// 		while (x < WID)
-// 		{
-// 			info->buf[y][x] = rgb_to_int(info->config.floor_color[0], \
-// 			info->config.floor_color[1], info->config.floor_color[2]);
-// 			info->buf[HEI - y - 1][x] = rgb_to_int(info->config.ceil_color[0], \
-// 			info->config.ceil_color[1], info->config.ceil_color[2]);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
 
 void	paint_floor_and_ceiling(t_info *info)
 {
 	int	x;
 	int	y;
 
-	x = 0;
-	while (x < HEI)
+	y = 0;
+	while (y < HEI)
 	{
-		y = 0;
-		while (y < WID)
+		x = 0;
+		while (x < WID)
 		{
-			info->buf[x][y] = rgb_to_int(info->config.floor_color[0], \
+			info->buf[y][x] = rgb_to_int(info->config.floor_color[0], \
 			info->config.floor_color[1], info->config.floor_color[2]);
-			info->buf[HEI - x - 1][y] = rgb_to_int(info->config.ceil_color[0], \
+			info->buf[HEI - y - 1][x] = rgb_to_int(info->config.ceil_color[0], \
 			info->config.ceil_color[1], info->config.ceil_color[2]);
-			y++;
+			x++;
 		}
-		x++;
+		y++;
 	}
 }
 
