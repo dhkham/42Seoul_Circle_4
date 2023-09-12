@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:37:05 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/12 21:30:17 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/12 21:31:37 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	raycasting(t_info *info)
 	{
 		init_ray_map_deltadist(info, x);
 		init_step_and_sidedist(info);
-		perform_DDA(info);
+		perform_dda(info);
 		calc_variables_for_drawing(info);
 		determine_tex_num_and_wall_x(info);
 		draw_texture_column(info, x);

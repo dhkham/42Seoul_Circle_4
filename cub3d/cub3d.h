@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:25:38 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/12 20:51:06 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/12 21:31:20 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int			initialize_window(t_info *s_info, t_config *s_config);
 void		setup_hooks_and_loop(t_info *s_info);
 void		init_ray_map_deltadist(t_info *info, int x);
 void		init_step_and_sidedist(t_info *info);
-void		perform_DDA(t_info *info);
+void		perform_dda(t_info *info);
 void		calc_variables_for_drawing(t_info *info);
 void		determine_tex_num_and_wall_x(t_info *info);
 void		draw_texture_column(t_info *info, int x);
