@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:25:38 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/13 20:55:20 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/13 20:58:30 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,5 +170,6 @@ char		**get_type_and_value(char *line);
 void		check_type(t_config *config, char **lines);
 int			check_maps(t_config *config, int idx, char **content);
 void		parse_map_data(t_config *config, int i, char **content);
+int			ft_close(void);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:37:05 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/13 20:55:06 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/13 20:59:47 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    setup_hooks_and_loop(t_info *s_info)
+void	setup_hooks_and_loop(t_info *s_info)
 {
 	mlx_loop_hook(s_info->mlx, &game_loop, s_info);
 	mlx_hook(s_info->win, PRESS_RED_BUTTON, 0, &ft_close, &s_info);
