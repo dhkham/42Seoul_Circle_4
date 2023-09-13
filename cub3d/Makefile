@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kcw <kcw@student.42.fr>                    +#+  +:+       +#+         #
+#    By: dkham <dkham@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/07 18:57:41 by chanwoki          #+#    #+#              #
-#    Updated: 2023/09/13 19:55:31 by kcw              ###   ########.fr        #
+#    Updated: 2023/09/13 20:33:46 by dkham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC_FILES=main.c \
 ./game/main_loop.c ./game/raycast.c \
 ./init/init_1.c ./init/init_2.c ./init/set_dir_plane.c ./init/set_info.c \
 ./parse/parse.c ./parse/check_args.c ./parse/check_colors.c ./parse/check_info.c ./parse/check_maps.c ./parse/check_walls.c ./parse/parse_args.c ./parse/parse_utils.c \
-./utils/free.c ./utils/keys.c ./utils/load.c ./utils/utils.c
+./utils/free.c ./utils/keys.c ./utils/keys_2.c ./utils/load.c ./utils/utils.c
 
 OBJECTS = $(SRC_FILES:.c=.o)
 

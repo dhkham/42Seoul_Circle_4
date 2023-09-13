@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 14:58:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/13 20:29:49 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/13 20:33:03 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,6 @@ void	rotate_left(t_info *info)
 	sin(info->rot_speed);
 	info->plane_y = oldplane_x * sin(info->rot_speed) + info->plane_y * \
 	cos(info->rot_speed);
-}
-
-void	rotate_right(t_info *info)
-{
-	double	olddir_x;
-	double	oldplane_x;
-
-	olddir_x = info->dir_x;
-	info->dir_x = info->dir_x * cos(-info->rot_speed) - info->dir_y * \
-	sin(-info->rot_speed);
-	info->dir_y = olddir_x * sin(-info->rot_speed) + info->dir_y * \
-	cos(-info->rot_speed);
-	oldplane_x = info->plane_x;
-	info->plane_x = info->plane_x * cos(-info->rot_speed) - info->plane_y * \
-	sin(-info->rot_speed);
-	info->plane_y = oldplane_x * sin(-info->rot_speed) + info->plane_y * \
-	cos(-info->rot_speed);
 }
 
 int	handle_keys(int keycode, t_info *info)

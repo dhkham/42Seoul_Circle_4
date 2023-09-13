@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:25:38 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/13 20:22:11 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/13 20:33:25 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ void		free_config(t_config *config);
 void		free_resources(t_info *info);
 void		move_forward(t_info *info);
 void		move_backward(t_info *info);
+void		move_left(t_info *info);
+void		move_right(t_info *info);
 void		rotate_left(t_info *info);
 void		rotate_right(t_info *info);
 int			handle_keys(int keycode, t_info *info);
