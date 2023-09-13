@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:58:41 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/12 21:45:21 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/13 20:04:40 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,6 @@ void	draw_texture_column(t_info *info, int x)
 		info->tex_pos += info->step;
 		color = info->texture[info->tex_num][TEX_HEI * info->tex_y + \
 		info->tex_x];
-		if (info->side == 1)
-			color = (color >> 1) & 8355711;
 		info->buf[y][x] = color;
 		y++;
 	}
