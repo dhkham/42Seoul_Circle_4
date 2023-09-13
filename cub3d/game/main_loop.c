@@ -6,15 +6,16 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 18:37:05 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/12 21:31:37 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/13 20:55:06 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	setup_hooks_and_loop(t_info *s_info)
+void    setup_hooks_and_loop(t_info *s_info)
 {
 	mlx_loop_hook(s_info->mlx, &game_loop, s_info);
+	mlx_hook(s_info->win, PRESS_RED_BUTTON, 0, &ft_close, &s_info);
 	mlx_hook(s_info->win, X_EVENT_KEY_PRESS, 0, &handle_keys, s_info);
 	mlx_loop(s_info->mlx);
 }
@@ -61,4 +62,10 @@ void	drawing(t_info *info)
 		y++;
 	}
 	mlx_put_image_to_window(info->mlx, info->win, info->img.img, 0, 0);
+}
+
+int	ft_close(void)
+{
+	exit(0);
+	return (0);
 }
