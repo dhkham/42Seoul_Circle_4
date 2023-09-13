@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 14:58:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/13 20:34:56 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/13 20:53:07 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,41 @@
 
 void	move_forward(t_info *info)
 {
-	if (info->config.map[(int)(info->pos_x + info->dir_x * info->move_speed)] \
+	if (info->config.map[(int)(info->pos_x + info->dir_x * 0.3)] \
 	[(int)info->pos_y] == '0')
 		info->pos_x += info->dir_x * info->move_speed;
 	if (info->config.map[(int)info->pos_x][(int)(info->pos_y + info->dir_y * \
-	info->move_speed)] == '0')
+	0.3)] == '0')
 		info->pos_y += info->dir_y * info->move_speed;
 }
 
 void	move_backward(t_info *info)
 {
-	if (info->config.map[(int)(info->pos_x - info->dir_x * info->move_speed)] \
+	if (info->config.map[(int)(info->pos_x - info->dir_x * 0.3)] \
 	[(int)info->pos_y] == '0')
 		info->pos_x -= info->dir_x * info->move_speed;
 	if (info->config.map[(int)info->pos_x][(int)(info->pos_y - info->dir_y * \
-	info->move_speed)] == '0')
+	0.3)] == '0')
 		info->pos_y -= info->dir_y * info->move_speed;
 }
 
 void	move_left(t_info *info)
 {
-	if (info->config.map[(int)(info->pos_x - info->dir_y * info->move_speed)] \
+	if (info->config.map[(int)(info->pos_x - info->dir_y * 0.5)] \
 	[(int)info->pos_y] == '0')
 		info->pos_x -= info->dir_y * info->move_speed;
 	if (info->config.map[(int)info->pos_x][(int)(info->pos_y + info->dir_x * \
-	info->move_speed)] == '0')
+	0.5)] == '0')
 		info->pos_y += info->dir_x * info->move_speed;
 }
 
 void	move_right(t_info *info)
 {
-	if (info->config.map[(int)(info->pos_x + info->dir_y * info->move_speed)] \
+	if (info->config.map[(int)(info->pos_x + info->dir_y * 0.5)] \
 	[(int)info->pos_y] == '0')
 		info->pos_x += info->dir_y * info->move_speed;
 	if (info->config.map[(int)info->pos_x][(int)(info->pos_y - info->dir_x * \
-	info->move_speed)] == '0')
+	0.5)] == '0')
 		info->pos_y -= info->dir_x * info->move_speed;
 }
 
