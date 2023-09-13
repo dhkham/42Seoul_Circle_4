@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 14:58:01 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/11 20:17:48 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/13 20:29:49 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,26 @@ void	move_backward(t_info *info)
 	if (info->config.map[(int)info->pos_x][(int)(info->pos_y - info->dir_y * \
 	info->move_speed)] == '0')
 		info->pos_y -= info->dir_y * info->move_speed;
+}
+
+void	move_left(t_info *info)
+{
+	if (info->config.map[(int)(info->pos_x - info->dir_y * info->move_speed)] \
+	[(int)info->pos_y] == '0')
+		info->pos_x -= info->dir_y * info->move_speed;
+	if (info->config.map[(int)info->pos_x][(int)(info->pos_y + info->dir_x * \
+	info->move_speed)] == '0')
+		info->pos_y += info->dir_x * info->move_speed;
+}
+
+void	move_right(t_info *info)
+{
+	if (info->config.map[(int)(info->pos_x + info->dir_y * info->move_speed)] \
+	[(int)info->pos_y] == '0')
+		info->pos_x += info->dir_y * info->move_speed;
+	if (info->config.map[(int)info->pos_x][(int)(info->pos_y - info->dir_x * \
+	info->move_speed)] == '0')
+		info->pos_y -= info->dir_x * info->move_speed;
 }
 
 void	rotate_left(t_info *info)
@@ -75,8 +95,12 @@ int	handle_keys(int keycode, t_info *info)
 	if (keycode == K_S)
 		move_backward(info);
 	if (keycode == K_A)
-		rotate_left(info);
+		move_left(info);
 	if (keycode == K_D)
+		move_right(info);
+	if (keycode == LEFT_KEY)
+		rotate_left(info);
+	if (keycode == RIGHT_KEY)
 		rotate_right(info);
 	return (0);
 }

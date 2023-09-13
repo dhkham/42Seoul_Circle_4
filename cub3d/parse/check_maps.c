@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_maps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kcw <kcw@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:30:27 by chanwoki          #+#    #+#             */
-/*   Updated: 2023/09/10 14:27:40 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/13 19:54:12 by kcw              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,16 @@ static int	set_size(t_config *config, int height, int width, int flag)
 	}
 	config->map_height = height;
 	config->map_width = width;
+	if (height < 3 || width < 3)
+	{
+		config->error = 1;
+		return (1);
+	}
+	else if (height > 100 || width > 100)
+	{
+		config->error = 1;
+		return (1);
+	}
 	return (0);
 }
 

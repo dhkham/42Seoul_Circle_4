@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:25:38 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/12 21:31:20 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/13 20:22:11 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define K_S 1
 # define K_D 2
 # define K_ESC 53
+# define RIGHT_KEY 124
+# define LEFT_KEY 123
 
 # include <stdio.h>
 # include <stdlib.h>

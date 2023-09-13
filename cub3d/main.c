@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:23:55 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/12 19:33:21 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/13 20:27:46 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_config	*s_config;
-	t_info		s_info;	
+	t_info		s_info;
 
 	if (!validate_arguments(argc, argv, &s_config))
 		return (0);
