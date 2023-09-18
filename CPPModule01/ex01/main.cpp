@@ -6,14 +6,14 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:56:15 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/18 18:56:22 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/18 19:50:54 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
 int main() {
-    int N = 5;  // Let's create 5 zombies for testing purposes
+    int N = 5;  // Create 5 zombies for testing purposes
     Zombie* horde = zombieHorde(N, "ZombieName");
 
     // Announce each zombie
