@@ -6,24 +6,9 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:24:00 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/18 21:30:14 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/19 16:29:07 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-Turn-in directory : ex04/
-Files to turn in : Makefile, main.cpp, *.cpp, *.{h, hpp}
-Forbidden functions : std::string::replace
-Create a program that takes three parameters in the following order: a filename and
-two strings, s1 and s2.
-It will open the file <filename> and copies its content into a new file
-<filename>.replace, replacing every occurrence of s1 with s2.
-Using C file manipulation functions is forbidden and will be considered cheating. All
-the member functions of the class std::string are allowed, except replace. Use them
-wisely!
-Of course, handle unexpected inputs and errors. You have to create and turn in your
-own tests to ensure your program works as expected.
-*/
 
 #include <iostream>
 #include <fstream>
@@ -31,7 +16,7 @@ own tests to ensure your program works as expected.
 
 int main(int argc, char *argv[]) {
     if (argc != 4) {
-        std::cerr << "Usage: " << argv[0] << " <filename> <string1> <string2>" << std::endl;
+        std::cerr << "Error input: type in " << argv[0] << " <filename> <string1> <string2>" << std::endl;
         return 1;
     }
 
@@ -41,36 +26,42 @@ int main(int argc, char *argv[]) {
     std::string content;
 
     // Open file for reading
-    std::ifstream inFile(filename);
-    if (!inFile.is_open()) {
+    std::ifstream inFile(filename); // std::ifstream is a class designed to handle file input operations (inFile is the instance)
+    if (!inFile.is_open()) { //is_open() method of the ifstream object checks if the file was successfully opened
         std::cerr << "Error opening file: " << filename << std::endl;
-        return 2;
+        return 1;
     }
 
     // Read the file into a string
-    std::stringstream buffer;
-    buffer << inFile.rdbuf();
-    content = buffer.str();
+    std::stringstream buffer; // std::stringstream is a stream class to operate on strings (buffer is the instance)
+    buffer << inFile.rdbuf(); // returns a pointer to the internal stream buffer object associated with the inFile object (the file stream).
+    content = buffer.str(); // returns a string object with a copy of the current contents of the stream
 
-    inFile.close();
+    inFile.close(); // close the file
 
+    // Check if s1 exists in the content
+    if (content.find(s1) == std::string::npos) { // if not found, returns std::string::npos
+        std::cerr << "Error: The string '" << s1 << "' was not found in the file: " << filename << std::endl;
+        return 1;
+    }
+    
     // Replacing every occurrence of s1 with s2 without using std::string::replace
     size_t pos = 0;
-    while ((pos = content.find(s1, pos)) != std::string::npos) {
-        content.erase(pos, s1.length());
-        content.insert(pos, s2);
-        pos += s2.length();
+    while ((pos = content.find(s1, pos)) != std::string::npos) { // content.find(s1, pos) starts finding from pos and returns the position of the first character of the first match (if not found, returns std::string::npos)
+        content.erase(pos, s1.length()); // erase the s1
+        content.insert(pos, s2);    // insert the s2
+        pos += s2.length(); // update the pos
     }
 
     // Writing the modified content to <filename>.replace
-    std::ofstream outFile(filename + ".replace");
+    std::ofstream outFile(filename + ".replace");   // std::ofstream is a class designed to handle file output operations (outFile is the instance)
     if (!outFile.is_open()) {
         std::cerr << "Error creating the output file." << std::endl;
-        return 3;
+        return 1;
     }
 
-    outFile << content;
-    outFile.close();
+    outFile << content; // write the content to the file
+    outFile.close(); // close the file
 
     return 0;
 }
