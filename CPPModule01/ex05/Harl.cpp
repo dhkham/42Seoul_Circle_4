@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:36:13 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/21 18:48:41 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 22:37:33 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ void Harl::error() {
     std::cout << "This is unacceptable! I want to speak to the manager now." << std::endl;
 }
 
+const Harl::FuncAssociation Harl::functionAssociations[] = {
+    {"DEBUG", &Harl::debug},
+    {"INFO", &Harl::info},
+    {"WARNING", &Harl::warning},
+    {"ERROR", &Harl::error},
+};
+
 void Harl::complain(std::string level) {
-    // Create a map instance (=functionMap) to associate strings with member function pointers
-    std::map<std::string, void (Harl::*)()> functionMap; // key: string, value: pointer to member function
-
-    // Manually insert each pair into the map
-    functionMap["DEBUG"] = &Harl::debug;
-    functionMap["INFO"] = &Harl::info;
-    functionMap["WARNING"] = &Harl::warning;
-    functionMap["ERROR"] = &Harl::error;
-
-    if (functionMap.count(level)) { // .count() returns 1 if the key exists, 0 otherwise
-        (this->*functionMap[level])(); // Call the appropriate member function
-    } else {
-        std::cout << "Invalid complaint level!" << std::endl;
+    for (size_t i = 0; i < sizeof(functionAssociations) / sizeof(functionAssociations[0]); ++i) {
+        if (functionAssociations[i].name == level) {
+            (this->*functionAssociations[i].func)();
+            return;
+        }
     }
+    std::cerr << "Invalid complaint level!" << std::endl;
 }
