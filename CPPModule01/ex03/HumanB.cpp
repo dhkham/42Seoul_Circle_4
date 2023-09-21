@@ -6,12 +6,11 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:30:35 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/18 21:16:16 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 19:27:02 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HumanB.hpp"
-#include <iostream>
 
 HumanB::HumanB(std::string _name) : name(_name), weapon(nullptr) {}
 

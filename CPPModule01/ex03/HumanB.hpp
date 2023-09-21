@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:30:25 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/18 21:11:32 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 19:27:04 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define HUMANB_HPP
 
 #include "Weapon.hpp"
+#include <iostream>
 
 class HumanB {
 private:
