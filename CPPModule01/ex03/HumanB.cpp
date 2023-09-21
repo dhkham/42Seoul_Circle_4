@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:30:35 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/21 19:27:02 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 19:32:42 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void HumanB::attack() const {
 }
 
 /*
-HumanA is always armed and holds a reference to Weapon,
-ensuring that it always has a valid weapon.
+HumanA is always armed, so it holds a reference to Weapon.
+The lack of nullability and the guarantee that the reference is always initialized makes it a good fit.
 
 On the other hand, HumanB may or may not have a weapon, and thus, holds a pointer to Weapon.
 If the weapon is not set for HumanB, it remains a nullptr.
