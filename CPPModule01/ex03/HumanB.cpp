@@ -6,13 +6,13 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 20:30:35 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/21 19:32:42 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 20:02:33 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HumanB.hpp"
 
-HumanB::HumanB(std::string _name) : name(_name), weapon(nullptr) {}
+HumanB::HumanB(std::string _name) : name(_name), weapon(NULL) {}
 
 void HumanB::setWeapon(Weapon& _weapon) {
     weapon = &_weapon;
