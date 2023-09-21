@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:24:00 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/21 18:48:41 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 20:06:00 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,15 @@ int main(int argc, char *argv[]) {
     std::string s1 = argv[2];
     std::string s2 = argv[3];
     std::string content;
-
+	
+	// Check if s1 is empty
+    if (s1.empty()) {
+        std::cout << "Error: s1 cannot be an empty string." << std::endl;
+        return 1;
+    }
+	
     // Open file for reading
-    std::ifstream inFile(filename); // std::ifstream is a class designed to handle file input operations (inFile is the instance)
+    std::ifstream inFile(filename.c_str()); // std::ifstream is a class designed to handle file input operations (inFile is the instance)
     if (!inFile.is_open()) { //is_open() method of the ifstream object checks if the file was successfully opened
         std::cout << "Error opening file: " << filename << std::endl;
         return 1;
@@ -54,7 +60,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Writing the modified content to <filename>.replace
-    std::ofstream outFile(filename + ".replace");   // std::ofstream is a class designed to handle file output operations (outFile is the instance)
+    std::ofstream outFile((filename + ".replace").c_str());   // std::ofstream is a class designed to handle file output operations (outFile is the instance)
     if (!outFile.is_open()) {
         std::cout << "Error creating the output file." << std::endl;
         return 1;
