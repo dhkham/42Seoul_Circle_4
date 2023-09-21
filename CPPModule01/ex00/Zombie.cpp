@@ -6,12 +6,11 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 19:55:46 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/18 18:42:59 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 18:58:50 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
-#include <iostream>
 
 // constructor of the Zombie class
 // ": name(_name)" is an initializer list that initializes the name member variable of the Zombie class with the value of _name passed to the constructor.

@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 19:55:56 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/18 18:47:58 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 18:58:54 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define ZOMBIE_HPP
 
 #include <string>
+#include <iostream>
 
 class Zombie {
 private:
