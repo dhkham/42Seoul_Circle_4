@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:36:13 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/19 16:56:22 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 18:48:41 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void Harl::complain(std::string level) {
     if (functionMap.count(level)) { // .count() returns 1 if the key exists, 0 otherwise
         (this->*functionMap[level])(); // Call the appropriate member function
     } else {
-        std::cerr << "Invalid complaint level!" << std::endl;
+        std::cout << "Invalid complaint level!" << std::endl;
     }
 }

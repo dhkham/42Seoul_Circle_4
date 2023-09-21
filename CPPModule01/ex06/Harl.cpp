@@ -6,12 +6,11 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:06:18 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/21 18:20:36 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 18:52:27 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Harl.hpp"
-#include <iostream>
 
 Harl::Harl(LogLevel level) : currentLogLevel(level) {}
 
@@ -33,7 +32,7 @@ void Harl::error() {
 
 void Harl::complain(LogLevel level) {
     if (level < currentLogLevel) {
-        std::cerr << "[ Probably complaining about insignificant problems ]\n";
+        std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
         return;  // If the provided level is below the current log level, exit early.
     }
 
@@ -48,7 +47,7 @@ void Harl::complain(LogLevel level) {
             error();
             break;
         default:
-            std::cerr << "[ Probably complaining about insignificant problems ]\n";
+            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
             break;
     }
 }

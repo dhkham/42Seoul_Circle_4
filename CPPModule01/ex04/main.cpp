@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 21:24:00 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/19 16:29:07 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 18:48:41 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int main(int argc, char *argv[]) {
     if (argc != 4) {
-        std::cerr << "Error input: type in " << argv[0] << " <filename> <string1> <string2>" << std::endl;
+        std::cout << "Error input: type in " << argv[0] << " <filename> <string1> <string2>" << std::endl;
         return 1;
     }
 
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     // Open file for reading
     std::ifstream inFile(filename); // std::ifstream is a class designed to handle file input operations (inFile is the instance)
     if (!inFile.is_open()) { //is_open() method of the ifstream object checks if the file was successfully opened
-        std::cerr << "Error opening file: " << filename << std::endl;
+        std::cout << "Error opening file: " << filename << std::endl;
         return 1;
     }
 
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 
     // Check if s1 exists in the content
     if (content.find(s1) == std::string::npos) { // if not found, returns std::string::npos
-        std::cerr << "Error: The string '" << s1 << "' was not found in the file: " << filename << std::endl;
+        std::cout << "Error: The string '" << s1 << "' was not found in the file: " << filename << std::endl;
         return 1;
     }
     
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
     // Writing the modified content to <filename>.replace
     std::ofstream outFile(filename + ".replace");   // std::ofstream is a class designed to handle file output operations (outFile is the instance)
     if (!outFile.is_open()) {
-        std::cerr << "Error creating the output file." << std::endl;
+        std::cout << "Error creating the output file." << std::endl;
         return 1;
     }
 

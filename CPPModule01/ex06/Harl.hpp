@@ -6,9 +6,14 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:06:02 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/20 21:27:37 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 18:43:45 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef HARL_HPP
+#define HARL_HPP
+
+#include <iostream>
 
 class Harl {
 public:
@@ -25,3 +30,5 @@ private:
     void warning();
     void error();
 };
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:06:32 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/19 17:06:37 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 18:50:45 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <log level>\n";
+        std::cout << "Usage: " << argv[0] << " <log level>" << std::endl;
         return 1;
     }
 

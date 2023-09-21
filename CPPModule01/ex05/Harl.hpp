@@ -6,11 +6,13 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:36:24 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/19 16:48:56 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 18:43:06 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef HARL_HPP
+#define HARL_HPP
+
 #include <map>
 #include <iostream>
 
@@ -24,3 +26,5 @@ private:
 public:
     void complain(std::string level);
 };
+
+#endif
