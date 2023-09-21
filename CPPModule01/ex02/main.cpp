@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 19:57:44 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/18 20:00:30 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 19:18:29 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int main() {
     std::string& stringREF = brain;
 
     // Printing the memory addresses:
-    std::cout << "Memory address of brain: " << &brain << std::endl;
+    std::cout << "Memory address of brain:          " << &brain << std::endl;
     std::cout << "Memory address held by stringPTR: " << stringPTR << std::endl;
     std::cout << "Memory address held by stringREF: " << &stringREF << std::endl;
 
     // Printing the values:
-    std::cout << "Value of brain: " << brain << std::endl;
+    std::cout << "Value of brain:                " << brain << std::endl;
     std::cout << "Value pointed to by stringPTR: " << *stringPTR << std::endl;
     std::cout << "Value pointed to by stringREF: " << stringREF << std::endl;
 
