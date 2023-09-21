@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:06:18 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/21 18:52:27 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/21 20:27:23 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,21 @@ void Harl::complain(LogLevel level) {
         return;  // If the provided level is below the current log level, exit early.
     }
 
-    switch (level) {
-        case DEBUG:
-            debug();  // Fall-through is intentional
-        case INFO:
-            info();
-        case WARNING:
-            warning();
-        case ERROR:
-            error();
-            break;
-        default:
-            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
-            break;
+	switch (level) {
+    case DEBUG:
+        debug();
+        /* FALLTHRU */
+    case INFO:
+        info();
+        /* FALLTHRU */
+    case WARNING:
+        warning();
+        /* FALLTHRU */
+    case ERROR:
+        error();
+        break;
+    default:
+        std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+        break;
     }
 }
