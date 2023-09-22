@@ -6,13 +6,13 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 17:06:18 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/21 20:27:23 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/22 14:01:11 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Harl.hpp"
 
-Harl::Harl(LogLevel level) : currentLogLevel(level) {}
+Harl::Harl() {}
 
 void Harl::debug() {
     std::cout << "[ DEBUG ]\nI love having extra bacon for my 7XL-double-cheese-triple-pickle-special-ketchup burger.\nI really do!\n\n";
@@ -31,26 +31,21 @@ void Harl::error() {
 }
 
 void Harl::complain(LogLevel level) {
-    if (level < currentLogLevel) {
-        std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
-        return;  // If the provided level is below the current log level, exit early.
-    }
-
-	switch (level) {
-    case DEBUG:
+	switch (level) {	// FALLTRHU: if the case is true, it will execute the next case
+    case DEBUG: 	// level = 0
         debug();
         /* FALLTHRU */
-    case INFO:
+    case INFO:		// level = 1
         info();
         /* FALLTHRU */
-    case WARNING:
+    case WARNING:	// level = 2
         warning();
         /* FALLTHRU */
-    case ERROR:
+    case ERROR:		// level = 3
         error();
         break;
-    default:
-        std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
-        break;
-    }
+	case INVALID:	// level = 4
+		std::cout << "[ Probably complaining about insignificant problems ]\n";
+		break;
+	}
 }
