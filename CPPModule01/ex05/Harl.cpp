@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:36:13 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/21 22:37:33 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/22 11:59:21 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void Harl::error() {
     std::cout << "This is unacceptable! I want to speak to the manager now." << std::endl;
 }
 
+//functionAssociations is an array of constant FuncAssociation objects that belong to the Harl class
 const Harl::FuncAssociation Harl::functionAssociations[] = {
     {"DEBUG", &Harl::debug},
     {"INFO", &Harl::info},
@@ -42,5 +43,5 @@ void Harl::complain(std::string level) {
             return;
         }
     }
-    std::cerr << "Invalid complaint level!" << std::endl;
+    std::cout << "Invalid complaint level!" << std::endl;
 }

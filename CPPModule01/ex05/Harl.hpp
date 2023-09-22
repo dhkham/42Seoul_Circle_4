@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 16:36:24 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/21 22:39:53 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/22 11:39:38 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,15 @@ private:
 
     struct FuncAssociation {	// Structure to associate a function pointer with a string
         std::string name;		// Name of the function
-        void (Harl::*func)();	// Pointer to the function
+        void (Harl::*func)();	// member function pointer that points to a function in the Harl class that returns void and takes no parameters
     };
 
-    static const FuncAssociation functionAssociations[];	// Array of associations
+    static const FuncAssociation functionAssociations[];
+	/*
+	static: member belongs to the class itself rather than any specific object of the class.
+	const: once the array is initialized, it cannot be modified.
+	FuncAssociation functionAssociations[];: This declares an array of FuncAssociation structures.
+	*/
 };
 
 #endif
