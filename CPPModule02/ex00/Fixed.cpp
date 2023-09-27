@@ -6,39 +6,46 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 18:15:34 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/27 18:15:37 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/27 21:04:04 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include <iostream>
 
-Fixed::Fixed() : fixedValue(0) {
+// Default constructor
+Fixed::Fixed() : value(0) {
     std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &src) {
+// Copy constructor
+Fixed::Fixed(const Fixed& src) {
     std::cout << "Copy constructor called" << std::endl;
+    // Using the assignment operator to reuse code. This will copy the value from the source object.
     *this = src;
 }
 
-Fixed &Fixed::operator=(const Fixed &rhs) {
+// Copy assignment operator
+Fixed& Fixed::operator=(const Fixed& rhs) {
     std::cout << "Copy assignment operator called" << std::endl;
-    if (this != &rhs) {
-        this->fixedValue = rhs.getRawBits();
+    if (this != &rhs) { // Check for self-assignment
+        this->value = rhs.value; // Copy the value
     }
-    return *this;
+    return *this; // Return the current object to allow for chained assignments like a=b=c;
 }
 
+// Destructor
 Fixed::~Fixed() {
     std::cout << "Destructor called" << std::endl;
 }
 
-int Fixed::getRawBits() const {
+// Implementation of getRawBits
+int Fixed::getRawBits(void) const {
     std::cout << "getRawBits member function called" << std::endl;
-    return fixedValue;
+    return this->value;
 }
 
+// Implementation of setRawBits
 void Fixed::setRawBits(int const raw) {
-    fixedValue = raw;
+    this->value = raw;
 }
