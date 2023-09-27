@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 18:15:34 by dkham             #+#    #+#             */
-/*   Updated: 2023/09/27 21:04:04 by dkham            ###   ########.fr       */
+/*   Updated: 2023/09/27 21:18:21 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ Fixed::~Fixed() {
     std::cout << "Destructor called" << std::endl;
 }
 
-// Implementation of getRawBits
+// returns the raw value of the fixed-point value
 int Fixed::getRawBits(void) const {
     std::cout << "getRawBits member function called" << std::endl;
     return this->value;
 }
 
-// Implementation of setRawBits
+//  sets the raw value of the fixed-point number
 void Fixed::setRawBits(int const raw) {
     this->value = raw;
 }
