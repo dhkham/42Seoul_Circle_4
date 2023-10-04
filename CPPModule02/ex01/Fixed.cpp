@@ -6,12 +6,13 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 12:02:12 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/04 13:22:14 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/04 15:07:31 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include <cmath>
+#include "stdio.h"
 
 // Default constructor: initializes value to 0 and outputs a message
 Fixed::Fixed() : value(0) {
@@ -78,11 +79,11 @@ turning the fixed-point number into a floating-point number.
 
 // toInt: converts the fixed-point value to an integer
 int Fixed::toInt(void) const {
-    return this->value >> fractionalBits;
+    return this->value >> fractionalBits; // bit-shift operation, equivalent to dividing by 2^fractionalBits.
 }
 
-// Overloaded << operator: outputs the fixed-point value as a float
+// Overloaded << operator: outputs the fixed-point value as a float (used when std::cout << a is called in main.cpp)
 std::ostream& operator<<(std::ostream& os, const Fixed& obj) {
-    os << obj.toFloat();
+    os << obj.toFloat(); // Use the toFloat() member function to convert the fixed-point value to a float. << here is the stream insertion operator.
     return os;
 }
