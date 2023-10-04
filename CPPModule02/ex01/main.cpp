@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 12:00:58 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/04 14:04:24 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/04 18:07:46 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,6 @@ int main(void) {
     // Create a Fixed object 'c' by converting the float 42.42 to fixed-point representation
     Fixed const c(42.42f);
 	
-	/*
-	some floating-point numbers cannot be represented with perfect accuracy,
-	especially when converting them into a different format (like a fixed-point format).
-
-	In binary representations, some decimal fractions cannot be represented with perfect accuracy.
-	Just as 1/3 cannot be accurately represented in decimal (0.3333333...), certain decimal fractions have repeating or truncating binary equivalents.
-
-	When converting 42.42f to a fixed-point number,
-	some precision may be lost due to the limited number of bits allocated to represent the fractional part and the inherent inaccuracy of binary fractional representation for some decimal numbers.
-	If the floating-point number cannot be represented accurately within this space, rounding errors occur, which can manifest as slightly inaccurate results when converting back to a floating-point number for display, thus you might get 42.4219 instead of 42.42.
-	*/
-
     // Create a Fixed object 'd' by copying the value from object 'b' using the copy constructor
     Fixed const d(b);
 

@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 12:02:12 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/04 15:07:31 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/04 18:18:50 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,15 @@ Fixed::Fixed(const float floatVal) : value(roundf(floatVal * (1 << fractionalBit
     std::cout << "Float constructor called" << std::endl;
 }
 /*
-Start with 1 in binary: 00000001 (assuming an 8-bit representation for simplicity).
-Apply 1 << 8: Shift all bits in 00000001 to the left by 8 positions: 100000000 (result, in binary)
-Shifting a binary number to the left by n positions is mathematically equivalent to multiplying the original number by 2^n
+By multiplying by 2^8, you're effectively moving the binary point 8 places to the right, allowing you to store fractional values with a precision up to 2^-8 in an integer format.
+This lets you perform arithmetic more quickly and accurately than floating-point arithmetic in some contexts.
+We should divide by 2^8 when converting it back to a floating-point.
+
 roundf(floatVal * (1 << fractionalBits)) = roundf(42.42 * 2^8) = roundf(10859.52) = 10860 (round the scaled value to the nearest whole number to reduce the error introduced during the conversion from float to fixed-point)
+
+42.42    = 101010.0110101110000101001(2)
+10859.52 = 101010 01101011.100001010001111011(2) (-> 소수 부분 fractional bits 8자리 확보)
+이후 반올림해 정수 형태로 저장했다가, 사용 시 다시 2^8로 나누어 사용
 */
 
 // Copy constructor: outputs a message and utilizes copy assignment to reuse code
@@ -70,9 +75,6 @@ float Fixed::toFloat(void) const {
     return static_cast<float>(this->value) / (1 << fractionalBits);
 }
 /*
-static_cast<float>(this->value): This converts the int member value into a float.
-1 << fractionalBits: This is a bit-shift operation, equivalent to raising 2 to the power of fractionalBits.
-In binary, moving bits to the left essentially multiplies the number by 2, repeatedly for the number of times specified (i.e., 2^fractionalBits).
 Dividing the float-converted value by 2^fractionalBits effectively moves the binary point fractionalBits times to the left,
 turning the fixed-point number into a floating-point number.
 */
