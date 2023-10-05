@@ -6,13 +6,12 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 12:02:12 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/04 18:18:50 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/04 19:45:15 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include <cmath>
-#include "stdio.h"
 
 // Default constructor: initializes value to 0 and outputs a message
 Fixed::Fixed() : value(0) {
