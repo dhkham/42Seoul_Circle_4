@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:02:37 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/05 12:53:45 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/05 13:24:36 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // Default constructor
 ClapTrap::ClapTrap() : Name("Default"), Hitpoints(10), EnergyPoints(10), AttackDamage(0) {
     std::cout << "Default constructor called" << std::endl;
-}
+} 
 
 // Parameterized constructor
 ClapTrap::ClapTrap(std::string name) : Name(name), Hitpoints(10), EnergyPoints(10), AttackDamage(0) {
