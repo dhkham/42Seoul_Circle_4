@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 19:07:38 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/04 19:59:39 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/05 08:59:32 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,21 @@
 #include <cmath>
 
 // Default constructor: initializes value to 0 and outputs a message
-Fixed::Fixed() : value(0) {
-    std::cout << "Default constructor called" << std::endl;
-}
+Fixed::Fixed() : value(0) {}
 
 // Integer constructor: converts int to fixed-point and outputs a message
-Fixed::Fixed(const int intVal) : value(intVal << fractionalBits) {
-    std::cout << "Int constructor called" << std::endl;
-}
+Fixed::Fixed(const int intVal) : value(intVal << fractionalBits) {}
 
 // Float constructor: converts float to fixed-point and outputs a message
-Fixed::Fixed(const float floatVal) : value(roundf(floatVal * (1 << fractionalBits))) {
-    std::cout << "Float constructor called" << std::endl;
-}
+Fixed::Fixed(const float floatVal) : value(roundf(floatVal * (1 << fractionalBits))) {}
 
 // Copy constructor: outputs a message and utilizes copy assignment to reuse code
 Fixed::Fixed(const Fixed& src) {
-    std::cout << "Copy constructor called" << std::endl;
-    *this = src;
+    *this = src; // Utilize the already defined copy assignment operator
 }
 
 // Copy assignment operator: checks for self-assignment, copies value, and outputs a message
 Fixed& Fixed::operator=(const Fixed& rhs) {
-    std::cout << "Copy assignment operator called" << std::endl;
     if (this != &rhs) {
         this->value = rhs.value;
     }
@@ -45,7 +37,6 @@ Fixed& Fixed::operator=(const Fixed& rhs) {
 
 // Destructor: outputs a message when an object is destroyed
 Fixed::~Fixed() {
-    std::cout << "Destructor called" << std::endl;
 }
 
 // Getter for raw value: returns the fixed-point value without alteration
