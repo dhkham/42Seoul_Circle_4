@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 18:59:59 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/05 09:23:19 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/05 11:58:21 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int main( void ) {
     std::cout << "c - d = " << c - d << std::endl;
     std::cout << "c * d = " << c * d << std::endl;
     std::cout << "c / d = " << c / d << std::endl;
-    std::cout << "c / d_2 = " << c / d_2 << std::endl;
+    //std::cout << "c / d_2 = " << c / d_2 << std::endl;
     
     // make new variables and test comparison operators
     Fixed e(10);
