@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:02:26 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/05 12:53:33 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/12 17:49:16 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ public:
     ~ClapTrap();
 
     // Public member functions
-    void attack(std::string const& target);
+    void attack(const std::string& target);
     void takeDamage(unsigned int amount);
     void beRepaired(unsigned int amount);
 };
