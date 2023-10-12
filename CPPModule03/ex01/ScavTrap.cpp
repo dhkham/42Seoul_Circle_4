@@ -5,61 +5,47 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/05 13:42:09 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/05 14:07:39 by dkham            ###   ########.fr       */
+/*   Created: 2023/10/12 19:13:35 by dkham             #+#    #+#             */
+/*   Updated: 2023/10/12 19:15:23 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
 
-// Default constructor
-ScavTrap::ScavTrap() : ClapTrap("DefaultScav")
-{
-    std::cout << "ScavTrap Default constructor called" << std::endl;
+ScavTrap::ScavTrap() : ClapTrap("Default_Scav") {
     Hitpoints = 100;
     EnergyPoints = 50;
     AttackDamage = 20;
+    std::cout << "Default constructor for ScavTrap called" << std::endl;
 }
 
-// Parameterized constructor
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
-    std::cout << "ScavTrap Parameterized constructor called" << std::endl;
     Hitpoints = 100;
     EnergyPoints = 50;
     AttackDamage = 20;
+    std::cout << "Parameterized constructor for ScavTrap called" << std::endl;
 }
 
-// Copy constructor
+ScavTrap::~ScavTrap() {
+    std::cout << "Destructor for ScavTrap called" << std::endl;
+}
+
 ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
-    std::cout << "ScavTrap Copy constructor called" << std::endl;
+    std::cout << "Copy constructor for ScavTrap called" << std::endl;
 }
 
-// Copy assignment operator
 ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
-    std::cout << "ScavTrap Copy assignment operator called" << std::endl;
+    std::cout << "Copy assignment operator for ScavTrap called" << std::endl;
     if (this != &other) {
-        ClapTrap::operator=(other);  // Copy base part
-        // ScavTrap doesn't introduce new attributes, so nothing more to copy
+        ClapTrap::operator=(other);
     }
     return *this;
 }
 
-// Destructor
-ScavTrap::~ScavTrap() {
-    std::cout << "ScavTrap Destructor called" << std::endl;
+void ScavTrap::attack(const std::string& target) {
+    std::cout << "ScavTrap " << Name << " attacks " << target << ", causing " << AttackDamage << " points of damage!" << std::endl;
 }
 
-// Overridden attack function
-void ScavTrap::attack(std::string const& target) {
-    if(EnergyPoints > 0) {
-        std::cout << "ScavTrap " << Name << " attacks " << target << ", causing " << AttackDamage << " points of damage!" << std::endl;
-        EnergyPoints--;
-    } else {
-        std::cout << "ScavTrap " << Name << " has no energy to attack!" << std::endl;
-    }
-}
-
-// ScavTrap's specific function
 void ScavTrap::guardGate() {
-    std::cout << "ScavTrap " << Name << " has entered in Gate keeper mode." << std::endl;
+    std::cout << "ScavTrap " << Name << " has entered Gatekeeper mode." << std::endl;
 }

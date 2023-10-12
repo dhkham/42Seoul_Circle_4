@@ -5,33 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/05 13:43:37 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/05 13:43:38 by dkham            ###   ########.fr       */
+/*   Created: 2023/10/12 19:12:52 by dkham             #+#    #+#             */
+/*   Updated: 2023/10/12 19:22:12 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
 #include "ScavTrap.hpp"
-#include <iostream>
 
 int main() {
-    // Test ClapTrap functionality
-    ClapTrap clap("CL4P-TP");
-    clap.attack("a target");
-    clap.takeDamage(5);
-    clap.beRepaired(3);
+    ScavTrap a("Scav1");
+    a.attack("Target1");
+    a.takeDamage(15);
+    a.beRepaired(10);
+    a.guardGate();
 
-    // Test ScavTrap functionality
-    ScavTrap scav("SC4V-TP");
-    scav.attack("another target");
-    scav.takeDamage(10);
-    scav.beRepaired(5);
-    scav.guardGate();
-
-    // Testing copy constructor and assignment operator
-    ScavTrap scav2(scav);
-    ScavTrap scav3;
-    scav3 = scav;
+    ScavTrap b(a);  // Testing copy constructor
+    b.attack("Target2");
     
+    ScavTrap c;
+    c = b;  // Testing copy assignment operator
+    c.attack("Target3");
+
     return 0;
 }
