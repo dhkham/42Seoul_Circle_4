@@ -6,9 +6,12 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:13:38 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/12 19:15:12 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/12 20:45:01 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+# ifndef SCAVTRAP_HPP
+# define SCAVTRAP_HPP
 
 #include "ClapTrap.hpp"
 
@@ -31,3 +34,5 @@ public:
     void attack(const std::string& target);
     void guardGate();
 };
+
+#endif
