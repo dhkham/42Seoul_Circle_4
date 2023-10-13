@@ -6,13 +6,13 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:13:38 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/12 19:15:12 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/13 10:54:14 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap {
+class ScavTrap : public ClapTrap { //Public members of ClapTrap remain public members of ScavTrap, protected members remain protected, and private members are inaccessible directly from ScavTrap
 public:
     // Constructors
     ScavTrap();
@@ -28,6 +28,6 @@ public:
     ScavTrap& operator=(const ScavTrap& other);
 
     // Member functions
-    void attack(const std::string& target);
+    void attack(const std::string& target); //overriding the attack function inherited from ClapTrap
     void guardGate();
 };
