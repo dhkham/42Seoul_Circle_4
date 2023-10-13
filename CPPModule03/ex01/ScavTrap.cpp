@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:13:35 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 13:19:57 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/13 14:13:33 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name) { //tells the compiler to 
 Construction Chaining:
 Base class constructor is called.
 Derived class constructor is called.
+-> Initializing the base part first is crucial because the derived class’s constructor might rely on the base part being already initialized.
 
 Destruction Chaining:
 Derived class destructor is called.
 Base class destructor is called.
+-> The base class destructor is called first because the derived class’s destructor might rely on the base part.
 */
 ScavTrap::~ScavTrap() {
     std::cout << "Destructor for ScavTrap called" << std::endl;
@@ -41,6 +43,10 @@ ScavTrap::~ScavTrap() {
 ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
     std::cout << "Copy constructor for ScavTrap called" << std::endl;
 }
+/*
+Beyond printing the message to the standard output, nothing else is being explicitly done.
+All the member-wise copying is handed off to the base class ClapTrap's copy constructor through the initializer list (: ClapTrap(other)).
+*/
 
 ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
     std::cout << "Copy assignment operator for ScavTrap called" << std::endl;
