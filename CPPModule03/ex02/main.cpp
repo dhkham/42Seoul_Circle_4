@@ -6,12 +6,11 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:12:52 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/12 20:29:03 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/13 13:24:08 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FragTrap.hpp"
-// Include other headers if more classes are implemented, e.g., "ScavTrap.hpp"
 
 int main() {
     std::cout << "### Constructors:" << std::endl;

@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:02:37 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/12 19:06:08 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/13 13:19:02 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 // Default constructor
 ClapTrap::ClapTrap() : Name("Default"), Hitpoints(10), EnergyPoints(10), AttackDamage(0) {
-    std::cout << "Default constructor called" << std::endl;
-} 
+    std::cout << "Default constructor for ClapTrap called" << std::endl;
+}
 
 // Parameterized constructor
 ClapTrap::ClapTrap(std::string name) : Name(name), Hitpoints(10), EnergyPoints(10), AttackDamage(0) {
-    std::cout << "Parameterized constructor called" << std::endl;
+    std::cout << "Parameterized constructor for ClapTrap called" << std::endl;
 }
 
 // Copy constructor
 ClapTrap::ClapTrap(const ClapTrap& other) {
-    std::cout << "Copy constructor called" << std::endl;
+    std::cout << "Copy constructor for ClapTrap called" << std::endl;
     *this = other;
 }
 
 // Copy assignment operator
 ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
-    std::cout << "Copy assignment operator called" << std::endl;
+    std::cout << "Copy assignment operator for ClapTrap called" << std::endl;
     if (this != &other) {
         Name = other.Name;
         Hitpoints = other.Hitpoints;
@@ -42,10 +42,10 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
 
 // Destructor
 ClapTrap::~ClapTrap() {
-    std::cout << "Destructor called" << std::endl;
+    std::cout << "Destructor for ClapTrap called" << std::endl;
 }
 
-void ClapTrap::attack(const std::string& target) {  // Modified signature
+void ClapTrap::attack(const std::string& target) {
     if(EnergyPoints > 0 && Hitpoints > 0) {
         std::cout << "ClapTrap " << Name << " attacks " << target << ", causing " << AttackDamage << " points of damage!" << std::endl;
         EnergyPoints--;
