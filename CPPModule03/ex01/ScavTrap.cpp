@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:13:35 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 14:13:33 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/13 14:23:47 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ All the member-wise copying is handed off to the base class ClapTrap's copy cons
 ScavTrap& ScavTrap::operator=(const ScavTrap& other) {
     std::cout << "Copy assignment operator for ScavTrap called" << std::endl;
     if (this != &other) {
-        ClapTrap::operator=(other);
+        ClapTrap::operator=(other); // Call the base class's assignment operator
     }
     return *this;
 }
