@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 12:02:37 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 11:27:46 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/12 19:06:08 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ ClapTrap::~ClapTrap() {
     std::cout << "Destructor called" << std::endl;
 }
 
-void ClapTrap::attack(const std::string& target) {
+void ClapTrap::attack(const std::string& target) {  // Modified signature
     if(EnergyPoints > 0 && Hitpoints > 0) {
         std::cout << "ClapTrap " << Name << " attacks " << target << ", causing " << AttackDamage << " points of damage!" << std::endl;
         EnergyPoints--;
