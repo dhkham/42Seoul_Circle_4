@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:12:52 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 11:28:04 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/13 13:12:24 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int main() {
     
     ScavTrap scav3;
     // Testing copy assignment operator
-    scav3 = scav2;  
+    scav3 = scav2;
+    
     // deplete scav3's energy using for loop
     for(int i = 0; i < 47; i++) {
         scav3.attack("Target3");

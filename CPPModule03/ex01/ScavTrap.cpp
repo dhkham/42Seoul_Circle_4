@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:13:35 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 11:28:25 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/13 13:19:57 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,15 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name) { //tells the compiler to 
     AttackDamage = 20;
     std::cout << "Parameterized constructor for ScavTrap called" << std::endl;
 }
+/*
+Construction Chaining:
+Base class constructor is called.
+Derived class constructor is called.
 
+Destruction Chaining:
+Derived class destructor is called.
+Base class destructor is called.
+*/
 ScavTrap::~ScavTrap() {
     std::cout << "Destructor for ScavTrap called" << std::endl;
 }
