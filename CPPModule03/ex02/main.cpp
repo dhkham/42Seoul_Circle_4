@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:12:52 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 13:24:08 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/13 14:37:33 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,16 @@ int main() {
     frag1.highFivesGuys();
     frag1.attack("Enemy1");
     
-    frag2.highFivesGuys();
-    frag2.attack("Enemy2");
-    
     frag3.highFivesGuys();
     frag3.attack("Enemy3");
+    
+    // deplete frag3's hitpoints
+    frag3.takeDamage(100);
     
     std::cout << "\n### Assignments:" << std::endl;
     
     frag2 = frag3; // Invokes assignment operator
+    frag2.attack("Enemy2"); // cannot attack because frag3's hitpoints are 0
     
     std::cout << "\n### Destructor Calls Follow:" << std::endl;
     
