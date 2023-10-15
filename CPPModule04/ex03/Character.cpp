@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 15:57:36 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/15 19:11:18 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/15 21:12:47 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ std::string const & Character::getName() const {
 void Character::equip(AMateria* m) {
     for (int i = 0; i < 4; i++) {
         if (!inventory[i]) {
-            inventory[i] = m->clone();
+            inventory[i] = m;
             break;
         }
     }
@@ -57,14 +57,15 @@ void Character::equip(AMateria* m) {
 
 void Character::unequip(int idx) {
     if (idx < 0 || idx >= 4 || !inventory[idx]) { // if idx is out of range or if the slot is empty
+        std::cout << "Character: Can't unequip materia at index " << idx << std::endl;
         return;
     }
-    //delete inventory[idx]; // check!!!!!!!!!!!!! take care of this in the main function
     inventory[idx] = NULL;
 }
 
 void Character::use(int idx, ICharacter& target) {
     if (idx < 0 || idx >= 4 || !inventory[idx]) {
+        std::cout << "Character: Can't use materia at index " << idx << std::endl;
         return;
     }
     inventory[idx]->use(target);

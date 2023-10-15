@@ -6,11 +6,12 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 16:03:25 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/15 20:24:25 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/15 20:42:44 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MateriaSource.hpp"
+#include <iostream>
 
 // default constructor
 MateriaSource::MateriaSource() {
@@ -51,9 +52,13 @@ later. Like the Character, the MateriaSource can know at most 4 Materias. They
 are not necessarily unique.
 */
 void MateriaSource::learnMateria(AMateria* m) {
+    if (!m) {
+        std::cout << "MateriaSource: Can't learn a null materia" << std::endl;
+        return;
+    }
     for (int i = 0; i < 4; ++i) {
         if (materias[i] == 0) {
-            materias[i] = m->clone();
+            materias[i] = m;
             break;
         }
     }
