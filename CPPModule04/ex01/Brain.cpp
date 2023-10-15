@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:35:26 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 19:35:30 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/15 15:10:35 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ Brain& Brain::operator=(const Brain& other) {
     return *this;
 }
 
-void Brain::setIdea(unsigned int index, const std::string& idea) {
-    if(index < ideasSize) {
-        ideas[index] = idea;
-    }
-}
+// void Brain::setIdea(unsigned int index, const std::string& idea) {
+//     if(index < ideasSize) {
+//         ideas[index] = idea;
+//     }
+// }
 
-std::string Brain::getIdea(unsigned int index) const {
-    if(index < ideasSize) {
-        return ideas[index];
-    }
-    return "";
-}
+// std::string Brain::getIdea(unsigned int index) const {
+//     if(index < ideasSize) {
+//         return ideas[index];
+//     }
+//     return "";
+// }

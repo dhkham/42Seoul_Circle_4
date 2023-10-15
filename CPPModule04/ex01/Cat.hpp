@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:18:32 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 20:20:49 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/15 15:24:56 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ private:
 public:
     Cat();
     Cat(const Cat& other);
-    virtual ~Cat();
+    virtual ~Cat(); // virtual destructor: if not virtual, only the Animal destructor is called causing leak due to undeleted Brain object
     Cat& operator=(const Cat& other);
     
     virtual void makeSound() const;

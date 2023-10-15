@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:51:49 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 20:46:23 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/15 15:35:47 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,9 @@
 
 int main()
 {
-    std::cout << std::endl << "***Test virtual destructor" << std::endl;
-    const Animal* j = new Dog();
-    const Animal* i = new Cat();
+    std::cout << "***Test virtual destructor" << std::endl;
 
-    delete j; // virtual destructor called
-    delete i;
-    
-    // Test array of Animal objects
+    // Create array of Animal objects
     const int arrSize = 6;
     const Animal* animals[arrSize];
 
@@ -39,13 +34,19 @@ int main()
     
     // deleting the array
     for(int k = 0; k < arrSize; ++k) {
-        delete animals[k];
+        delete animals[k];  // virtual destructor called, deleting Brain object in case of Dog and Cat
     }
     
     std::cout << std::endl << "***Test deep copy" << std::endl;
     Dog basic;
     {
-        Dog tmp = basic;
+        Dog tmp = basic; // Copy constructor called
+    }
+        
+    Dog basic2;
+    {
+        Dog tmp;
+        tmp = basic2; // Copy assignment operator called
     }
 
     return 0;

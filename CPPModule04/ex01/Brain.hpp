@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:35:20 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 19:57:15 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/15 15:10:22 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ public:
 
     Brain& operator=(const Brain& other);
 
-    void setIdea(unsigned int index, const std::string& idea);
-    std::string getIdea(unsigned int index) const;
+    // void setIdea(unsigned int index, const std::string& idea);
+    // std::string getIdea(unsigned int index) const;
 
 private:
     static const unsigned int ideasSize = 100; // static const means that the variable is shared between all instances of the class and cannot be modified
