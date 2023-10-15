@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:51:49 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 21:25:21 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/15 15:47:23 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@
 int main()
 {
     std::cout << std::endl << "***Test virtual destructor" << std::endl;
-    const AAnimal* j = new Dog();
-    const AAnimal* i = new Cat();
-
-    delete j; // virtual destructor called
-    delete i;
     
     // Test array of AAnimal objects
     const int arrSize = 6;
