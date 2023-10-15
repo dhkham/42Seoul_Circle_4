@@ -6,13 +6,14 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:16:39 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 16:16:40 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/15 14:43:41 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-Dog::Dog() {
+Dog::Dog() // calls the default constructor of the base class(Animal) automatically
+{
     type = "Dog";
     std::cout << "Dog constructor called" << std::endl;
 }

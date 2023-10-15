@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:19:47 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/13 17:49:50 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/15 14:35:08 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 
 int main()
 {
-    const Animal* meta = new Animal(); // meta is a const pointer to an Animal object (you should not modify the object via this pointer)
+    const Animal* meta = new Animal(); // meta is a const pointer(-> should not modify the object via this pointer) to an Animal object
     const Animal* j = new Dog();       // j is a const pointer to a Dog object
     const Animal* i = new Cat();       // i is a const pointer to a Cat object
     std::cout << j->getType() << " " << std::endl;
     std::cout << i->getType() << " " << std::endl;
-    i->makeSound(); //will output the cat sound!
+    i->makeSound(); //will output the cat sound! : virtual function lets the derived classes to replace the implementation provided by the base class.
     j->makeSound();
     meta->makeSound();
     
