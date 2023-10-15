@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 15:57:36 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/15 21:12:47 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/15 21:24:57 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ void Character::use(int idx, ICharacter& target) {
         std::cout << "Character: Can't use materia at index " << idx << std::endl;
         return;
     }
-    inventory[idx]->use(target);
+    inventory[idx]->use(target);    // use materia at index idx on target
 }
