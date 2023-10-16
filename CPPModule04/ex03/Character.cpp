@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 15:57:36 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/15 21:24:57 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/16 19:06:46 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Character::Character(std::string const & name) : name(name) {
 
 Character::Character(Character const & src) : name(src.name) { 
     for (int i = 0; i < 4; i++) {
-        inventory[i] = src.inventory[i] ? src.inventory[i]->clone() : NULL;
+        inventory[i] = src.inventory[i] ? src.inventory[i]->clone() : NULL; // deep copy
     }
 }
 
@@ -36,7 +36,7 @@ Character & Character::operator=(Character const & rhs) {
         name = rhs.name;
         for (int i = 0; i < 4; i++) {
             delete inventory[i];
-            inventory[i] = rhs.inventory[i] ? rhs.inventory[i]->clone() : NULL;
+            inventory[i] = rhs.inventory[i] ? rhs.inventory[i]->clone() : NULL; // deep copy
         }
     }
     return *this;
@@ -57,7 +57,7 @@ void Character::equip(AMateria* m) {
 
 void Character::unequip(int idx) {
     if (idx < 0 || idx >= 4 || !inventory[idx]) { // if idx is out of range or if the slot is empty
-        std::cout << "Character: Can't unequip materia at index " << idx << std::endl;
+        //std::cout << "Character: Can't unequip materia at index " << idx << std::endl;
         return;
     }
     inventory[idx] = NULL;
@@ -65,7 +65,7 @@ void Character::unequip(int idx) {
 
 void Character::use(int idx, ICharacter& target) {
     if (idx < 0 || idx >= 4 || !inventory[idx]) {
-        std::cout << "Character: Can't use materia at index " << idx << std::endl;
+        //std::cout << "Character: Can't use materia at index " << idx << std::endl;
         return;
     }
     inventory[idx]->use(target);    // use materia at index idx on target
