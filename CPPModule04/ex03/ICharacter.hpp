@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 15:56:10 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/15 18:55:27 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/16 18:55:46 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 class AMateria;
 
-class ICharacter { // interface
+class ICharacter { // interface: abstract class with only pure virtual functions
 public:
     virtual ~ICharacter() {}
     virtual std::string const & getName() const = 0;
