@@ -6,7 +6,7 @@
 /*   By: dkham <dkham@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:51:49 by dkham             #+#    #+#             */
-/*   Updated: 2023/10/15 15:35:47 by dkham            ###   ########.fr       */
+/*   Updated: 2023/10/16 18:51:41 by dkham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 
 int main()
 {
+    const Animal* j = new Dog();
+    const Animal* i = new Cat();
+    delete j;//should not create a leak
+    delete i;
+    
     std::cout << "***Test virtual destructor" << std::endl;
 
     // Create array of Animal objects
